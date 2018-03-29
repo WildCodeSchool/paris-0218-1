@@ -9,7 +9,7 @@ const main = () => {
 const scoresReceived = scores => {
 
   const scoreTable = document.getElementById('scoreList')
-  scoreTable.innerHTML = scores.map(showScoreElements).join('')
+  scoreTable.innerHTML = scores.sort((a, b) => b.bestScore - a.bestScore).map(showScoreElements).join('')
   
 }
 
