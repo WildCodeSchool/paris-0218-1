@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif; 
+}
+
+.menu {
+    position: fixed;
+    width: 100vw;
+    height: 100px;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+#game { 
+    position : relative;
+    top: 100px;
+    width: 100vw;
+    height: 300px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+#scoring { 
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: auto;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.info_footer {
+    padding: 0px; 
+    margin: 0px; 
+}
+
+.info_footer p{
+    text-align: right;
+    padding-right: 10px;
+    font-size: 12px;
+}
