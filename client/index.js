@@ -3,13 +3,7 @@ const main = () => {
   .then(res => res.json())
   .then(scoresReceived)
 }
-/*
-const fetch = (url, fn) => {
-  const response = request(url)
-  ...
-  fn(response)
-}
-*/
+
 const scoresReceived = scores => {
 
   const scoreTable = document.getElementById('scoring')
