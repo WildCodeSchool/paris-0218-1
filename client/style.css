@@ -11,38 +11,92 @@ body {
     background-color: black;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+h1 {
+    font-size: 50px;
+    color: white;
+    text-transform: uppercase;
 }
 
 #game { 
     position : relative;
-    top: 100px;
+    padding-top: 140px;
     width: 100vw;
-    height: 300px;
-    height: auto;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
 } 
 
-#scoring { 
+#game div {
+    border: 1px solid black;
+    width: 900px;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#game p {
+    text-align: center;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+#scoring {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: auto;
+}
+
+.sectionNameTable h2 {
+    padding: 10px;
+    text-align: center;
+
+}
+
+.scoreTable {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.table {
+    width: 500px;
+    height: auto;
+}
+
+.table thead, th {
+    background-color:black;
+    color: white;
+    text-transform: uppercase;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.table td {
+    text-align: center;
+    border-bottom: 1px solid black;
+    padding: 3px;
+}
 
 footer {
-    position: absolute;
-    bottom: 0;
+    position: relative;
     width: 100vw;
-    height: auto;
+    height: 50px;
     background-color: black;
     color: white;
     margin: 0;
-    padding: 0;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .info_footer {
@@ -51,7 +105,6 @@ footer {
 }
 
 .info_footer p{
-    text-align: right;
     padding-right: 10px;
     font-size: 12px;
 }
