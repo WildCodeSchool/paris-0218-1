@@ -1,14 +1,26 @@
 const express = require('express')
-const score_1 = require('../mocks/scoring_1.json')
-const score_2 = require('../mocks/scoring_2.json')
-const score_3 = require('../mocks/scoring_3.json')
-const score_4 = require('../mocks/scoring_4.json')
-const score_5 = require('../mocks/scoring_5.json')
-const score_6 = require('../mocks/scoring_6.json')
-const score_7 = require('../mocks/scoring_7.json')
+
+const port = 3000
+
+const score1 = require('../mocks/score1.json')
+const score2 = require('../mocks/score2.json')
+const score3 = require('../mocks/score3.json')
+const score4 = require('../mocks/score4.json')
+const score5 = require('../mocks/score5.json')
+const score6 = require('../mocks/score6.json')
+const score7 = require('../mocks/score7.json')
+
+const scores = [
+  score1,
+  score2,
+  score3,
+  score4,
+  score5,
+  score6,
+  score7
+]
 
 const app = express()
-const scores = [score_1, score_2, score_3, score_4, score_5, score_6, score_7]
 
 app.use((request, response, next) => {
   response.header('Access-Control-Allow-Origin', '*')
@@ -17,7 +29,7 @@ app.use((request, response, next) => {
 })
 
 app.get('/scores', (request, response) => {
-  //setHeader = ('Content-Type', 'text/plain')
   response.send(scores)
 })
-app.listen(3000)
+
+app.listen(port, err => console.log(err || `server listening on port ${port}`))

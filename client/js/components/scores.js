@@ -1,5 +1,6 @@
-export const showScoreElements = score => `
+export const createScoreRow = score => `
   <tr>
-       <td>${score.userName}</td>
-       <td>${score.bestScore}</td>
-   </tr>`
+    <td>${score.userName}</td>
+    <td>${score.bestScore}</td>
+  </tr>
+`
