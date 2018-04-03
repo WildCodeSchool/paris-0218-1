@@ -1,0 +1,25 @@
+{
+  "name": "wildeer",
+  "version": "1.0.0",
+  "description": "## Subject",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server --ignore client",
+    "client": "http-server client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WildCodeSchool/paris-0218-w1lDe3r-keurkeur.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WildCodeSchool/paris-0218-w1lDe3r-keurkeur/issues"
+  },
+  "homepage": "https://github.com/WildCodeSchool/paris-0218-w1lDe3r-keurkeur#readme",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "nodemon": "^1.17.3"
+  }
+}
