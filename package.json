@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server"
+    "server": "nodemon server --ignore client",
+    "client": "http-server client"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/WildCodeSchool/paris-0218-w1lDe3r-keurkeur#readme",
   "dependencies": {
+    "http-server": "^0.11.1",
     "nodemon": "^1.17.3"
   }
 }
