@@ -4,7 +4,7 @@ let points = 0
 const addPoints = () => {
   points += 1
   const pointsElement = document.getElementById('showPoints')
-  pointsElement.innerHTML = `${points}`
+  pointsElement.innerHTML = `🏆 Score 🏆 : ${points}`
 }
 
 // function called when the user clicks on play
