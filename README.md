@@ -55,3 +55,4 @@ Date - 20/03/18 -> 02/05/18 (live demo)
 - Profil utilisateur : nom, prénom, mail, mdp, campus, pseudo, avatar, côté wild? (customisation du personnage possible en fonction des scores obtenus? acces à de nouveaux environnements de jeu ou a de nouveaux skins?)
 
 #### paris-0218-1
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
