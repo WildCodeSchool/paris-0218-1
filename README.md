@@ -56,3 +56,5 @@ Date - 20/03/18 -> 02/05/18 (live demo)
 
 #### paris-0218-1
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Travis master](https://img.shields.io/travis/WildCodeSchool/REPO.svg)](https://travis-ci.org/WildCodeSchool/REPO)
+[![Travis dev](https://img.shields.io/travis/WildCodeSchool/REPO/dev.svg)](https://travis-ci.org/WildCodeSchool/REPO/branches)
