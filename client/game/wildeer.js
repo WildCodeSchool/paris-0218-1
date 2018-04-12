@@ -9,15 +9,15 @@ let yDeer = 250
 //variable provisoire pour le jump test
 let sky = false
 
-const drawBuisson = () =>{
-  ctx.beginPath()
-  ctx.rect(x, y , 40, 40)
-  ctx.fillStyle = "green"
-  ctx.fill()
-  ctx.closePath()
+const drawBuisson = () => {
+	ctx.beginPath()
+	ctx.rect(x, y , 40, 40)
+	ctx.fillStyle = "green"
+	ctx.fill()
+	ctx.closePath()
 }
 
-const drawDeer = () =>{
+const drawDeer = () => {
   ctx.beginPath()
   ctx.rect(xDeer, yDeer , 40, 40)
   ctx.strokeStyle = "orange"
@@ -32,15 +32,34 @@ const draw = () => {
   drawDeer()
 }
 
+
+// layout of the score
+let points = 1
+const showPoints = () => {
+  const pointsElement = document.getElementById('showPoints')
+  pointsElement.innerHTML = `🏆 Score 🏆 : ${Math.round(points)}`
+}
+
+// increase of the speed according to augmentation of the score
+let speed = 1
+let moduloSpeed = 100
+const calculSpeed = () => {
+	if (Math.round(points) % moduloSpeed === 0) {
+		speed = speed * 1.2
+		moduloSpeed = moduloSpeed * 2
+	}
+}
+
+// update of positions and speed according to time
 let prevTimestamp = 0
 let distOfMove = -0.3
-let speed = 1
-
 const update = (deltaTime) => {
-  x += distOfMove * deltaTime * speed
-  if (x < -40 ) {
-    x = canvas.width
-  }
+	x += distOfMove * deltaTime * speed
+	points += 0.01 * deltaTime * speed
+	calculSpeed()
+	if (x < -40 ) {
+		x = canvas.width
+	}
 }
 
 //Verifier les abcisses et les ordonnées + la width/height 
@@ -51,17 +70,18 @@ const collision = (frameId) => {
 }
 
 const gameloop = (timestamp) => {
-  //console.log(timestamp)
-
-  // console.log(`je suis dans la gameloop`)
+	// console.log(Math.round(timestamp / 1000))
+	// console.log(`je suis dans la gameloop`)
   const deltaTime = timestamp - prevTimestamp
-   console.log(deltaTime)
+	// console.log(deltaTime)
   const frameId = requestAnimationFrame(gameloop)
   collision(frameId)
 
   // What the game loop needs to do
-  update(deltaTime)
+	update(deltaTime)
+	// console.log(speed)
   draw()
+	showPoints()
   prevTimestamp = timestamp
 }
 
