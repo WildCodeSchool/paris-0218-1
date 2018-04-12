@@ -20,7 +20,7 @@ const drawBuisson = () =>{
 
 const drawDeer = () =>{
   ctx.beginPath()
-  ctx.rect(x, y , 40, 40)
+  ctx.rect(50, y , 40, 40)
   ctx.strokeStyle = "orange"
   ctx.stroke()
   ctx.closePath()
@@ -59,8 +59,11 @@ const update = (deltaTime) => {
 
 
 const gameloop = (timestamp) => {
+	console.log(timestamp)
+
 	console.log(`je suis dans la gameloop`)
   const deltaTime = timestamp - prevTimestamp
+	console.log(deltaTime)
   const frameId = requestAnimationFrame(gameloop)
 
   // What the game loop needs to do
