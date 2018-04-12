@@ -4,6 +4,10 @@ const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 let x = 470
 let y = 250
+let xDeer = 50
+let yDeer = 250
+//variable provisoire pour le jump test
+let sky = false
 
 const drawBuisson = () => {
 	ctx.beginPath()
@@ -15,16 +19,17 @@ const drawBuisson = () => {
 
 const drawDeer = () => {
   ctx.beginPath()
-  ctx.rect(50, y , 40, 40)
+  ctx.rect(xDeer, yDeer , 40, 40)
   ctx.strokeStyle = "orange"
   ctx.stroke()
   ctx.closePath()
-}
+} 
 
 const draw = () => {
-	ctx.clearRect(0, 0, canvas.width, canvas.height)
-	drawBuisson()
-	drawDeer()
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  document.addEventListener('keydown' , jump)
+  drawBuisson()
+  drawDeer()
 }
 
 
@@ -57,11 +62,12 @@ const update = (deltaTime) => {
 	}
 }
 
-// const collision = () => {
-//   if () {
-//     cancelAnimationFrame(frameId)
-//   }
-// }
+//Verifier les abcisses et les ordonnées + la width/height 
+const collision = (frameId) => {
+  if ( (x >= xDeer && x <= (xDeer + 40)) && (y >= yDeer && y <= (yDeer + 40)) ){
+     cancelAnimationFrame(frameId)
+   }
+}
 
 const gameloop = (timestamp) => {
 	// console.log(Math.round(timestamp / 1000))
@@ -69,6 +75,7 @@ const gameloop = (timestamp) => {
   const deltaTime = timestamp - prevTimestamp
 	// console.log(deltaTime)
   const frameId = requestAnimationFrame(gameloop)
+  collision(frameId)
 
   // What the game loop needs to do
 	update(deltaTime)
@@ -76,6 +83,18 @@ const gameloop = (timestamp) => {
   draw()
 	showPoints()
   prevTimestamp = timestamp
+}
+
+//fonction provisoire pour teste ordonnée Y
+const jump = () => {
+  if (sky){
+    sky = false
+    yDeer = 150
+  }
+  else{
+    sky = true
+    yDeer = 250
+  }
 }
 
 requestAnimationFrame(gameloop)
