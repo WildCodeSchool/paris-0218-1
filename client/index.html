@@ -85,7 +85,7 @@
       if (window.deviceOrientation.type === 'portrait') {
         portraitMessage.style.visibility = 'visible'
       }
-            
+
       const onOrientationChange = () => {
         portraitMessage.style.visibility = window.deviceOrientation.type === 'landscape' ? 'hidden' : 'visible'
       }
@@ -93,14 +93,14 @@
       window.addEventListener('orientationchange', () => {
           const _do = () => {
             setDeviceOrientation()
-            console.log(window.deviceOrientation)  
+            console.log(window.deviceOrientation)
             onOrientationChange()
           }
 
           setTimeout(_do, 30)
       })
       </script> -->
-      
+
   <script type="module" src='./js/app.js'></script>
 </body>
 

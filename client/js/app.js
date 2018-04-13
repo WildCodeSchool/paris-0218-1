@@ -1,10 +1,9 @@
 import { createScoreRow } from './components/scores.js'
+import { api } from './config.js'
 
 const scoreListElement = document.getElementById('scoreList')
 
 const onScoresFetched = scores => {
-  //alert('fetched')
-
   scoreListElement.innerHTML = scores
     .sort((a, b) => b.bestScore - a.bestScore)
     .map(createScoreRow)
@@ -12,11 +11,9 @@ const onScoresFetched = scores => {
 }
 
 const main = () => {
-  // alert(fetch)
-  fetch('http://localhost:3000/scores')
+  fetch(`${api.host}:${api.port}/scores`)
     .then(res => res.json())
     .then(onScoresFetched)
-    // .catch(err => alert(err))
 }
 
 main()
