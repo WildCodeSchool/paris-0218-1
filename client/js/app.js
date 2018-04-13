@@ -1,7 +1,13 @@
+/* global
+  fetch
+*/
+
 import { createScoreRow } from './components/scores.js'
 
+const scoreListElement = document.getElementById('scoreList')
+
 const onScoresFetched = scores => {
-  const scoreListElement = document.getElementById('scoreList')
+  //alert('fetched')
 
   scoreListElement.innerHTML = scores
     .sort((a, b) => b.bestScore - a.bestScore)
@@ -10,9 +16,11 @@ const onScoresFetched = scores => {
 }
 
 const main = () => {
+  // alert(fetch)
   fetch('http://localhost:3000/scores')
     .then(res => res.json())
     .then(onScoresFetched)
+    // .catch(err => alert(err))
 }
 
 main()
