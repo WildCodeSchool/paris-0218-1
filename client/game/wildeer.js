@@ -9,6 +9,16 @@ let xDeer = 50
 let yDeer = 250
 // variable provisoire pour le jump test
 let sky = false
+let dead = true
+
+
+const drawScore = () => {
+  ctx.beginPath()
+  ctx.font = "20px Courier"
+  ctx.fillStyle = 'White'
+  ctx.fillText(`🏆 Score 🏆 : ${Math.round(points)}`,80,25)
+  ctx.closePath()
+}
 
 const drawBuisson = () => {
   ctx.beginPath()
@@ -31,14 +41,11 @@ const draw = () => {
   document.addEventListener('keydown', jump)
   drawBuisson()
   drawDeer()
+  drawScore()
 }
 
 // layout of the score
 let points = 1
-const showPoints = () => {
-  const pointsElement = document.getElementById('showPoints')
-  pointsElement.innerHTML = `🏆 Score 🏆 : ${Math.round(points)}`
-}
 
 // increase of the speed according to augmentation of the score
 let speed = 1
@@ -81,7 +88,6 @@ const gameloop = (timestamp) => {
   update(deltaTime)
   // console.log(speed)
   draw()
-  showPoints()
   prevTimestamp = timestamp
 }
 
