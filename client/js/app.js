@@ -1,3 +1,7 @@
+/* global
+  fetch
+*/
+
 import { createScoreRow } from './components/scores.js'
 
 const onScoresFetched = scores => {

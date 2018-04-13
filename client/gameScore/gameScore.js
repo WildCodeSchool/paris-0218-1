@@ -16,5 +16,4 @@ const myFunction = () => {
 const playElement = document.getElementById('play')
 playElement.addEventListener('click', myFunction)
 
-
 // window.clearInterval(timerPoints);
