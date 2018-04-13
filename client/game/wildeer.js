@@ -9,15 +9,26 @@ let xDeer = 50
 let yDeer = 250
 // variable provisoire pour le jump test
 let sky = false
-let dead = true
+let dead = false
 
 
 const drawScore = () => {
   ctx.beginPath()
   ctx.font = "20px Courier"
   ctx.fillStyle = 'White'
-  ctx.fillText(`🏆 Score 🏆 : ${Math.round(points)}`,80,25)
+  ctx.fillText(`🏆 Score 🏆 : ${Math.round(points)}`,145,25)
   ctx.closePath()
+}
+
+
+const drawGameOver = () => {
+  if (dead === true ){
+    ctx.beginPath()
+    ctx.font = "65px Courier"
+    ctx.fillStyle = 'White'
+    ctx.fillText(`Game Over`,80,160)
+    ctx.closePath()
+  }
 }
 
 const drawBuisson = () => {
@@ -42,6 +53,7 @@ const draw = () => {
   drawBuisson()
   drawDeer()
   drawScore()
+  drawGameOver()
 }
 
 // layout of the score
@@ -72,6 +84,7 @@ const update = (deltaTime) => {
 // Verifier les abcisses et les ordonnées + la width/height
 const collision = (frameId) => {
   if ((x >= xDeer && x <= (xDeer + 40)) && (y >= yDeer && y <= (yDeer + 40))) {
+    dead = true
     cancelAnimationFrame(frameId)
   }
 }
