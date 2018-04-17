@@ -3,28 +3,10 @@ const fs = require('fs')
 const port = 3000
 const util = require('util')
 const path = require('path')
+const scores = []
 
 const writeFile = util.promisify(fs.writeFile)
-
-const score1 = require('../mocks/score1.json')
-const score2 = require('../mocks/score2.json')
-const score3 = require('../mocks/score3.json')
-const score4 = require('../mocks/score4.json')
-const score5 = require('../mocks/score5.json')
-const score6 = require('../mocks/score6.json')
-const score7 = require('../mocks/score7.json')
-
-
-
-const scores = [
-  score1,
-  score2,
-  score3,
-  score4,
-  score5,
-  score6,
-  score7
-]
+const readFile = util.promisify(fs.readFile)
 
 const app = express()
 
@@ -57,20 +39,27 @@ app.get('/scores', (request, response) => {
 })
 
 app.post('/addscore', (request, response, next) => {
-  const id = Math.random().toString(36).slice(2).padEnd(11, '0')
-  const filename = `${id}.json`
-  const filepath = path.join(__dirname, '../mocks/', filename)
 
-  const content = {
-    id: id,
-    userName: request.body.userName,
-    bestScore: request.body.bestScore,
-    date: Date.now()
-  }
+  const playerId = request.body.playerId
+  const score = request.body.score
 
-  writeFile(filepath, JSON.stringify(content, null, 2), 'utf8')
-    .then(() => response.json('OK'))
-    .catch(next)
+  const filename = `${playerId}.json`
+  const filepath = path.join(__dirname, 'database/users', filename)
+
+  readFile(filepath, 'utf8')
+    .then(data => {
+      const player = JSON.parse(data)
+
+      if (score > player.bestScore) {
+        console.log('NEW Best Score!')
+        player.bestScore = score
+        return writeFile(filepath, JSON.stringify(player, null, 2), 'utf8')
+          .then(() => response.json('OK'))
+          .catch(next)
+      }
+
+      response.json('OK')
+    })
 })
 
 app.listen(port, err => console.log(err || `server listening on port ${port}`))
