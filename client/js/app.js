@@ -29,10 +29,9 @@ form.addEventListener('submit', event => {
   event.preventDefault()
 
   const body = {
-    userName: document.getElementById('inputName').value,
-    bestScore: Number(document.getElementById('inputScore').value)
+    playerId: document.getElementById('inputName').value,
+    score: Number(document.getElementById('inputScore').value)
   }
-  console.log(body.userName)
   fetch('http://localhost:3000/addscore', {
     method: 'post',
     body: JSON.stringify(body) // on l'encode en string JSON
