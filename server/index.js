@@ -47,40 +47,18 @@ app.use((request, response, next) => {
   })
 })
 
-app.get('/scores', (request, response, next) => {
+app.get('/scores', (request, response) => {
   const getUsers = () => {
     const usersDir = path.join(__dirname, 'database/users')
-    // return readdir(usersDir, 'utf8')
     readdir(usersDir, 'utf8')
-    
-    .then(users => {
-      const userpaths = users.map(user => path.join(usersDir, user))
-      const usersList = userpaths.map(userpath => {
-        return readFile(userpath, 'utf8')
-      })
-      
-      Promise.all(usersList)
-        .then(usersListValues => {
-          console.log(usersListValues)
-          const usersListJson = usersListValues.map(user => JSON.parse(user))
-          console.log(usersListJson)
-          response.json(usersListJson)
-        })
-        .catch(err => {
-          response.status(500).end(err.message)
-        })
-    })
-    .catch(next)
-
-    // .then(users => {
-    //   // console.log(users)
-      
-    //   response.send(users)
-    // })
-    // .catch(next)
-
-
+      .then(users => Promise.all(users
+        .map(user => path.join(usersDir, user))
+        .map(userpath => readFile(userpath, 'utf8'))))
+      .then(usersListValues => response.json(usersListValues
+        .map(user => JSON.parse(user))))
+      .catch(err => response.status(500).end(err.message))
   }
+
   getUsers()
     
 })
