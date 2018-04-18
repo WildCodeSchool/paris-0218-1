@@ -15,12 +15,10 @@ const onScoresFetched = users => {
     .join('')
 }
 
-const main = () => {
+const main = () =>
   fetch(`${api.host}:${api.port}/scores`)
     .then(res => res.json())
     .then(onScoresFetched)
-
-}
 
 main()
 
@@ -35,5 +33,5 @@ form.addEventListener('submit', event => {
   fetch('http://localhost:3000/addscore', {
     method: 'post',
     body: JSON.stringify(body) // on l'encode en string JSON
-  }).then(main())
+  }).then(main)
 })
