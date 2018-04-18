@@ -8,8 +8,8 @@ import { api } from './config.js'
 
 const scoreListElement = document.getElementById('scoreList')
 
-const onScoresFetched = scores => {
-  scoreListElement.innerHTML = scores
+const onScoresFetched = users => {
+  scoreListElement.innerHTML = users
     .sort((a, b) => b.bestScore - a.bestScore)
     .map(createScoreRow)
     .join('')
@@ -35,5 +35,5 @@ form.addEventListener('submit', event => {
   fetch('http://localhost:3000/addscore', {
     method: 'post',
     body: JSON.stringify(body) // on l'encode en string JSON
-  }).then(/* ... */)
+  }).then(main())
 })
