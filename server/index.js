@@ -47,20 +47,20 @@ app.use((request, response, next) => {
   })
 })
 
-app.get('/scores', (request, response) => {
-  const getUsers = () => {
-    const usersDir = path.join(__dirname, 'database/users')
-    readdir(usersDir, 'utf8')
-      .then(users => Promise.all(users
-        .map(user => path.join(usersDir, user))
-        .map(userpath => readFile(userpath, 'utf8'))))
-      .then(usersListValues => response.json(usersListValues
-        .map(user => JSON.parse(user))))
-      .catch(err => response.status(500).end(err.message))
-  }
+const keepBests = users => users
+  .sort((user1, user2) => user2.bestScore - user1.bestScore)
+  .slice(0, 5)
 
-  getUsers()
-    
+app.get('/scores', (request, response) => {
+  const usersDir = path.join(__dirname, 'database/users')
+  readdir(usersDir, 'utf8')
+    .then(users => Promise.all(users
+      .map(user => path.join(usersDir, user))
+      .map(userpath => readFile(userpath, 'utf8'))))
+    .then(usersListValues => usersListValues.map(user => JSON.parse(user)))
+    .then(keepBests)
+    .then(users => response.json(users))
+    .catch(err => response.status(500).end(err.message))
 })
 
 app.post('/addscore', (request, response, next) => {
@@ -72,19 +72,24 @@ app.post('/addscore', (request, response, next) => {
   const filepath = path.join(__dirname, 'database/users', filename)
 
   readFile(filepath, 'utf8')
-    .then(data => {
-      const player = JSON.parse(data)
-
+    .then(JSON.parse)
+    .then(player => {
       if (score > player.bestScore) {
         console.log('NEW Best Score!')
         player.bestScore = score
-        return writeFile(filepath, JSON.stringify(player, null, 2), 'utf8')
-          .then(() => response.json('OK'))
-          .catch(next)
       }
-
-      response.json('OK')
+      player.score.push(
+        {
+          id: player.score.length + 1,
+          score: score,
+          date: Date.now()
+        }
+      )
+      const newScore = JSON.stringify(player, null, 2)
+      return writeFile(filepath, newScore, 'utf8')
     })
+    .then(() => response.json('OK'))
+    .catch(next)
 })
 
 app.listen(port, err => console.log(err || `server listening on port ${port}`))
