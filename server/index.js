@@ -3,10 +3,23 @@ const fs = require('fs')
 const port = 3000
 const util = require('util')
 const path = require('path')
-const scores = []
+
+// const users = []
 
 const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
+const readdir = util.promisify(fs.readdir)
+
+
+// Rechargement des infos users pour mettre à jour le tableau des scores
+
+// const getUsers = () => {
+//   const usersDir = path.join(__dirname, 'database/users')
+//   return readdir(usersDir, 'utf8')
+   
+// }
+
+// getUsers().then(users => console.log(users.length)) // TODO: rm
 
 const app = express()
 
@@ -34,8 +47,42 @@ app.use((request, response, next) => {
   })
 })
 
-app.get('/scores', (request, response) => {
-  response.send(scores)
+app.get('/scores', (request, response, next) => {
+  const getUsers = () => {
+    const usersDir = path.join(__dirname, 'database/users')
+    // return readdir(usersDir, 'utf8')
+    readdir(usersDir, 'utf8')
+    
+    .then(users => {
+      const userpaths = users.map(user => path.join(usersDir, user))
+      const usersList = userpaths.map(userpath => {
+        return readFile(userpath, 'utf8')
+      })
+      
+      Promise.all(usersList)
+        .then(usersListValues => {
+          console.log(usersListValues)
+          const usersListJson = usersListValues.map(user => JSON.parse(user))
+          console.log(usersListJson)
+          response.json(usersListJson)
+        })
+        .catch(err => {
+          response.status(500).end(err.message)
+        })
+    })
+    .catch(next)
+
+    // .then(users => {
+    //   // console.log(users)
+      
+    //   response.send(users)
+    // })
+    // .catch(next)
+
+
+  }
+  getUsers()
+    
 })
 
 app.post('/addscore', (request, response, next) => {
