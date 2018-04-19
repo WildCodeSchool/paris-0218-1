@@ -3,127 +3,174 @@ const cancelAnimationFrame = window.cancelAnimationFrame
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-let x = 470
-let y = 250
-let xSocks = 400
-let ySocks = 150
-let xDeer = 50
-let yDeer = 250
-// variable provisoire pour le jump test
-let sky = false
-let dead = false
 
+const state = {
+  deer: {
+    x: 50,
+    y: 250,
+    width: 40,
+    height: 40,
+    isDead: false
+  },
+  sock: {
+    x: 400,
+    y: 150,
+    width: 20,
+    height: 30,
+    move: -0.3,
+  },
+  bush: {
+    x: 470,
+    y: 250,
+    width: 40,
+    height: 40,
+    move: -0.3,
+  },
+  score: 0,
+  speed: 1,
+  moduloSpeed: 100,
+  frameId: -1
+}
 
-const drawScore = () => {
+let sky = false // tmp
+
+const drawScore = score => {
   ctx.beginPath()
   ctx.font = "20px Courier"
   ctx.fillStyle = 'White'
-  ctx.fillText(`🏆 Score 🏆 : ${Math.round(points)}`,145,25)
+  ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 145, 25)
   ctx.closePath()
 }
-
 
 const drawGameOver = () => {
-  if (dead === true ){
-    ctx.beginPath()
-    ctx.font = "65px Courier"
-    ctx.fillStyle = 'White'
-    ctx.fillText(`Game Over`,80,160)
-    ctx.closePath()
-  }
+  ctx.beginPath()
+  ctx.font = "65px Courier"
+  ctx.fillStyle = 'White'
+  ctx.fillText(`Game Over`, 80, 160)
+  ctx.closePath()
 }
 
-const drawBuisson = () => {
+const drawRect = (x, y, w, h, color) => {
   ctx.beginPath()
-  ctx.rect(x, y, 40, 40)
-  ctx.fillStyle = 'green'
+  ctx.rect(x, y, w, h)
+  ctx.fillStyle = color
   ctx.fill()
   ctx.closePath()
 }
 
-const drawSocks = () => {
-  ctx.beginPath()
-  ctx.rect(xSocks, ySocks, 20, 30)
-  ctx.fillStyle = 'brown'
-  ctx.fill()
-  ctx.closePath()
+const drawBush = bush => {
+  drawRect(bush.x, bush.y, bush.width, bush.height, 'green')
 }
 
-const drawDeer = () => {
-  ctx.beginPath()
-  ctx.rect(xDeer, yDeer, 40, 40)
-  ctx.strokeStyle = 'orange'
-  ctx.stroke()
-  ctx.closePath()
+const drawSock = sock => {
+  drawRect(sock.x, sock.y, sock.width, sock.height, 'brown')
+}
+
+const drawDeer = deer => {
+  drawRect(deer.x, deer.y, deer.width, deer.height, 'orange')
+}
+
+const clear = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
 const draw = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-  document.addEventListener('keydown', jump)
-  drawBuisson()
-  drawSocks()
-  drawDeer()
-  drawScore()
-  drawGameOver()
-}
+  const { deer, bush, sock, score } = state
 
-// layout of the score
-let points = 1
+  clear()
 
-// increase of the speed according to augmentation of the score
-let speed = 1
-let moduloSpeed = 100
-const calculSpeed = () => {
-  if (Math.round(points) % moduloSpeed === 0) {
-    speed = speed * 1.2
-    moduloSpeed = moduloSpeed * 2
+  drawBush(bush)
+  drawSock(sock)
+  drawDeer(deer)
+
+  drawScore(score)
+
+  if (deer.isDead) {
+    drawGameOver()
   }
 }
 
-// update of positions and speed according to time
+const updateSpeed = () => {
+  if (Math.round(state.score) % state.moduloSpeed === 0) {
+    state.speed *= 1.2
+    state.moduloSpeed *= 2
+  }
+}
+
 let prevTimestamp = 0
-let distOfMove = -0.3
+
+const updateScore = (deltaTime) => {
+  state.score += 0.01 * deltaTime * state.speed
+}
+
+const moveBush = (deltaTime) => {
+  state.bush.x += state.bush.move * deltaTime * state.speed
+}
+
+const moveSock = (deltaTime) => {
+  state.sock.x += state.sock.move * deltaTime * state.speed
+}
+
 const update = (deltaTime) => {
-  x += distOfMove * deltaTime * speed
-  xSocks += distOfMove * deltaTime * speed
-  points += 0.01 * deltaTime * speed
-  calculSpeed()
-  if (x < -40) {
-    x = canvas.width
-  }
-  if (xSocks < -40) {
-    xSocks = canvas.width
-  }
+  moveBush(deltaTime)
+  moveSock(deltaTime)
+
+  updateScore(deltaTime)
+
+  updateSpeed()
 }
 
-// Verifier les abcisses et les ordonnées + la width/height
-const collision = (frameId) => {
-  if ((x >= xDeer && x <= (xDeer + 40)) && (y >= yDeer && y <= (yDeer + 40))) {
-    dead = true
-    cancelAnimationFrame(frameId)
+const collides = (rect1, rect2) => {
+  if (rect1.x < rect2.x + rect2.width
+    && rect1.x + rect1.width > rect2.x
+    && rect1.y < rect2.y + rect2.height
+    && rect1.height + rect1.y > rect2.y) {
+    return true
   }
+
+  return false
 }
 
-const collisionSocks = (frameId) => {
-  if ((xSocks >= xDeer && xSocks <= (xDeer + 40)) && (ySocks >= yDeer && ySocks <= (yDeer + 40))) {
-    points += 100
-    xSocks = canvas.width
+const handleDeath = () => {
+  state.deer.isDead = true
+  cancelAnimationFrame(state.frameId)
+}
+
+const handlePickupSock = () => {
+  state.score += 100
+  state.sock.x = canvas.width + Math.random() * 2000
+}
+
+const handleCollisions = () => {
+  const { deer, sock, bush } = state
+
+  // bush
+  if (collides(deer, bush)) {
+    handleDeath()
+  }
+  // check collision with border
+  if (bush.x < -bush.width) {
+    bush.x = canvas.width + Math.random() * 1000
+  }
+
+  // sock
+  if (collides(deer, sock)) {
+    handlePickupSock()
+  }
+  // check collision with border
+  if (sock.x < -sock.width) {
+    sock.x = canvas.width + Math.random() * 2000
   }
 }
 
 const gameloop = (timestamp) => {
-  // console.log(Math.round(timestamp / 1000))
-  // console.log(`je suis dans la gameloop`)
   const deltaTime = timestamp - prevTimestamp
-  // console.log(deltaTime)
-  const frameId = requestAnimationFrame(gameloop)
-  collision(frameId)
-  collisionSocks(frameId)
+  state.frameId = requestAnimationFrame(gameloop)
 
-  // What the game loop needs to do
   update(deltaTime)
-  // console.log(speed)
+  handleCollisions()
   draw()
+
   prevTimestamp = timestamp
 }
 
@@ -131,11 +178,13 @@ const gameloop = (timestamp) => {
 const jump = () => {
   if (sky) {
     sky = false
-    yDeer = 150
+    state.deer.y = 150
   } else {
     sky = true
-    yDeer = 250
+    state.deer.y = 250
   }
 }
+
+document.addEventListener('keydown', jump)
 
 requestAnimationFrame(gameloop)
