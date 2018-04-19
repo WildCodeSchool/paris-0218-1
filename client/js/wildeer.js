@@ -101,8 +101,6 @@ const updateSpeed = () => {
   }
 }
 
-let prevTimestamp = 0
-
 const updateScore = (deltaTime) => {
   state.score += 0.01 * deltaTime * state.speed
 }
@@ -179,6 +177,7 @@ const jump = () => {
   }
 }
 
+let prevTimestamp = 0
 
 const gameloop = (timestamp) => {
   const deltaTime = timestamp - prevTimestamp
