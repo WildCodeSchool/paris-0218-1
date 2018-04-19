@@ -1,5 +1,12 @@
 {
   "id": 1,
   "userName": "Filoo",
-  "bestScore": 675
+  "bestScore": 700,
+  "score": [
+    {
+      "id": 1,
+      "score": 700,
+      "date": 1524132852567
+    }
+  ]
 }
