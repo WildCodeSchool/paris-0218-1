@@ -5,6 +5,8 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 let x = 470
 let y = 250
+let xSocks = 400
+let ySocks = 150
 let xDeer = 50
 let yDeer = 250
 // variable provisoire pour le jump test
@@ -39,6 +41,14 @@ const drawBuisson = () => {
   ctx.closePath()
 }
 
+const drawSocks = () => {
+  ctx.beginPath()
+  ctx.rect(xSocks, ySocks, 20, 30)
+  ctx.fillStyle = 'brown'
+  ctx.fill()
+  ctx.closePath()
+}
+
 const drawDeer = () => {
   ctx.beginPath()
   ctx.rect(xDeer, yDeer, 40, 40)
@@ -51,6 +61,7 @@ const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   document.addEventListener('keydown', jump)
   drawBuisson()
+  drawSocks()
   drawDeer()
   drawScore()
   drawGameOver()
@@ -74,10 +85,14 @@ let prevTimestamp = 0
 let distOfMove = -0.3
 const update = (deltaTime) => {
   x += distOfMove * deltaTime * speed
+  xSocks += distOfMove * deltaTime * speed
   points += 0.01 * deltaTime * speed
   calculSpeed()
   if (x < -40) {
     x = canvas.width
+  }
+  if (xSocks < -40) {
+    xSocks = canvas.width
   }
 }
 
@@ -89,6 +104,12 @@ const collision = (frameId) => {
   }
 }
 
+const collisionSocks = (frameId) => {
+  if ((xSocks >= xDeer && xSocks <= (xDeer + 40)) && (ySocks >= yDeer && ySocks <= (yDeer + 40))) {
+    points += 100
+  }
+}
+
 const gameloop = (timestamp) => {
   // console.log(Math.round(timestamp / 1000))
   // console.log(`je suis dans la gameloop`)
@@ -96,6 +117,7 @@ const gameloop = (timestamp) => {
   // console.log(deltaTime)
   const frameId = requestAnimationFrame(gameloop)
   collision(frameId)
+  collisionSocks(frameId)
 
   // What the game loop needs to do
   update(deltaTime)
