@@ -107,6 +107,7 @@ const collision = (frameId) => {
 const collisionSocks = (frameId) => {
   if ((xSocks >= xDeer && xSocks <= (xDeer + 40)) && (ySocks >= yDeer && ySocks <= (yDeer + 40))) {
     points += 100
+    xSocks = canvas.width
   }
 }
 
