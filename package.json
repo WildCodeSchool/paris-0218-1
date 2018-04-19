@@ -10,7 +10,7 @@
     "lint:js": "standard | snazzy",
     "lint:css": "stylelint 'client/style/**/*.css'",
     "lint:html": "htmllint 'client/**/*.html'",
-    "server": "nodemon server --ignore client",
+    "server": "nodemon server --ignore client --ignore '*.json'",
     "client": "http-server client"
   },
   "repository": {
