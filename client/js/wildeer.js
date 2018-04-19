@@ -190,6 +190,11 @@ const gameloop = (timestamp) => {
   prevTimestamp = timestamp
 }
 
-document.addEventListener('keydown', jump)
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space') {
+    e.preventDefault()
+    jump()
+  }
+})
 
 requestAnimationFrame(gameloop)
