@@ -36,11 +36,11 @@ Date - 20/03/18 -> 02/05/18 (live demo)
 
 - choix du jeu car ca renforce la cohésion au sein d'un groupe au travers d'une démarche ludique
 
-- Déplacer la potentielle compétition autour des sujets techniques sur un jeu de même qu'on a déplacé les conflits armés sur un match de foot. Le wildeer est le JO de la WCS. 
+- Déplacer la potentielle compétition autour des sujets techniques sur un jeu de même qu'on a déplacé les conflits armés sur un match de foot. Le wildeer est le JO de la WCS.
 🧡🦌🧡 THAT'S OUR AMBITION. 🧡🦌🧡
 (ambition 2 : conquérir les autres campus)
 
-## Le jeu 
+## Le jeu
 
 - Type de jeu : side-scrolling video game
 - Inspiration : dino chrome (jeu google chrome hors connexion) 🦖
@@ -51,10 +51,10 @@ Date - 20/03/18 -> 02/05/18 (live demo)
 
 - Interface de jeu (afffichage des commandes, score en cours, meilleur score perso, nombre de chaussettes attrapées, meilleur score général?)
 - Tableau de scoring : tri des élèves du meilleur au moins bon. Affichage éventuel de la progression (évolution des places). Système de badge pour mettre en valeur les performances de chacun. Mise en valeur du meilleur, du dernier, et de la moyenne générale de la promotion. (évolution - ouvrir aux autres campus et avoir un classement par campus)
-- Création de compte - authentification 
+- Création de compte - authentification
 - Profil utilisateur : nom, prénom, mail, mdp, campus, pseudo, avatar, côté wild? (customisation du personnage possible en fonction des scores obtenus? acces à de nouveaux environnements de jeu ou a de nouveaux skins?)
 
 #### paris-0218-1
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Travis master](https://img.shields.io/travis/WildCodeSchool/REPO.svg)](https://travis-ci.org/WildCodeSchool/REPO)
-[![Travis dev](https://img.shields.io/travis/WildCodeSchool/REPO/dev.svg)](https://travis-ci.org/WildCodeSchool/REPO/branches)
+[![Travis master](https://img.shields.io/travis/WildCodeSchool/paris-0218-w1lDe3r-keurkeur.svg)](https://travis-ci.org/WildCodeSchool/REPO)
+[![Travis dev](https://img.shields.io/travis/WildCodeSchool/paris-0218-w1lDe3r-keurkeur/dev.svg)](https://travis-ci.org/WildCodeSchool/REPO/branches)
