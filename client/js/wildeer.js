@@ -13,6 +13,7 @@ const state = {
     width: 40,
     height: 40,
     move: 0.3,
+    isJumping: false,
     isDead: false
   },
   sock: {
@@ -35,7 +36,7 @@ const state = {
   frameId: -1
 }
 
-let sky = false // tmp
+let isJumping = false // tmp
 
 const drawScore = score => {
   ctx.beginPath()
@@ -166,6 +167,19 @@ const handleCollisions = () => {
   }
 }
 
+const jump = () => {
+  const { deer } = state
+
+  if (deer.isJumping) {
+    state.deer.y = 250
+    deer.isJumping = false
+  } else {
+    state.deer.y = 150
+    deer.isJumping = true
+  }
+}
+
+
 const gameloop = (timestamp) => {
   const deltaTime = timestamp - prevTimestamp
   state.frameId = requestAnimationFrame(gameloop)
@@ -175,17 +189,6 @@ const gameloop = (timestamp) => {
   draw()
 
   prevTimestamp = timestamp
-}
-
-// fonction provisoire pour teste ordonnée Y
-const jump = () => {
-  if (sky) {
-    sky = false
-    state.deer.y = 150
-  } else {
-    sky = true
-    state.deer.y = 250
-  }
 }
 
 document.addEventListener('keydown', jump)
