@@ -4,23 +4,26 @@ const cancelAnimationFrame = window.cancelAnimationFrame
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
+const teleport = offset => canvas.width + Math.random() * offset
+
 const state = {
   deer: {
     x: 50,
     y: 250,
     width: 40,
     height: 40,
+    move: 0.3,
     isDead: false
   },
   sock: {
-    x: 400,
+    x: teleport(2000),
     y: 150,
     width: 20,
     height: 30,
     move: -0.3,
   },
   bush: {
-    x: 470,
+    x: teleport(1000),
     y: 250,
     width: 40,
     height: 40,
@@ -138,7 +141,7 @@ const handleDeath = () => {
 
 const handlePickupSock = () => {
   state.score += 100
-  state.sock.x = canvas.width + Math.random() * 2000
+  state.sock.x = teleport(2000)
 }
 
 const handleCollisions = () => {
@@ -150,7 +153,7 @@ const handleCollisions = () => {
   }
   // check collision with border
   if (bush.x < -bush.width) {
-    bush.x = canvas.width + Math.random() * 1000
+    bush.x = teleport(1000)
   }
 
   // sock
@@ -159,7 +162,7 @@ const handleCollisions = () => {
   }
   // check collision with border
   if (sock.x < -sock.width) {
-    sock.x = canvas.width + Math.random() * 2000
+    sock.x = teleport(2000)
   }
 }
 
