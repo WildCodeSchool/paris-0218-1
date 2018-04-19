@@ -1,5 +1,12 @@
 {
   "id": 7,
   "userName": "Yoyo",
-  "bestScore": 4
+  "bestScore": 70009,
+  "score": [
+    {
+      "id": 1,
+      "score": 70009,
+      "date": 1524132873340
+    }
+  ]
 }
