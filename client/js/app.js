@@ -82,6 +82,7 @@ const drawBush = bush => {
   ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)
 }
 
+const drawSock = sock => {
   ctx.drawImage(images.socks, sock.x, sock.y, sock.width, sock.height)
 }
 
