@@ -10,17 +10,6 @@ const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
 const readdir = util.promisify(fs.readdir)
 
-
-// Rechargement des infos users pour mettre à jour le tableau des scores
-
-// const getUsers = () => {
-//   const usersDir = path.join(__dirname, 'database/users')
-//   return readdir(usersDir, 'utf8')
-   
-// }
-
-// getUsers().then(users => console.log(users.length)) // TODO: rm
-
 const app = express()
 
 app.use((request, response, next) => {
@@ -64,7 +53,6 @@ app.get('/scores', (request, response) => {
 })
 
 app.post('/addscore', (request, response, next) => {
-
   const playerId = request.body.playerId
   const score = request.body.score
 
@@ -78,13 +66,11 @@ app.post('/addscore', (request, response, next) => {
         console.log('NEW Best Score!')
         player.bestScore = score
       }
-      player.score.push(
-        {
-          id: player.score.length + 1,
-          score: score,
-          date: Date.now()
-        }
-      )
+      player.score.push({
+        id: player.score.length + 1,
+        score: score,
+        date: Date.now()
+      })
       const newScore = JSON.stringify(player, null, 2)
       return writeFile(filepath, newScore, 'utf8')
     })

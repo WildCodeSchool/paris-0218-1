@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo 'no tests'",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "standard | snazzy",
     "lint:css": "stylelint 'client/*.css'",
     "lint:html": "htmllint 'client/*.html'",

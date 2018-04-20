@@ -1,3 +1,5 @@
+/* global fetch */
+
 import { api } from './config.js'
 
 export const getScores = () => {

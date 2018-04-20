@@ -1,8 +1,3 @@
-
-/* global
-  fetch
-*/
-
 import { createScoreRow } from './components/scores.js'
 import { getScores, sendScore } from './api.js'
 
@@ -12,7 +7,7 @@ const cancelAnimationFrame = window.cancelAnimationFrame
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
-const scoreListElement = document.getElementById('scoreList')
+const scoreListElement = document.getElementById('score_list')
 
 const renderScores = users => {
   scoreListElement.innerHTML = users
@@ -39,14 +34,14 @@ const state = {
     y: 150,
     width: 20,
     height: 30,
-    move: -0.3,
+    move: -0.3
   },
   bush: {
     x: teleport(1000),
     y: 250,
     width: 40,
     height: 40,
-    move: -0.3,
+    move: -0.3
   },
   score: 0,
   speed: 1,
@@ -54,11 +49,9 @@ const state = {
   frameId: -1
 }
 
-let isJumping = false // tmp
-
 const drawScore = score => {
   ctx.beginPath()
-  ctx.font = "20px Courier"
+  ctx.font = '20px Courier'
   ctx.fillStyle = 'White'
   ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 145, 25)
   ctx.closePath()
@@ -66,7 +59,7 @@ const drawScore = score => {
 
 const drawGameOver = () => {
   ctx.beginPath()
-  ctx.font = "65px Courier"
+  ctx.font = '65px Courier'
   ctx.fillStyle = 'White'
   ctx.fillText(`Game Over`, 80, 160)
   ctx.closePath()
@@ -155,10 +148,10 @@ const update = (deltaTime) => {
 }
 
 const collides = (rect1, rect2) => {
-  if (rect1.x < rect2.x + rect2.width
-    && rect1.x + rect1.width > rect2.x
-    && rect1.y < rect2.y + rect2.height
-    && rect1.height + rect1.y > rect2.y) {
+  if (rect1.x < rect2.x + rect2.width &&
+    rect1.x + rect1.width > rect2.x &&
+    rect1.y < rect2.y + rect2.height &&
+    rect1.height + rect1.y > rect2.y) {
     return true
   }
 
@@ -168,7 +161,7 @@ const collides = (rect1, rect2) => {
 const handleDeath = () => {
   state.deer.isDead = true
   cancelAnimationFrame(state.frameId)
-  
+
   sendScore(state.playerId, state.score)
     .then(() => {
       getScores().then(scores => renderScores(scores))
@@ -229,7 +222,6 @@ document.addEventListener('keydown', e => {
     jump()
   }
 })
-
 
 // START
 

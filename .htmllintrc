@@ -1,4 +1,5 @@
 {
   "plugins": [],
-  "indent-width": 2
+  "indent-width": 2,
+  "attr_bans": ["align", "background", "bgcolor", "border", "frameborder", "longdesc", "marginwidth", "marginheight", "scrolling", "style"]
 }
