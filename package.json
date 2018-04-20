@@ -5,12 +5,12 @@
   "description": "## Subject",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "test": "echo 'no tests'",
+    "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "standard | snazzy",
-    "lint:css": "stylelint 'client/style/**/*.css'",
-    "lint:html": "htmllint 'client/**/*.html'",
-    "server": "nodemon server --ignore client",
+    "lint:css": "stylelint 'client/*.css'",
+    "lint:html": "htmllint 'client/*.html'",
+    "server": "nodemon server --ignore client --ignore '*.json'",
     "client": "http-server client"
   },
   "repository": {

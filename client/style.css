@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif; 
+    font-family: sans-serif;
 }
 
 #canvas{
@@ -11,7 +11,7 @@ body {
 }
 
 @media screen and (orientation: landscape) {
-  #portraitMode {
+  #portrait_mode {
     visibility: hidden;
     position: absolute;
     display: flex;
@@ -19,31 +19,40 @@ body {
     justify-content: center;
     background-color: black;
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
     width: 100%;
     max-width:100%;
     height: 100%;
     max-height: 100%;
     z-index: 2000;
-}  
- } 
-  
+}
+ }
+
 @media screen and (orientation: portrait) {
-  #portraitMode {
+    body {
+        background-color: black;
+    }
+
+    #content {
+        display: none;
+    }
+
+  #portrait_mode {
     visibility: visible;
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     background-color: black;
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
     width: 100%;
     max-width:100%;
     height: 100%;
     max-height: 100%;
     z-index: 2000;
-}  
+}
 }
 
 .menu {
@@ -65,41 +74,13 @@ h1 {
     text-transform: uppercase;
 }
 
-#game { 
-    position : relative;
-    padding-top: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} 
-
-#game div {
-    border: 1px solid black;
-    background-color: rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center
-}
-
-#game p {
-    text-align: center;
-    font-size: 50px;
-    text-transform: uppercase;
-}
-
-#scoring {
-    position: relative;
-    width: 100vw;
-    height: auto;
-}
-
-.sectionNameTable h2 {
+.section_name_table h2 {
     padding: 10px;
     text-align: center;
 
 }
 
-.scoreTable {
+.score_table {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,11 +119,39 @@ footer {
 }
 
 .info_footer {
-    padding: 0px; 
-    margin: 0px; 
+    padding: 0px;
+    margin: 0px;
 }
 
 .info_footer p{
     padding-right: 10px;
     font-size: 12px;
+}
+
+#game {
+    position : relative;
+    padding-top: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game div {
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#game p {
+    text-align: center;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+#scoring {
+    position: relative;
+    width: 100vw;
+    height: auto;
 }
