@@ -182,7 +182,7 @@ const handleCollisions = () => {
 const jump = () => {
   const { deer } = state
 
-  if (deer.jumpState === 0) {
+  if (deer.y > 230) {
     deer.jumpState = -1
   }
 }
