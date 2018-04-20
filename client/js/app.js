@@ -8,6 +8,11 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
+const images = {
+  deer: document.getElementById('img-deer'),
+  socks: document.getElementById('img-socks'),
+  bush: document.getElementById('img-bush'),
+}
 
 const renderScores = users => {
   scoreListElement.innerHTML = users
@@ -74,15 +79,14 @@ const drawRect = (x, y, w, h, color) => {
 }
 
 const drawBush = bush => {
-  drawRect(bush.x, bush.y, bush.width, bush.height, 'green')
+  ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)
 }
 
-const drawSock = sock => {
-  drawRect(sock.x, sock.y, sock.width, sock.height, 'brown')
+  ctx.drawImage(images.socks, sock.x, sock.y, sock.width, sock.height)
 }
 
 const drawDeer = deer => {
-  drawRect(deer.x, deer.y, deer.width, deer.height, 'orange')
+  ctx.drawImage(images.deer, deer.x, deer.y, deer.width, deer.height)
 }
 
 const clear = () => {
