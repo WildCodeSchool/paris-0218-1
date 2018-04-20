@@ -14,7 +14,8 @@ const state = {
     height: 40,
     move: 0.3,
     isJumping: false,
-    isDead: false
+    isDead: false,
+    jumpState: 0
   },
   sock: {
     x: teleport(2000),
@@ -109,6 +110,11 @@ const moveBush = (deltaTime) => {
   state.bush.x += state.bush.move * deltaTime * state.speed
 }
 
+const moveDeer = (deltaTime) => {
+  const { deer } = state
+  deer.y += deer.jumpState * deer.move * deltaTime
+}
+
 const moveSock = (deltaTime) => {
   state.sock.x += state.sock.move * deltaTime * state.speed
 }
@@ -116,6 +122,7 @@ const moveSock = (deltaTime) => {
 const update = (deltaTime) => {
   moveBush(deltaTime)
   moveSock(deltaTime)
+  moveDeer(deltaTime)
 
   updateScore(deltaTime)
 
@@ -168,13 +175,18 @@ const handleCollisions = () => {
 const jump = () => {
   const { deer } = state
 
-  if (deer.isJumping) {
-    state.deer.y = 250
-    deer.isJumping = false
-  } else {
-    state.deer.y = 150
+  if (deer.y <= 150 && deer.isJumping) {
+    deer.jumpState = 1
+  } else if (deer.y <= 250) {
+    deer.jumpState = -1
     deer.isJumping = true
+    console.log(deer.y, deer.isJumping)
+    
   }
+//    else {
+//     deer.jumpState = 0
+//     deer.isJumping = false
+//   }
 }
 
 let prevTimestamp = 0
