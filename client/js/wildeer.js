@@ -13,7 +13,6 @@ const state = {
     width: 40,
     height: 40,
     move: 0.3,
-    isJumping: false,
     isDead: false,
     jumpState: 0
   },
@@ -113,6 +112,14 @@ const moveBush = (deltaTime) => {
 const moveDeer = (deltaTime) => {
   const { deer } = state
   deer.y += deer.jumpState * deer.move * deltaTime
+
+  if (deer.y < 150) {
+    deer.jumpState = 1
+  }
+  if (deer.y > 250) {
+    deer.jumpState = 0
+    deer.y = 250
+  }
 }
 
 const moveSock = (deltaTime) => {
@@ -175,18 +182,9 @@ const handleCollisions = () => {
 const jump = () => {
   const { deer } = state
 
-  if (deer.y <= 150 && deer.isJumping) {
-    deer.jumpState = 1
-  } else if (deer.y <= 250) {
+  if (deer.jumpState === 0) {
     deer.jumpState = -1
-    deer.isJumping = true
-    console.log(deer.y, deer.isJumping)
-    
   }
-//    else {
-//     deer.jumpState = 0
-//     deer.isJumping = false
-//   }
 }
 
 let prevTimestamp = 0
