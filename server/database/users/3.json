@@ -1,7 +1,7 @@
 {
   "id": 3,
   "userName": "Lulu",
-  "bestScore": 10010,
+  "bestScore": 12,
   "score": [
     {
       "id": 1,
@@ -22,6 +22,11 @@
       "id": 4,
       "score": 10010,
       "date": 1524132585878
+    },
+    {
+      "id": 5,
+      "score": 124124,
+      "date": 1524216613421
     }
   ]
 }
