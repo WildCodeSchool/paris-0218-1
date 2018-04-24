@@ -9,6 +9,7 @@ const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
 const images = {
+  background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: document.getElementById('img-bush'),
@@ -25,13 +26,19 @@ const teleport = offset => canvas.width + Math.random() * offset
 
 const state = {
   playerId: 8,
+  background: {
+    x: 0,
+    y: 0,
+    width: 650,
+    height: 375,
+  },
   deer: {
     x: 50,
     y: 250,
     width: 40,
     height: 40,
     move: 0.42732,
-    isDead: false,
+    isDead: true,
     jumpState: 0
   },
   sock: {
@@ -54,28 +61,54 @@ const state = {
   frameId: -1
 }
 
-const drawScore = score => {
+const drawStart = () => {
   ctx.beginPath()
-  ctx.font = '20px Courier'
-  ctx.fillStyle = 'White'
-  ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 145, 25)
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
+  ctx.fillRect(0, 0, 480, 320);
   ctx.closePath()
+
+  ctx.beginPath()
+  ctx.font = '25px Courier'
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`Pour lancer la partie,`, 80, 160)
+  ctx.fillText(`appuie sur la barre espace.`, 40, 190)
+  ctx.closePath()
+}
+
+const drawScore = score => {
+  if (!state.deer.isDead) {
+    ctx.beginPath()
+    ctx.font = '20px Courier'
+    ctx.fillStyle = 'White'
+    ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 145, 25)
+    ctx.closePath()
+  }
 }
 
 const drawGameOver = () => {
+  const { sock, score } = state
   ctx.beginPath()
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
+  ctx.fillRect(0, 0, 480, 320);
+  ctx.closePath()
+
+  ctx.beginPath()
+  ctx.textAlign = 'center'
   ctx.font = '65px Courier'
-  ctx.fillStyle = 'White'
-  ctx.fillText(`Game Over`, 80, 160)
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`Game Over`, 240, 70)
+  ctx.font = '25px Courier'
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 200)
+  ctx.font = '15px Courier'
+  ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 290)
   ctx.closePath()
 }
 
-const drawRect = (x, y, w, h, color) => {
-  ctx.beginPath()
-  ctx.rect(x, y, w, h)
-  ctx.fillStyle = color
-  ctx.fill()
-  ctx.closePath()
+const drawBackground = background => {
+  ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
 }
 
 const drawBush = bush => {
@@ -95,18 +128,19 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { deer, bush, sock, score } = state
+  const { background, deer, bush, sock, score } = state
 
   clear()
 
+  drawBackground(background)
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
 
   drawScore(score)
 
-  if (deer.isDead) {
-    drawGameOver()
+  if ((deer.isDead) && (score !== 0)) {
+    drawGameOver(score)
   }
 }
 
@@ -222,7 +256,7 @@ const gameloop = (timestamp) => {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.code === 'Space') {
+  if ((e.code === 'Space') && (state.deer.isDead === false)) {
     e.preventDefault()
     jump()
   }
@@ -232,4 +266,17 @@ document.addEventListener('keydown', e => {
 
 getScores().then(scores => renderScores(scores))
 
-requestAnimationFrame(gameloop)
+draw()
+drawStart()
+
+document.addEventListener('keydown', e => {
+  if ((e.code === 'Space') && (state.deer.isDead === true)) {
+    e.preventDefault()
+    requestAnimationFrame(gameloop)
+    state.deer.isDead = false
+    state.score = 0
+    state.speed = 1
+    state.moduloSpeed = 100
+    state.frameId = -1
+  }
+}) 
