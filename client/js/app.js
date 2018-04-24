@@ -104,6 +104,7 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`Tu as enfilé : ${nbSocks} Chaussettes ! `, 240, 170)  
   ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 200)
+  ctx.fillText(`Ton best score : ${score.bestScore}`, 240, 230)
   ctx.font = '15px Courier'
   ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
@@ -205,7 +206,7 @@ const handleDeath = () => {
   state.deer.isDead = true
   cancelAnimationFrame(state.frameId)
 
-  sendScore(state.playerId, state.score)
+  sendScore(state.playerId, state.score, state.nbSocks)
     .then(() => {
       getScores().then(scores => renderScores(scores))
     })
@@ -286,3 +287,5 @@ document.addEventListener('keydown', e => {
     state.nbSocks = 0
   }
 }) 
+
+

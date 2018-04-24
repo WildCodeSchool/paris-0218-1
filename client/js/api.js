@@ -7,10 +7,11 @@ export const getScores = () => {
     .then(res => res.json())
 }
 
-export const sendScore = (playerId, score) => {
+export const sendScore = (playerId, score, nbSocks) => {
   const body = {
     playerId: playerId,
-    score: Math.round(score)
+    score: Math.round(score),
+    nbSocks: nbSocks
   }
 
   return fetch(`${api.host}:${api.port}/addscore`, {

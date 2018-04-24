@@ -55,6 +55,7 @@ app.get('/scores', (request, response) => {
 app.post('/addscore', (request, response, next) => {
   const playerId = request.body.playerId
   const score = request.body.score
+  const nbSocks = request.body.nbSocks
 
   const filename = `${playerId}.json`
   const filepath = path.join(__dirname, 'database/users', filename)
@@ -69,6 +70,7 @@ app.post('/addscore', (request, response, next) => {
       player.score.push({
         id: player.score.length + 1,
         score: score,
+        nbSocks: nbSocks,
         date: Date.now()
       })
       const newScore = JSON.stringify(player, null, 2)
