@@ -58,7 +58,8 @@ const state = {
   score: 0,
   speed: 1,
   moduloSpeed: 100,
-  frameId: -1
+  frameId: -1,
+  nbSocks : 0
 }
 
 const drawStart = () => {
@@ -75,18 +76,20 @@ const drawStart = () => {
   ctx.closePath()
 }
 
-const drawScore = score => {
+const drawScore = (score, nbSocks) => {
   if (!state.deer.isDead) {
     ctx.beginPath()
+    ctx.textAlign = 'center'
     ctx.font = '20px Courier'
     ctx.fillStyle = 'White'
-    ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 145, 25)
+    ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 240, 25)
+    ctx.fillText(`Chausette : ${Math.round(nbSocks)}`, 240, 40)     
     ctx.closePath()
   }
 }
 
 const drawGameOver = () => {
-  const { sock, score } = state
+  const { sock, score, nbSocks } = state
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
   ctx.fillRect(0, 0, 480, 320);
@@ -99,6 +102,7 @@ const drawGameOver = () => {
   ctx.fillText(`Game Over`, 240, 70)
   ctx.font = '25px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`Tu as enfilé : ${nbSocks} Chaussettes ! `, 240, 170)  
   ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 200)
   ctx.font = '15px Courier'
   ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)
@@ -128,7 +132,7 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score } = state
+  const { background, deer, bush, sock, score, nbSocks } = state
 
   clear()
 
@@ -137,7 +141,7 @@ const draw = () => {
   drawSock(sock)
   drawDeer(deer)
 
-  drawScore(score)
+  drawScore(score, nbSocks)
 
   if ((deer.isDead) && (score !== 0)) {
     drawGameOver(score)
@@ -227,6 +231,7 @@ const handleCollisions = () => {
   // sock
   if (collides(deer, sock)) {
     handlePickupSock()
+    state.nbSocks++
   }
   // check collision with border
   if (sock.x < -sock.width) {
@@ -278,5 +283,6 @@ document.addEventListener('keydown', e => {
     state.speed = 1
     state.moduloSpeed = 100
     state.frameId = -1
+    state.nbSocks = 0
   }
 }) 
