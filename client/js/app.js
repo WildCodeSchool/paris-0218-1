@@ -108,11 +108,11 @@ const drawGameOver = () => {
   ctx.fillText(`Game Over`, 240, 70)
   ctx.font = '25px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Tu as enfilé : ${nbSocks} Chaussettes ! `, 240, 170)  
+  ctx.fillText(`Bravo, tu as attrapé ${nbSocks}`, 240, 170)
+  ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)    
   ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 200)
   ctx.fillText(`Ton best score : ${score.bestScore}`, 240, 230)
   ctx.font = '15px Courier'
-  ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 290)
   ctx.closePath()
