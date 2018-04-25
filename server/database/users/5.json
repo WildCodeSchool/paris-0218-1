@@ -2,5 +2,24 @@
   "id": 5,
   "userName": "Loulou",
   "bestScore": 556,
-  "score": []
+  "score": [
+    {
+      "id": 1,
+      "score": 25,
+      "nbSocks": 0,
+      "date": 1524679432185
+    },
+    {
+      "id": 2,
+      "score": 88,
+      "nbSocks": 0,
+      "date": 1524679441018
+    },
+    {
+      "id": 3,
+      "score": 23,
+      "nbSocks": 0,
+      "date": 1524679573050
+    }
+  ]
 }

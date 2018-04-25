@@ -1,7 +1,7 @@
 {
   "id": 8,
   "userName": "DEMO",
-  "bestScore": 270,
+  "bestScore": 4064,
   "score": [
     {
       "id": 1,
@@ -380,6 +380,360 @@
       "score": 39,
       "nbSocks": 0,
       "date": 1524676785050
+    },
+    {
+      "id": 64,
+      "score": 4064,
+      "nbSocks": 0,
+      "date": 1524677191428
+    },
+    {
+      "id": 65,
+      "score": 66,
+      "nbSocks": 0,
+      "date": 1524677197973
+    },
+    {
+      "id": 66,
+      "score": 36,
+      "nbSocks": 0,
+      "date": 1524677298221
+    },
+    {
+      "id": 67,
+      "score": 44,
+      "nbSocks": 0,
+      "date": 1524677312458
+    },
+    {
+      "id": 68,
+      "score": 14,
+      "nbSocks": 0,
+      "date": 1524677340603
+    },
+    {
+      "id": 69,
+      "score": 16,
+      "nbSocks": 0,
+      "date": 1524677342224
+    },
+    {
+      "id": 70,
+      "score": 27,
+      "nbSocks": 0,
+      "date": 1524677344967
+    },
+    {
+      "id": 71,
+      "score": 37,
+      "nbSocks": 0,
+      "date": 1524677463471
+    },
+    {
+      "id": 72,
+      "score": 102,
+      "nbSocks": 0,
+      "date": 1524677581277
+    },
+    {
+      "id": 73,
+      "score": 24,
+      "nbSocks": 0,
+      "date": 1524677620741
+    },
+    {
+      "id": 74,
+      "score": 19,
+      "nbSocks": 0,
+      "date": 1524677711443
+    },
+    {
+      "id": 75,
+      "score": 45,
+      "nbSocks": 0,
+      "date": 1524677762549
+    },
+    {
+      "id": 76,
+      "score": 31,
+      "nbSocks": 0,
+      "date": 1524678631017
+    },
+    {
+      "id": 77,
+      "score": 42,
+      "nbSocks": 0,
+      "date": 1524678637216
+    },
+    {
+      "id": 78,
+      "score": 38,
+      "nbSocks": 0,
+      "date": 1524678719050
+    },
+    {
+      "id": 79,
+      "score": 24,
+      "nbSocks": 0,
+      "date": 1524678742778
+    },
+    {
+      "id": 80,
+      "score": 98,
+      "nbSocks": 0,
+      "date": 1524678770155
+    },
+    {
+      "id": 81,
+      "score": 34,
+      "nbSocks": 0,
+      "date": 1524678852971
+    },
+    {
+      "id": 82,
+      "score": 32,
+      "nbSocks": 0,
+      "date": 1524679025668
+    },
+    {
+      "id": 83,
+      "score": 9,
+      "nbSocks": 0,
+      "date": 1524681296897
+    },
+    {
+      "id": 84,
+      "score": 23,
+      "nbSocks": 0,
+      "date": 1524681299178
+    },
+    {
+      "id": 85,
+      "score": 13,
+      "nbSocks": 0,
+      "date": 1524681329597
+    },
+    {
+      "id": 86,
+      "score": 12,
+      "nbSocks": 0,
+      "date": 1524681351442
+    },
+    {
+      "id": 87,
+      "score": 11,
+      "nbSocks": 0,
+      "date": 1524681427915
+    },
+    {
+      "id": 88,
+      "score": 14,
+      "nbSocks": 0,
+      "date": 1524681457337
+    },
+    {
+      "id": 89,
+      "score": 13,
+      "nbSocks": 0,
+      "date": 1524681467294
+    },
+    {
+      "id": 90,
+      "score": 11,
+      "nbSocks": 0,
+      "date": 1524681482244
+    },
+    {
+      "id": 91,
+      "score": 17,
+      "nbSocks": 0,
+      "date": 1524681492236
+    },
+    {
+      "id": 92,
+      "score": 9,
+      "nbSocks": 0,
+      "date": 1524681500542
+    },
+    {
+      "id": 93,
+      "score": 12,
+      "nbSocks": 0,
+      "date": 1524681528365
+    },
+    {
+      "id": 94,
+      "score": 11,
+      "nbSocks": 0,
+      "date": 1524681539740
+    },
+    {
+      "id": 95,
+      "score": 11,
+      "nbSocks": 0,
+      "date": 1524681548297
+    },
+    {
+      "id": 96,
+      "score": 10,
+      "nbSocks": 0,
+      "date": 1524681561699
+    },
+    {
+      "id": 97,
+      "score": 6,
+      "nbSocks": 0,
+      "date": 1524681573502
+    },
+    {
+      "id": 98,
+      "score": 10,
+      "nbSocks": 0,
+      "date": 1524681587739
+    },
+    {
+      "id": 99,
+      "score": 8,
+      "nbSocks": 0,
+      "date": 1524681600259
+    },
+    {
+      "id": 100,
+      "score": 12,
+      "nbSocks": 0,
+      "date": 1524681634510
+    },
+    {
+      "id": 101,
+      "score": 5,
+      "nbSocks": 0,
+      "date": 1524681677554
+    },
+    {
+      "id": 102,
+      "score": 9,
+      "nbSocks": 0,
+      "date": 1524681775784
+    },
+    {
+      "id": 103,
+      "score": 5,
+      "nbSocks": 0,
+      "date": 1524681782890
+    },
+    {
+      "id": 104,
+      "score": 22,
+      "nbSocks": 0,
+      "date": 1524681785111
+    },
+    {
+      "id": 105,
+      "score": 11,
+      "nbSocks": 0,
+      "date": 1524681814945
+    },
+    {
+      "id": 106,
+      "score": 10,
+      "nbSocks": 0,
+      "date": 1524681846452
+    },
+    {
+      "id": 107,
+      "score": 146,
+      "nbSocks": 0,
+      "date": 1524681861070
+    },
+    {
+      "id": 108,
+      "score": 296,
+      "nbSocks": 0,
+      "date": 1524681890638
+    },
+    {
+      "id": 109,
+      "score": 5,
+      "nbSocks": 0,
+      "date": 1524681891136
+    },
+    {
+      "id": 110,
+      "score": 6,
+      "nbSocks": 0,
+      "date": 1524681891773
+    },
+    {
+      "id": 111,
+      "score": 10,
+      "nbSocks": 0,
+      "date": 1524681892799
+    },
+    {
+      "id": 112,
+      "score": 3,
+      "nbSocks": 0,
+      "date": 1524681893083
+    },
+    {
+      "id": 113,
+      "score": 19,
+      "nbSocks": 0,
+      "date": 1524681894983
+    },
+    {
+      "id": 114,
+      "score": 24,
+      "nbSocks": 0,
+      "date": 1524681897401
+    },
+    {
+      "id": 115,
+      "score": 3,
+      "nbSocks": 0,
+      "date": 1524681897579
+    },
+    {
+      "id": 116,
+      "score": 6,
+      "nbSocks": 0,
+      "date": 1524681898129
+    },
+    {
+      "id": 117,
+      "score": 10,
+      "nbSocks": 0,
+      "date": 1524681898831
+    },
+    {
+      "id": 118,
+      "score": 43,
+      "nbSocks": 0,
+      "date": 1524681901817
+    },
+    {
+      "id": 119,
+      "score": 4,
+      "nbSocks": 0,
+      "date": 1524681902175
+    },
+    {
+      "id": 120,
+      "score": 12,
+      "nbSocks": 0,
+      "date": 1524681903010
+    },
+    {
+      "id": 121,
+      "score": 937,
+      "nbSocks": 6,
+      "date": 1524681958573
+    },
+    {
+      "id": 122,
+      "score": 21,
+      "nbSocks": 0,
+      "date": 1524681960050
     }
   ]
 }

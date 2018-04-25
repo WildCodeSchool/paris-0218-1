@@ -16,30 +16,37 @@ const images = {
 }
 
 const myPlace = users => {
-
+  let scoresEndGame
   const findPlayerIndex = users.findIndex(user => state.playerId === user.id)
-  console.log('pas dans la fonction ', findPlayerIndex)
-  const scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
+  console.log(findPlayerIndex)
+  if (findPlayerIndex === 0)
+    scoresEndGame = users.slice(findPlayerIndex, findPlayerIndex + 5)
+  else if (findPlayerIndex === 1)
+    scoresEndGame = users.slice(findPlayerIndex - 1, findPlayerIndex + 4)
+  else if (findPlayerIndex === users.length - 2)
+    scoresEndGame = users.slice(findPlayerIndex - 4, findPlayerIndex + 1)
+  else if (findPlayerIndex === users.length - 1)
+    scoresEndGame = users.slice(findPlayerIndex - 4, findPlayerIndex + 1)
+  else
+    scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
+
   let i = 0
-  console.log(i)
-  console.log('pas dans la fonction le retour', findPlayerIndex)
-
-
   scoresEndGame.map(user => {
-    console.log('dans la fct', findPlayerIndex)
 
     ctx.beginPath()
+    ctx.moveTo(100, 167 + (22 * i))
+    ctx.lineTo(415, 167 + (22 * i))
+    ctx.stroke()
     ctx.font = '15px Courier'
     ctx.fillStyle = 'rgba(0, 0, 0, 1)'
     ctx.textAlign = 'right'
-    ctx.fillText(`${findPlayerIndex - 1 + i}eme`, 120, 160 + (22 * i))
+    ctx.fillText(`${findPlayerIndex + i }`, 120, 160 + (22 * i))
     ctx.textAlign = 'center'
     ctx.fillText(`${user.userName}`, 240, 160 + (22 * i))
     ctx.textAlign = 'left'
     ctx.fillText(`${user.bestScore}`, 360, 160 + (22 * i))
     ctx.closePath()
     i++
-
   })
 }
 
@@ -83,7 +90,7 @@ const basicState = () => {
       y: 250,
       width: 40,
       height: 40,
-      move: -0.3
+      move: -0.4
     },
     score: 0,
     speed: 1,
@@ -135,13 +142,12 @@ const drawGameOver = () => {
   ctx.font = '65px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`Game Over`, 240, 70)
-  ctx.font = '25px Courier'
+  ctx.font = '17px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Bravo, tu as attrapé ${nbSocks}`, 240, 170)
-  ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)
-  ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 200)
-  ctx.fillText(`Ton best score : ${score.bestScore}`, 240, 230)
-  ctx.font = '15px Courier'
+  ctx.fillText(`Bravo, tu as attrapé ${nbSocks}`, 240, 100)
+  ctx.drawImage(images.socks, 250, 50, sock.width, sock.height)
+  ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 120)
+  ctx.fillText(`Ton best score : ${score.bestScore}`, 240, 140)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 290)
   ctx.closePath()
@@ -180,7 +186,7 @@ const draw = () => {
   drawScore(score, nbSocks)
 
   if ((deer.isDead) && (score !== 0)) {
-    // drawGameOver(score)
+    drawGameOver(score)
   }
 }
 

@@ -1,7 +1,7 @@
 {
   "id": 3,
   "userName": "Lulu",
-  "bestScore": 12,
+  "bestScore": 139,
   "score": [
     {
       "id": 1,
@@ -27,6 +27,30 @@
       "id": 5,
       "score": 124124,
       "date": 1524216613421
+    },
+    {
+      "id": 6,
+      "score": 44,
+      "nbSocks": 0,
+      "date": 1524679650524
+    },
+    {
+      "id": 7,
+      "score": 46,
+      "nbSocks": 0,
+      "date": 1524679793586
+    },
+    {
+      "id": 8,
+      "score": 20,
+      "nbSocks": 0,
+      "date": 1524680080943
+    },
+    {
+      "id": 9,
+      "score": 139,
+      "nbSocks": 1,
+      "date": 1524680110880
     }
   ]
 }
