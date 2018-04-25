@@ -22,6 +22,7 @@ const renderScores = users => {
     .join('')
 }
 
+
 const teleport = offset => canvas.width + Math.random() * offset
 
 const basicState = () => {
@@ -64,7 +65,7 @@ const basicState = () => {
 return initState
 }
 
-const state = basicState() 
+let state = basicState()
 
 
 const drawStart = () => {
@@ -284,8 +285,8 @@ document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === true)) {
     e.preventDefault()
     requestAnimationFrame(gameloop)
-    state.deer.isDead = false
     state = basicState()
+    state.deer.isDead = false
   }
 }) 
 
