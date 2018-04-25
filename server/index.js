@@ -4,7 +4,9 @@ const port = 3000
 const util = require('util')
 const path = require('path')
 
-// const users = []
+const session = require('express-session')
+const fileStore = require('session-file-store')(session)
+const secret = 'something wild'
 
 const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
@@ -12,13 +14,22 @@ const readdir = util.promisify(fs.readdir)
 
 const app = express()
 
+// Headers middleware
 app.use((request, response, next) => {
   response.header('Access-Control-Allow-Origin', '*')
   response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
 
-// la ca pose probleme pour notre post authentification
+// set up session
+app.use(session({
+  secret,
+  resave: true,
+  saveUninitialized: true, // false? - ask clement
+  store: new fileStore({secret}),
+}))
+
+// get the data sent by the client with POST - and parse it
 app.use((request, response, next) => {
   if (request.method === 'GET') return next()
   let accumulator = ''
@@ -79,18 +90,11 @@ app.post('/addscore', (request, response, next) => {
     .catch(next)
 })
 
-// test authentication
-app.get('/authentication', (req, res) => {
-  console.log('OK on a le get dans le terminal')
-  res.json('OK on a le get côté client')
-})
-
+// Sign up : check the database to verify that the email get from client doesn't exist
+// then write a new file in database/users to create the new player
 app.post('/authentication', (req, res) => {
-  // console.log('OK on est dans la place', req.method, req.url)
-  // console.log(req.body.username)
-
-  // res.json('OK')
   const usersDir = path.join(__dirname, 'database/users')
+
   readdir(usersDir, 'utf8')
     .then(users => Promise.all(users
       .map(user => path.join(usersDir, user))
@@ -103,8 +107,7 @@ app.post('/authentication', (req, res) => {
       if (match) {
         throw Error('Email already taken.')
       }
-      // console.log(useremail, req.body.email)
-      console.log('ouai ouai mec on va te rajouter dans le crou')
+
       const filename = `${usersemail.length + 1}.json`
       const filepath = path.join(__dirname, 'database/users', filename)
       const userContent = JSON.stringify({
@@ -118,9 +121,7 @@ app.post('/authentication', (req, res) => {
       return writeFile(filepath, userContent, 'utf8')
     })
     .then(() => res.json('OK'))
-    // .then(users => response.json(users))
     .catch(err => res.status(500).end(err.message))
-
 })
 
 app.listen(port, err => console.log(err || `server listening on port ${port}`))

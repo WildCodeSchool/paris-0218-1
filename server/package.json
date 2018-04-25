@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "session-file-store": "^1.2.0"
   },
   "devDependencies": {},
   "scripts": {
