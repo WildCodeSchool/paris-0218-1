@@ -18,6 +18,7 @@ app.use((request, response, next) => {
   next()
 })
 
+// la ca pose probleme pour notre post authentification
 app.use((request, response, next) => {
   if (request.method === 'GET') return next()
   let accumulator = ''
@@ -76,6 +77,50 @@ app.post('/addscore', (request, response, next) => {
     })
     .then(() => response.json('OK'))
     .catch(next)
+})
+
+// test authentication
+app.get('/authentication', (req, res) => {
+  console.log('OK on a le get dans le terminal')
+  res.json('OK on a le get côté client')
+})
+
+app.post('/authentication', (req, res) => {
+  // console.log('OK on est dans la place', req.method, req.url)
+  // console.log(req.body.username)
+
+  // res.json('OK')
+  const usersDir = path.join(__dirname, 'database/users')
+  readdir(usersDir, 'utf8')
+    .then(users => Promise.all(users
+      .map(user => path.join(usersDir, user))
+      .map(userpath => readFile(userpath, 'utf8'))))
+    .then(usersListValues => usersListValues
+      .map(user => JSON.parse(user))
+      .map(userParsed => userParsed.email))
+    .then(usersemail => {
+      const match = usersemail.find(useremail => useremail === req.body.email)
+      if (match) {
+        throw Error('Email already taken.')
+      }
+      // console.log(useremail, req.body.email)
+      console.log('ouai ouai mec on va te rajouter dans le crou')
+      const filename = `${usersemail.length + 1}.json`
+      const filepath = path.join(__dirname, 'database/users', filename)
+      const userContent = JSON.stringify({
+        id: `${usersemail.length + 1}`,
+        userName: `${req.body.username}`,
+        email: `${req.body.email}`,
+        password: `${req.body.password}`,
+        bestScore: 0,
+        score: [],
+      }, null, 2)
+      return writeFile(filepath, userContent, 'utf8')
+    })
+    .then(() => res.json('OK'))
+    // .then(users => response.json(users))
+    .catch(err => res.status(500).end(err.message))
+
 })
 
 app.listen(port, err => console.log(err || `server listening on port ${port}`))
