@@ -15,6 +15,34 @@ const images = {
   bush: document.getElementById('img-bush'),
 }
 
+const myPlace = users => {
+
+  const findPlayerIndex = users.findIndex(user => state.playerId === user.id)
+  console.log('pas dans la fonction ', findPlayerIndex)
+  const scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
+  let i = 0
+  console.log(i)
+  console.log('pas dans la fonction le retour', findPlayerIndex)
+
+
+  scoresEndGame.map(user => {
+    console.log('dans la fct', findPlayerIndex)
+
+    ctx.beginPath()
+    ctx.font = '15px Courier'
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+    ctx.textAlign = 'right'
+    ctx.fillText(`${findPlayerIndex - 1 + i}eme`, 120, 160 + (22 * i))
+    ctx.textAlign = 'center'
+    ctx.fillText(`${user.userName}`, 240, 160 + (22 * i))
+    ctx.textAlign = 'left'
+    ctx.fillText(`${user.bestScore}`, 360, 160 + (22 * i))
+    ctx.closePath()
+    i++
+
+  })
+}
+
 const renderScores = users => {
   scoreListElement.innerHTML = users
     .sort((a, b) => b.bestScore - a.bestScore)
@@ -26,43 +54,44 @@ const renderScores = users => {
 const teleport = offset => canvas.width + Math.random() * offset
 
 const basicState = () => {
- const initState = { playerId: 8,
-  background: {
-    x: 0,
-    y: 0,
-    width: 650,
-    height: 375,
-  },
-  deer: {
-    x: 50,
-    y: 250,
-    width: 40,
-    height: 40,
-    move: 0.42732,
-    isDead: true,
-    jumpState: 0
-  },
-  sock: {
-    x: teleport(2000),
-    y: 150,
-    width: 20,
-    height: 30,
-    move: -0.3
-  },
-  bush: {
-    x: teleport(1000),
-    y: 250,
-    width: 40,
-    height: 40,
-    move: -0.3
-  },
-  score: 0,
-  speed: 1,
-  moduloSpeed: 100,
-  frameId: -1,
-  nbSocks : 0
-}
-return initState
+  const initState = {
+    playerId: 8,
+    background: {
+      x: 0,
+      y: 0,
+      width: 650,
+      height: 375,
+    },
+    deer: {
+      x: 50,
+      y: 250,
+      width: 40,
+      height: 40,
+      move: 0.42732,
+      isDead: true,
+      jumpState: 0
+    },
+    sock: {
+      x: teleport(2000),
+      y: 150,
+      width: 20,
+      height: 30,
+      move: -0.3
+    },
+    bush: {
+      x: teleport(1000),
+      y: 250,
+      width: 40,
+      height: 40,
+      move: -0.3
+    },
+    score: 0,
+    speed: 1,
+    moduloSpeed: 100,
+    frameId: -1,
+    nbSocks: 0
+  }
+  return initState
 }
 
 let state = basicState()
@@ -89,7 +118,7 @@ const drawScore = (score, nbSocks) => {
     ctx.font = '20px Courier'
     ctx.fillStyle = 'White'
     ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 240, 25)
-    ctx.fillText(`Chausette : ${Math.round(nbSocks)}`, 240, 40)     
+    ctx.fillText(`Chausette : ${Math.round(nbSocks)}`, 240, 40)
     ctx.closePath()
   }
 }
@@ -109,7 +138,7 @@ const drawGameOver = () => {
   ctx.font = '25px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`Bravo, tu as attrapé ${nbSocks}`, 240, 170)
-  ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)    
+  ctx.drawImage(images.socks, 20, 40, sock.width, sock.height)
   ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 200)
   ctx.fillText(`Ton best score : ${score.bestScore}`, 240, 230)
   ctx.font = '15px Courier'
@@ -151,7 +180,7 @@ const draw = () => {
   drawScore(score, nbSocks)
 
   if ((deer.isDead) && (score !== 0)) {
-    drawGameOver(score)
+    // drawGameOver(score)
   }
 }
 
@@ -214,7 +243,11 @@ const handleDeath = () => {
 
   sendScore(state.playerId, state.score, state.nbSocks)
     .then(() => {
-      getScores().then(scores => renderScores(scores))
+      getScores()
+        .then(scores => {
+          renderScores(scores)
+          myPlace(scores)
+        })
     })
 }
 
@@ -288,6 +321,6 @@ document.addEventListener('keydown', e => {
     state = basicState()
     state.deer.isDead = false
   }
-}) 
+})
 
 

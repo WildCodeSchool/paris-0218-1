@@ -4,8 +4,6 @@ const port = 3000
 const util = require('util')
 const path = require('path')
 
-// const users = []
-
 const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
 const readdir = util.promisify(fs.readdir)
@@ -38,7 +36,7 @@ app.use((request, response, next) => {
 
 const keepBests = users => users
   .sort((user1, user2) => user2.bestScore - user1.bestScore)
-  .slice(0, 5)
+// .slice(0, 5)
 
 app.get('/scores', (request, response) => {
   const usersDir = path.join(__dirname, 'database/users')

@@ -2,5 +2,12 @@
   "id": 6,
   "userName": "Kinkin",
   "bestScore": 564,
-  "score": []
+  "score": [
+    {
+      "id": 1,
+      "score": 23,
+      "nbSocks": 0,
+      "date": 1524668682527
+    }
+  ]
 }
