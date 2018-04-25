@@ -1,6 +1,7 @@
 {
   "id": 1,
   "userName": "Filoo",
+  "email": "filoo@wcs.com",
   "bestScore": 123,
   "score": [
     {
