@@ -24,8 +24,8 @@ const renderScores = users => {
 
 const teleport = offset => canvas.width + Math.random() * offset
 
-const state = {
-  playerId: 8,
+const basicState = () => {
+ const initState = { playerId: 8,
   background: {
     x: 0,
     y: 0,
@@ -61,6 +61,11 @@ const state = {
   frameId: -1,
   nbSocks : 0
 }
+return initState
+}
+
+const state = basicState() 
+
 
 const drawStart = () => {
   ctx.beginPath()
@@ -280,11 +285,7 @@ document.addEventListener('keydown', e => {
     e.preventDefault()
     requestAnimationFrame(gameloop)
     state.deer.isDead = false
-    state.score = 0
-    state.speed = 1
-    state.moduloSpeed = 100
-    state.frameId = -1
-    state.nbSocks = 0
+    state = basicState()
   }
 }) 
 
