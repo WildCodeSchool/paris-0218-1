@@ -1,5 +1,5 @@
 import { createScoreRow } from './components/scores.js'
-import { getScores, sendScore } from './api.js'
+import { getUser, getScores, sendScore } from './api.js'
 
 const requestAnimationFrame = window.requestAnimationFrame
 const cancelAnimationFrame = window.cancelAnimationFrame
@@ -24,7 +24,7 @@ const renderScores = users => {
 const teleport = offset => canvas.width + Math.random() * offset
 
 const state = {
-  playerId: 8,
+  playerId: 3,
   deer: {
     x: 50,
     y: 250,
@@ -229,6 +229,14 @@ document.addEventListener('keydown', e => {
 })
 
 // START
+getUser().then(user => {
+  console.log(user)
+
+  if (!user.username) {
+    window.location = '/sign-in.html'
+  }
+
+})
 
 getScores().then(scores => renderScores(scores))
 

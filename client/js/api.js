@@ -2,6 +2,14 @@
 
 import { api } from './config.js'
 
+const postJson = (url, body) => fetch(url, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+
 export const getScores = () => {
   return fetch(`${api.host}:${api.port}/scores`)
     .then(res => res.json())
@@ -13,8 +21,8 @@ export const sendScore = (playerId, score) => {
     score: Math.round(score)
   }
 
-  return fetch(`${api.host}:${api.port}/addscore`, {
-    method: 'post',
-    body: JSON.stringify(body) // on l'encode en string JSON
-  })
+  return postJson(`${api.host}:${api.port}/addscore`, body)
 }
+
+export const getUser = () => fetch('http://localhost:3000/', { 'credentials': 'include' })
+  .then(res => res.json())
