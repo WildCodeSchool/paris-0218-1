@@ -9,25 +9,26 @@
 
 <body>
   <section id="authentication">
-    <h2>Authentication</h2>
+    <h1>Authentication</h1>
     <form id="auth_form">
       <label for="input_username">Username:
         <input id="input_username" type="text" name="username">
       </label>
       <label for="input_email">Email:
-        <input id="input_email" type="text" name="email">
+        <input id="input_email" type="email" name="email">
       </label>
       <label for="input_password">Password:
-        <input id="input_password" type="text" name="password">
+        <input id="input_password" type="password" name="password">
       </label>
       <label for="input_repeat_password">Repeat password:
-        <input id="input_repeat_password" type="text" name="repeat_password">
+        <input id="input_repeat_password" type="password" name="repeat_password">
       </label>
       <input type="submit" value="Subscribe">
     </form>
+    <a href="/signIn.html">Sign in</a>
   </section>
 
-  <script type="module" src="./js/authentication.js"></script>
+  <script type="module" src="./js/signUp.js"></script>
 </body>
 
 </html>
