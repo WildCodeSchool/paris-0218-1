@@ -1,7 +1,8 @@
 {
   "id": 5,
-  "userName": "Loulou",
+  "username": "Loulou",
   "email": "loulou@wcs.com",
+  "password": "Louloupass",
   "bestScore": 556,
   "score": []
 }

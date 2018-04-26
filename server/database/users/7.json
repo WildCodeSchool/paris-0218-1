@@ -1,7 +1,8 @@
 {
   "id": 7,
-  "userName": "Yoyo",
+  "username": "Yoyo",
   "email": "yoyo@wcs.com",
+  "password": "Yoyopass",
   "bestScore": 70009,
   "score": [
     {

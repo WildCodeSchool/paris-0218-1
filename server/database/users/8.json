@@ -1,7 +1,8 @@
 {
   "id": 8,
-  "userName": "DEMO",
+  "username": "DEMO",
   "email": "demo@wcs.com",
+  "password": "DEMOpass",
   "bestScore": 201,
   "score": [
     {
@@ -123,6 +124,36 @@
       "id": 24,
       "score": 28,
       "date": 1524651675076
+    },
+    {
+      "id": 25,
+      "score": 18,
+      "date": 1524662755716
+    },
+    {
+      "id": 26,
+      "score": 31,
+      "date": 1524675121324
+    },
+    {
+      "id": 27,
+      "score": 25,
+      "date": 1524675716867
+    },
+    {
+      "id": 28,
+      "score": 16,
+      "date": 1524679746106
+    },
+    {
+      "id": 29,
+      "score": 18,
+      "date": 1524679803949
+    },
+    {
+      "id": 30,
+      "score": 15,
+      "date": 1524679850844
     }
   ]
 }
