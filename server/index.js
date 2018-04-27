@@ -1,17 +1,11 @@
 const express = require('express')
-const fs = require('fs')
-const port = 3000
-const util = require('util')
-const path = require('path')
-
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const fileStore = require('session-file-store')(session)
+
+const port = 3000
 const secret = 'something wild'
 
-const writeFile = util.promisify(fs.writeFile)
-const readFile = util.promisify(fs.readFile)
-const readdir = util.promisify(fs.readdir)
 const db = require('./db-fs.js')
 
 const app = express()
@@ -54,41 +48,18 @@ const keepBests = users => users
   .sort((user1, user2) => user2.bestScore - user1.bestScore)
   .slice(0, 5)
 
-app.get('/scores', (request, response) => {
-  const usersDir = path.join(__dirname, 'database/users')
-  readdir(usersDir, 'utf8')
-    .then(users => Promise.all(users
-      .map(user => path.join(usersDir, user))
-      .map(userpath => readFile(userpath, 'utf8'))))
-    .then(usersListValues => usersListValues.map(user => JSON.parse(user)))
+app.get('/scores', (req, res) => {
+  db.getUsers()
     .then(keepBests)
-    .then(users => response.json(users))
-    .catch(err => response.status(500).end(err.message))
+    .then(users => res.json(users))
+    .catch(err => res.status(500).end(err.message))
 })
 
-app.post('/addscore', (request, response, next) => {
-  const playerId = request.body.playerId
-  const score = request.body.score
+app.post('/addscore', (req, res, next) => {
+  const { playerId, score } = req.body
 
-  const filename = `${playerId}.json`
-  const filepath = path.join(__dirname, 'database/users', filename)
-
-  readFile(filepath, 'utf8')
-    .then(JSON.parse)
-    .then(player => {
-      if (score > player.bestScore) {
-        console.log('NEW Best Score!')
-        player.bestScore = score
-      }
-      player.score.push({
-        id: player.score.length + 1,
-        score: score,
-        date: Date.now()
-      })
-      const newScore = JSON.stringify(player, null, 2)
-      return writeFile(filepath, newScore, 'utf8')
-    })
-    .then(() => response.json('OK'))
+  db.addScore(playerId, score)
+    .then(() => res.json('OK'))
     .catch(next)
 })
 
