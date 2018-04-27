@@ -56,15 +56,15 @@ app.get('/scores', (req, res) => {
 })
 
 app.post('/addscore', (req, res, next) => {
-  const { playerId, score } = req.body
+  const { userId, score } = req.body
 
-  db.addScore(playerId, score)
+  db.addScore(userId, score)
     .then(() => res.json('OK'))
     .catch(next)
 })
 
 // Sign up : check the database to verify that the email get from client doesn't exist
-// then write a new file in database/users to create the new player
+// then write a new file in database/users to create the new user
 app.post('/sign-up', async (req, res, next) => {
   const user = req.body // username, email, password
 

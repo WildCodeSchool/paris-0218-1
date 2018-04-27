@@ -33,20 +33,27 @@ const addUser = async user => {
   return writeFile(filepath, JSON.stringify(user, null, 2), 'utf8')
 }
 
-const addScore = async (playerId, score) => {
-  return getUserById(playerId)
-    .then(player => {
-      if (score > player.bestScore) {
-        player.bestScore = score
+const updateUser = user => {
+  const filename = `${user.id}.json`
+  const filepath = path.join(usersDir, filename)
+
+  return writeFile(filepath, JSON.stringify(user, null, 2), 'utf8')
+}
+
+const addScore = async (userId, score) => {
+  return getUserById(userId)
+    .then(user => {
+      if (score > user.bestScore) {
+        user.bestScore = score
       }
 
-      player.score.push({
-        id: player.score.length + 1,
+      user.score.push({
+        id: user.score.length + 1,
         score: score,
         date: Date.now()
       })
 
-      return writeFile(filepath, JSON.stringify(player, null, 2), 'utf8')
+      return updateUser(user)
     })
 }
 

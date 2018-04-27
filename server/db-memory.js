@@ -27,19 +27,19 @@ const addUser = user => {
   return Promise.resolve()
 }
 
-const addScore = async (playerId, score) => {
-  const player = await getUserById(playerId)
+const addScore = async (userId, score) => {
+  const user = await getUserById(userId)
 
-  if (!player) {
+  if (!user) {
     return Promise.reject()
   }
 
-  if (score > player.bestScore) {
-    player.bestScore = score
+  if (score > user.bestScore) {
+    user.bestScore = score
   }
 
-  player.score.push({
-    id: player.score.length + 1,
+  user.score.push({
+    id: user.score.length + 1,
     score: score,
     date: Date.now()
   })

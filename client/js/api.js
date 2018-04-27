@@ -15,9 +15,9 @@ export const getScores = () => {
     .then(res => res.json())
 }
 
-export const sendScore = (playerId, score) => {
+export const sendScore = (userId, score) => {
   const body = {
-    playerId: playerId,
+    userId: userId,
     score: Math.round(score)
   }
 

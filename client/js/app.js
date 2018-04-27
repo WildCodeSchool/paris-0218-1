@@ -24,7 +24,7 @@ const renderScores = users => {
 const teleport = offset => canvas.width + Math.random() * offset
 
 const state = {
-  playerId: 3,
+  userId: 3,
   deer: {
     x: 50,
     y: 250,
@@ -167,7 +167,7 @@ const handleDeath = () => {
   state.deer.isDead = true
   cancelAnimationFrame(state.frameId)
 
-  sendScore(state.playerId, state.score)
+  sendScore(state.userId, state.score)
     .then(() => {
       getScores().then(scores => renderScores(scores))
     })
