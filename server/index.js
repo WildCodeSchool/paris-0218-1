@@ -35,6 +35,11 @@ app.use(session({
   store: new fileStore({secret}),
 }))
 
+// Logger middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`, { user: req.session.user, cookie: req.headers.cookie })
+  next()
+})
 })
 
 const keepBests = users => users
