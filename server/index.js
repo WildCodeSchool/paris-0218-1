@@ -74,13 +74,13 @@ app.post('/sign-up', async (req, res, next) => {
   const emails = users.map(user => user.email)
   const emailAlreadyExists = emails.some(email => email === user.email)
   if (emailAlreadyExists) {
-    next(Error('Email already exists'))
+    return next(Error('Email already exists'))
   }
 
   const usernames = users.map(user => user.username)
   const usernameAlreadyExists = usernames.some(username => username === user.username)
   if (usernameAlreadyExists) {
-    next(Error('Username already exists'))
+    return next(Error('Username already exists'))
   }
 
   user.bestScore = 0
