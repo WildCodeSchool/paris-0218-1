@@ -12,6 +12,7 @@ const secret = 'something wild'
 const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
 const readdir = util.promisify(fs.readdir)
+const db = require('./db-fs.js')
 
 const app = express()
 
@@ -21,9 +22,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // Headers middleware
-app.use((request, response, next) => {
-  response.header('Access-Control-Allow-Origin', '*')
-  response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin)
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.header('Access-Control-Allow-Credentials', 'true') // important
   next()
 })
 
@@ -40,6 +42,12 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, { user: req.session.user, cookie: req.headers.cookie })
   next()
 })
+// ROUTES
+
+app.get('/', (req, res) => {
+  const user = req.session.user || {}
+
+  res.json(user)
 })
 
 const keepBests = users => users
@@ -86,36 +94,68 @@ app.post('/addscore', (request, response, next) => {
 
 // Sign up : check the database to verify that the email get from client doesn't exist
 // then write a new file in database/users to create the new player
-app.post('/authentication', (req, res) => {
-  const usersDir = path.join(__dirname, 'database/users')
+app.post('/sign-up', async (req, res, next) => {
+  const user = req.body // username, email, password
 
-  readdir(usersDir, 'utf8')
-    .then(users => Promise.all(users
-      .map(user => path.join(usersDir, user))
-      .map(userpath => readFile(userpath, 'utf8'))))
-    .then(usersListValues => usersListValues
-      .map(user => JSON.parse(user))
-      .map(userParsed => userParsed.email))
-    .then(usersemail => {
-      const match = usersemail.find(useremail => useremail === req.body.email)
-      if (match) {
-        throw Error('Email already taken.')
-      }
+  // error handling
+  const users = await db.getUsers()
 
-      const filename = `${usersemail.length + 1}.json`
-      const filepath = path.join(__dirname, 'database/users', filename)
-      const userContent = JSON.stringify({
-        id: `${usersemail.length + 1}`,
-        userName: `${req.body.username}`,
-        email: `${req.body.email}`,
-        password: `${req.body.password}`,
-        bestScore: 0,
-        score: [],
-      }, null, 2)
-      return writeFile(filepath, userContent, 'utf8')
-    })
+  const emails = users.map(user => user.email)
+  const emailAlreadyExists = emails.some(email => email === user.email)
+  if (emailAlreadyExists) {
+    next(Error('Email already exists'))
+  }
+
+  const usernames = users.map(user => user.username)
+  const usernameAlreadyExists = usernames.some(username => username === user.username)
+  if (usernameAlreadyExists) {
+    next(Error('Username already exists'))
+  }
+
+  user.bestScore = 0
+  user.score = []
+
+  db.addUser(user)
     .then(() => res.json('OK'))
     .catch(err => res.status(500).end(err.message))
+})
+
+// Sign in / sign out
+app.post('/sign-in', async (req, res, next) => {
+  const credentials = req.body
+
+  const users = await db.getUsers()
+
+  // does user exists ?
+  const user = users.find(user => user.username === credentials.username || user.email === credentials.username)
+
+  // Error handling
+  if (!user) {
+    return res.json({ error: 'User not found' })
+  }
+  if (user.password !== credentials.password) {
+    return res.json({ error: 'Wrong password' })
+  }
+
+  // else, set the user into the session
+  req.session.user = user
+
+  res.json(user)
+})
+
+app.get('/sign-out', (req, res, next) => {
+  req.session.user = {}
+
+  res.json(req.session.user)
+})
+
+app.use((err, req, res, next) => {
+  if (err) {
+    res.json({ message: err.message })
+    console.error(err)
+  }
+
+  next(err)
 })
 
 app.listen(port, err => console.log(err || `server listening on port ${port}`))
