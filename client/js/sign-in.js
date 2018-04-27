@@ -1,4 +1,4 @@
-/* global fetch */
+import { getUser, signIn, signOut } from './api.js'
 
 const signInForm = document.getElementById('sign_in_form')
 const signOutForm = document.getElementById('sign_out_form')
@@ -29,32 +29,19 @@ signInForm.addEventListener('submit', event => {
     password: formData.get('password')
   }
 
-  fetch('http://localhost:3000/sign-in', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    'credentials': 'include', // send user credentials (cookies, basic http auth...)
-    body: JSON.stringify(credentials)
-  })
-  .then(res => res.json())
-  .then(handleAuth)
-  .then(res => {
-    if (res.username) {
-      window.location = '/'
-    }
-  })
+  signIn(credentials)
+    .then(handleAuth)
+    .then(res => {
+      if (res.username) {
+        window.location = '/'
+      }
+    })
 })
 
 signOutForm.addEventListener('submit', event => {
   event.preventDefault()
 
-  fetch('http://localhost:3000/sign-out', { 'credentials': 'include' })
-    .then(res => res.json())
-    .then(handleAuth)
+  signOut().then(handleAuth)
 })
 
-
-fetch('http://localhost:3000/', { 'credentials': 'include' })
-  .then(res => res.json())
-  .then(handleAuth)
+getUser().then(handleAuth)
