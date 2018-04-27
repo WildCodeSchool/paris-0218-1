@@ -25,7 +25,7 @@ app.use((request, response, next) => {
 app.use(session({
   secret,
   resave: true,
-  saveUninitialized: true, // false? - ask clement
+  saveUninitialized: false,
   store: new fileStore({secret}),
 }))
 
