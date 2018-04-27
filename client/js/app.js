@@ -12,8 +12,9 @@ const images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
-  bush: document.getElementById('img-bush'),
-}
+  bush: [document.getElementById('img-bush0'),
+        document.getElementById('img-bush1')]
+  }
 
 const playerIdBestScore = users => {
   // console.log(users)
@@ -120,7 +121,8 @@ const basicState = () => {
       y: 250,
       width: 40,
       height: 40,
-      move: -0.3
+      move: -0.3,
+      alt:0
     },
     score: 0,
     speed: 1,
@@ -137,7 +139,7 @@ let state = basicState()
 const drawStart = () => {
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-  ctx.fillRect(0, 0, 480, 320);
+  ctx.fillRect(0, 0, 480, 320)
   ctx.closePath()
 
   ctx.beginPath()
@@ -193,7 +195,7 @@ const drawBackground = background => {
 }
 
 const drawBush = bush => {
-  ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)
+  ctx.drawImage(images.bush[state.bush.alt], bush.x, bush.y, bush.width, bush.height)
 }
 
 const drawSock = sock => {
@@ -315,6 +317,7 @@ const handleCollisions = () => {
   // check collision with border
   if (bush.x < -bush.width) {
     bush.x = teleport(1000)
+    state.bush.alt = Math.round(Math.random())
   }
 
   // sock
