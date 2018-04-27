@@ -4,6 +4,7 @@ const port = 3000
 const util = require('util')
 const path = require('path')
 
+const bodyParser = require('body-parser')
 const session = require('express-session')
 const fileStore = require('session-file-store')(session)
 const secret = 'something wild'
@@ -13,6 +14,11 @@ const readFile = util.promisify(fs.readFile)
 const readdir = util.promisify(fs.readdir)
 
 const app = express()
+
+// MIDDLEWARES
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Headers middleware
 app.use((request, response, next) => {
@@ -29,23 +35,6 @@ app.use(session({
   store: new fileStore({secret}),
 }))
 
-// get the data sent by the client with POST - and parse it
-app.use((request, response, next) => {
-  if (request.method === 'GET') return next()
-  let accumulator = ''
-
-  request.on('data', data => {
-    accumulator += data
-  })
-
-  request.on('end', () => {
-    try {
-      request.body = JSON.parse(accumulator)
-      next()
-    } catch (err) {
-      next(err)
-    }
-  })
 })
 
 const keepBests = users => users
