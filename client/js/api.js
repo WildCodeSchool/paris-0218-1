@@ -12,8 +12,7 @@ export const sendScore = (playerId, score) => {
     playerId: playerId,
     score: Math.round(score)
   }
-
-  return fetch(`${api.host}:${api.port}/addscore`, {
+  return fetch(`${api.host}:${api.port}/addScore`, {
     method: 'post',
     body: JSON.stringify(body) // on l'encode en string JSON
   })

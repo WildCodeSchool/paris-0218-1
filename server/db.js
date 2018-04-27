@@ -17,27 +17,39 @@ const readdir = util.promisify(fs.readdir)
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: 'dedjzk8376',
   database: 'wildeer'
 });
 //.then(connection => {
 //   return connection.query('select * from users')
 // });
 const exec = async(query, params) => {
-  const connect = await(connection)
-  const result = await(connection.execute(query, params))
+  const connect = await connection
+  const result = await connect.execute(query, params)
   return result
 }
 
-const getUserById = (id) => exec(`select * from users where userId = ?;`, [ id ])
-const getUserByUserName = (name) => (`select * from users where userName = ?;`, [ name ])
-const addUser  = (params) => exec(`insert into users (userName, email) values(?, ?);`, [params.name, params.email])
+const sqlCurrentDate = () => {
+  const currentDate = new Date()
+  const currentYear = currentDate.getFullYear().toString()
+  let currentMonthNum = currentDate.getMonth() + 1
+  let currentMonth = currentMonthNum.toString()
+  currentMonth = (currentMonth.length < 2 ? '0' : '').concat(currentMonth)
+  let currentDay = currentDate.getDate().toString()
+  currentDay = (currentDay.length < 2 ? '0' : '').concat(currentDay)
+  return currentYear.concat(currentMonth.concat(currentDay))
+}
+
+const getUserById = (id) => exec(`select userName, firstName, lastName, profilePicture, wildSide, campus, email, password from users where userId = ?;`, [ id ])
+const getUserByUserName = (name) => (`select userId, firstName, lastName, profilePicture, wildSide, campus, email, password from users where userName = ?;`, [ name ])
+const addUser  = (params) => exec(`insert into users (userName, email, createdAt) values(?, ?, ?);`, [ params.name, params.email, params.createdAt ])
 const updateUser = (params) => exec(`update scores set userName = ?, firstName = ?, lastName = ?, profilePicture = ?, wildSide = ?, campus = ?, email = ?, password = ?,
       bestScore = (select max(score) from scores where userId = ? group by userId) where userId = ?;`,
       [ params.userName, params.firstName, params.lastName, params.profilePicture, params.wildSide, params.campus, params.email, params.password,
         params.userId, params.userId ])
-const addScore = (params) => exec(`insert into score (userId, score) values (?, ?);`, [params.userId, params.score])
-const getBestScores = () => exec(`select username, firstName, lastName, score, scores.createdAt from scores left join users on scores.userId = users.userId order by score desc limit 5;`)
+const addScore = (params) => exec(`insert into scores (userId, score, createdAt) values (?, ?, ?);`, [ params.userId, params.score, params.createdAt ])
+const getBestScores = () => exec(`select username, score from scores left join users on scores.userId = users.userId
+                                  order by score desc limit 5;`)
 const updateBestScore = (id) => exec(`update users set bestScore = (select max(score) from scores where userId = ? group by userId) where userId = ?;`, [ id, id ])
 
 app.use((request, response, next) => {
@@ -56,57 +68,28 @@ app.use((request, response, next) => {
   })
 })
 
-const keepBests = users => users
-  .sort((user1, user2) => user2.bestScore - user1.bestScore)
-  .slice(0, 5)
+//const keepBests = users => users
+//  .sort((user1, user2) => user2.bestScore - user1.bestScore)
+//  .slice(0, 5)
 
 app.get('/scores', (request, response) => {
-  // const usersDir = path.join(__dirname, 'database/users')
-  // readdir(usersDir, 'utf8')
-  //   .then(users => Promise.all(users
-  //     .map(user => path.join(usersDir, user))
-  //     .map(userpath => readFile(userpath, 'utf8'))))
-  //   .then(usersListValues => usersListValues.map(user => JSON.parse(user)))
-  //   .then(keepBests)
-  //   .then(users => response.json(users))
-  //   .catch(err => response.status(500).end(err.message))
-    return getBestScores()
-    .then(users =>responsejson(users))
-    .catch(err => response.status(500).end(err.message))
+  return getBestScores()
+  //.then(users => users.json())
+  .then(users => JSON.stringify(users))
+  .catch(err => response.status(500).end(err.message))
 })
 
 app.post('/addscore', (request, response, next) => {
   const params = {
     userId: request.body.playerId,
-    score: request.body.score
+    score: request.body.score,
+    createdAt: sqlCurrentDate()
   }
+  console.log(request.params.userId)
   return addScore(params)
   .then(() => updateBestScore(request.params.playerId))
   .then(() => response.json('OK'))
   .catch(next)
-  // const playerId = request.body.playerId
-  // const score = request.body.score
-  //
-  // const filename = `${playerId}.json`
-  // const filepath = path.join(__dirname, 'database/users', filename)
-  //
-  // readFile(filepath, 'utf8')
-  //   .then(JSON.parse)
-  //   .then(player => {
-  //     if (score > player.bestScore) {
-  //       console.log('NEW Best Score!')
-  //       player.bestScore = score
-  //     }
-  //     player.score.push({
-  //       id: player.score.length + 1,
-  //       score: score,
-  //       date: Date.now()
-  //     })
-  //     const newScore = JSON.stringify(player, null, 2)
-  //     return writeFile(filepath, newScore, 'utf8')
-  //   })
-  //   .then(() => response.json('OK'))
-  //   .catch(next)
 })
 
 app.post('/userProfile', (request, response, next) => {
@@ -130,7 +113,8 @@ app.post('/userProfile', (request, response, next) => {
 app.post('/user', (request, response, next) => {
   const params = {
     userName: request.body.userName,
-    email: request.body.email
+    email: request.body.email,
+    createdAt: sqlCurrentDate()
   }
   return addUser(params)
   .then(() => response.json('OK'))
