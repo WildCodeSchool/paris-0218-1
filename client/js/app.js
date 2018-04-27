@@ -1,5 +1,6 @@
 import { createScoreRow } from './components/scores.js'
 import { getScores, sendScore } from './api.js'
+// import { start } from 'repl';
 
 const requestAnimationFrame = window.requestAnimationFrame
 const cancelAnimationFrame = window.cancelAnimationFrame
@@ -17,14 +18,9 @@ const images = {
   }
 
 const playerIdBestScore = users => {
-  // console.log(users)
-  const userIndex = users.findIndex(user => state.playerId === user.id)
-  // console.log(state.userBestScore)
-  state.userBestScore = users[userIndex].bestScore
-  // console.log(state.userBestScore)
-  // return users[userIndex].bestScore
-  // ctx.fillText(`Best score : ${users[userIndex].bestScore}`, 300, 70)      
-  // console.log(users)
+  const user = users.find(user => state.playerId === user.id)
+
+  state.userBestScore = user.bestScore
 }
 
 const playerIdRank = users => {
@@ -89,49 +85,45 @@ const renderScores = users => {
 
 const teleport = offset => canvas.width + Math.random() * offset
 
-const basicState = () => {
-  const initState = {
-    playerId: 8,
-    userBestScore: 0,
-    // userBestScore: getScores().then(scores => playerIdBestScore(scores)),
-    background: {
-      x: 0,
-      y: 0,
-      width: 650,
-      height: 375,
-    },
-    deer: {
-      x: 50,
-      y: 250,
-      width: 40,
-      height: 40,
-      move: 0.42732,
-      isDead: true,
-      jumpState: 0
-    },
-    sock: {
-      x: teleport(2000),
-      y: 150,
-      width: 25,
-      height: 30,
-      move: -0.3
-    },
-    bush: {
-      x: teleport(1000),
-      y: 250,
-      width: 40,
-      height: 40,
-      move: -0.3,
-      alt:0
-    },
-    score: 0,
-    speed: 1,
-    moduloSpeed: 100,
-    frameId: -1,
-    nbSocks: 0
-  }
-  return initState
-}
+const basicState = () => ({
+  playerId: 8,
+  userBestScore: 0,
+  background: {
+    x: 0,
+    y: 0,
+    width: 650,
+    height: 375,
+  },
+  deer: {
+    x: 50,
+    y: 250,
+    width: 40,
+    height: 40,
+    move: 0.42732,
+    isDead: true,
+    jumpState: 0
+  },
+  sock: {
+    x: teleport(2000),
+    y: 150,
+    width: 25,
+    height: 30,
+    move: -0.3
+  },
+  bush: {
+    x: teleport(1000),
+    y: 250,
+    width: 40,
+    height: 40,
+    move: -0.3,
+    alt:0
+  },
+  score: 0,
+  speed: 1,
+  moduloSpeed: 100,
+  frameId: -1,
+  nbSocks: 0
+})
 
 let state = basicState()
 
@@ -211,8 +203,6 @@ const clear = () => {
 }
 
 const draw = () => {
-  getScores().then(scores => playerIdBestScore(scores))
-  
   const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
 
   clear()
@@ -360,48 +350,44 @@ document.addEventListener('keydown', e => {
   }
 })
 
-document.addEventListener('click', e => {
+canvas.addEventListener('click', e => {
   if (state.deer.isDead === false) {
     e.preventDefault()
     jump()
   }
 })
 
-
-// START
-
-// getScores().then(users => {
-//   console.log(users)
-// })
-
-getScores().then(scores => {
-  renderScores(scores)
-  // playerIdBestScore(scores)
-})
-
-draw()
-drawStart()
-
-
+const startGame = () => {
+  requestAnimationFrame(gameloop)
+    
+  const bestScore = state.userBestScore
+  
+  state = basicState()
+  state.deer.isDead = false  
+  state.userBestScore = bestScore
+}
 
 document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === true)) {
     e.preventDefault()
-    requestAnimationFrame(gameloop)
-    state = basicState()
-    state.deer.isDead = false  
+    startGame()
   }
 })
 
-document.addEventListener('click', e => {
+canvas.addEventListener('click', e => {
   if (state.deer.isDead === true) {
     e.preventDefault()
-    requestAnimationFrame(gameloop)
-    state = basicState()
-    state.deer.isDead = false  
+    startGame()
   }
 })
 
+// START
 
+getScores().then(users => {
+  renderScores(users)
+  const user = users.find(user => state.playerId === user.id)
+  state.userBestScore = user.bestScore
+})
 
+drawStart()
 
