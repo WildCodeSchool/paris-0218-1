@@ -16,11 +16,14 @@ const images = {
 }
 
 const playerIdBestScore = users => {
-  const userIndex = users.findIndex(user => state.playerId === user.id)
-  // return users[userIndex].bestScore
-  ctx.fillText(`Best score : ${users[userIndex].bestScore}`, 300, 70)      
   // console.log(users)
-  
+  const userIndex = users.findIndex(user => state.playerId === user.id)
+  // console.log(state.userBestScore)
+  state.userBestScore = users[userIndex].bestScore
+  // console.log(state.userBestScore)
+  // return users[userIndex].bestScore
+  // ctx.fillText(`Best score : ${users[userIndex].bestScore}`, 300, 70)      
+  // console.log(users)
 }
 
 const playerIdRank = users => {
@@ -88,6 +91,7 @@ const teleport = offset => canvas.width + Math.random() * offset
 const basicState = () => {
   const initState = {
     playerId: 8,
+    userBestScore: 0,
     // userBestScore: getScores().then(scores => playerIdBestScore(scores)),
     background: {
       x: 0,
@@ -144,8 +148,9 @@ const drawStart = () => {
   ctx.closePath()
 }
 
-const drawScore = (score, nbSocks) => {
-  // , userBestScore
+const drawScore = (score, nbSocks, userBestScore) => {
+
+  // console.log(userBestScore)
 
   if (!state.deer.isDead) {
     ctx.beginPath()
@@ -156,7 +161,7 @@ const drawScore = (score, nbSocks) => {
     ctx.drawImage(images.socks, 395, 30, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
     ctx.font = '15px Courier'  
-    // ctx.fillText(`Best score : ${userBestScore}`, 465, 70)    
+    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)    
     ctx.closePath()
   }
 }
@@ -204,6 +209,8 @@ const clear = () => {
 }
 
 const draw = () => {
+  getScores().then(scores => playerIdBestScore(scores))
+  
   const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
 
   clear()
@@ -215,10 +222,8 @@ const draw = () => {
   drawDeer(deer)
   
   
-  drawScore(score, nbSocks)
-  // , userBestScore
+  drawScore(score, nbSocks, userBestScore)
 
-getScores().then(scores => playerIdBestScore(scores))
   
 
   if ((deer.isDead) && (score !== 0)) {
@@ -362,7 +367,14 @@ document.addEventListener('click', e => {
 
 // START
 
-getScores().then(scores => renderScores(scores))
+// getScores().then(users => {
+//   console.log(users)
+// })
+
+getScores().then(scores => {
+  renderScores(scores)
+  // playerIdBestScore(scores)
+})
 
 draw()
 drawStart()
