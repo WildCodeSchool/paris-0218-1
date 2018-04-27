@@ -15,7 +15,15 @@ const images = {
   bush: document.getElementById('img-bush'),
 }
 
-const myPlace = users => {
+const playerIdBestScore = users => {
+  const userIndex = users.findIndex(user => state.playerId === user.id)
+  // return users[userIndex].bestScore
+  ctx.fillText(`Best score : ${users[userIndex].bestScore}`, 300, 70)      
+  // console.log(users)
+  
+}
+
+const playerIdRank = users => {
   let scoresEndGame
   let findPlayerIndex = users.findIndex(user => state.playerId === user.id)
   let findPlayerIndex2 = users.findIndex(user => state.playerId === user.id)
@@ -80,6 +88,7 @@ const teleport = offset => canvas.width + Math.random() * offset
 const basicState = () => {
   const initState = {
     playerId: 8,
+    // userBestScore: getScores().then(scores => playerIdBestScore(scores)),
     background: {
       x: 0,
       y: 0,
@@ -98,7 +107,7 @@ const basicState = () => {
     sock: {
       x: teleport(2000),
       y: 150,
-      width: 20,
+      width: 25,
       height: 30,
       move: -0.3
     },
@@ -136,13 +145,18 @@ const drawStart = () => {
 }
 
 const drawScore = (score, nbSocks) => {
+  // , userBestScore
+
   if (!state.deer.isDead) {
     ctx.beginPath()
-    ctx.textAlign = 'center'
+    ctx.textAlign = 'right'
     ctx.font = '20px Courier'
     ctx.fillStyle = 'White'
-    ctx.fillText(`🏆 Score 🏆 : ${Math.round(score)}`, 240, 25)
-    ctx.fillText(`Chausette : ${Math.round(nbSocks)}`, 240, 40)
+    ctx.fillText(`Score : ${Math.round(score)}`, 465, 25)
+    ctx.drawImage(images.socks, 395, 30, 20, 25)
+    ctx.fillText(` x ${nbSocks}`, 465, 50)
+    ctx.font = '15px Courier'  
+    // ctx.fillText(`Best score : ${userBestScore}`, 465, 70)    
     ctx.closePath()
   }
 }
@@ -156,17 +170,16 @@ const drawGameOver = () => {
 
   ctx.beginPath()
   ctx.textAlign = 'center'
-  ctx.font = '65px Courier'
+  ctx.font = '50px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Game Over`, 240, 70)
+  ctx.fillText(`Game Over`, 240, 55)
   ctx.font = '17px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Bravo, tu as attrapé ${nbSocks}`, 240, 100)
-  ctx.drawImage(images.socks, 250, 50, sock.width, sock.height)
-  ctx.fillText(`Ton score : ${Math.round(score)} points ! `, 240, 120)
-  // ctx.fillText(`Ton best score : ${score.bestScore}`, 240, 140)
+  ctx.fillText(`🏆 Ton score : ${Math.round(score)}`, 240, 90)
+  ctx.fillText(`Tu as attrapé ${nbSocks} chaussettes`, 260, 110)
+  ctx.drawImage(images.socks, 90, 90, 20, 25)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 290)
+  ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
 }
 
@@ -191,20 +204,28 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score, nbSocks } = state
+  const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
 
   clear()
-
+  
+  
   drawBackground(background)
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-
+  
+  
   drawScore(score, nbSocks)
+  // , userBestScore
+
+getScores().then(scores => playerIdBestScore(scores))
+  
 
   if ((deer.isDead) && (score !== 0)) {
     drawGameOver(score)
   }
+
+  
 }
 
 const updateSpeed = () => {
@@ -269,7 +290,7 @@ const handleDeath = () => {
       getScores()
         .then(scores => {
           renderScores(scores)
-          myPlace(scores)
+          playerIdRank(scores)
         })
     })
 }
@@ -323,12 +344,21 @@ const gameloop = (timestamp) => {
   prevTimestamp = timestamp
 }
 
+
 document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === false)) {
     e.preventDefault()
     jump()
   }
 })
+
+document.addEventListener('click', e => {
+  if (state.deer.isDead === false) {
+    e.preventDefault()
+    jump()
+  }
+})
+
 
 // START
 
@@ -337,13 +367,26 @@ getScores().then(scores => renderScores(scores))
 draw()
 drawStart()
 
+
+
 document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === true)) {
     e.preventDefault()
     requestAnimationFrame(gameloop)
     state = basicState()
-    state.deer.isDead = false
+    state.deer.isDead = false  
   }
 })
+
+document.addEventListener('click', e => {
+  if (state.deer.isDead === true) {
+    e.preventDefault()
+    requestAnimationFrame(gameloop)
+    state = basicState()
+    state.deer.isDead = false  
+  }
+})
+
+
 
 
