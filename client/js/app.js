@@ -9,28 +9,28 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
-const images = {
+
+let images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
-  bush: document.getElementById('img-bush'),
+  bush: [document.getElementById('img-bush0'),],
 }
 
-const rdmNumber = (min,max) => {
+const rdmNumber = (min, max) => {
 
   const nb = Math.random() * (max - min) + min
-  return Math.floor(nb)
+  state.rdmNb = Math.floor(nb)
 
 }
 
-
-const rdmBush = () => {
-
-  images.bush.innerHTML = `<img id="img-Bush" src="../img/bush${rdmNumber(0, 6)}.png">`
-  console.log(rdmNumber,'rdm num')
-  console.log(images.bush.innerHTML,'img')
-
+const maxBushImg = () => {
+  let i = 1
+  while (i++ < 7) {
+    images.bush.push(document.getElementById(`img-bush${i}`))
+  }
 }
+maxBushImg()
 
 const playerIdBestScore = users => {
   const user = users.find(user => state.playerId === user.id)
@@ -132,6 +132,7 @@ const basicState = () => ({
     height: 40,
     move: -0.3,
   },
+  rdmNb: 0,
   score: 0,
   speed: 1,
   moduloSpeed: 100,
@@ -201,7 +202,7 @@ const drawBackground = background => {
 }
 
 const drawBush = bush => {
-  ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)
+  ctx.drawImage(images.bush[state.rdmNb], bush.x, bush.y, bush.width, bush.height)
 }
 
 const drawSock = sock => {
@@ -320,8 +321,8 @@ const handleCollisions = () => {
   }
   // check collision with border
   if (bush.x < -bush.width) {
-    rdmBush()
     bush.x = teleport(1000)
+    rdmNumber(0, 6)
   }
 
   // sock
