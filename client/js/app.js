@@ -18,10 +18,20 @@ let images = {
 }
 
 const rdmNumber = (min, max) => {
+  let i = 0
+  let nb = Math.random() * (max - min) + min
 
-  const nb = Math.random() * (max - min) + min
   state.rdmNb = Math.floor(nb)
 
+  //luck to draw First bush than other
+  while (i++ < 1) {
+    if (state.rdmNb !== 0) {
+      nb = Math.random() * (max - min) + min
+      state.rdmNb = Math.floor(nb)
+    }
+    else
+      return
+  }
 }
 
 const maxBushImg = () => {
