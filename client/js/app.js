@@ -12,6 +12,7 @@ const scoreListElement = document.getElementById('score_list')
 
 let images = {
   background: document.getElementById('img-background'),
+  sound: document.getElementById('img-sound0'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),],
