@@ -16,7 +16,7 @@ let images = {
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),],
-  sound: document.getElementById('img-sound1'),
+  sound: document.getElementById('img-sound0'),
 }
 
 const sockSound = new Audio('sound/sockSound.mp3')
@@ -112,22 +112,6 @@ const renderScores = users => {
     .map(createScoreRow)
     .join('')
 }
-
-canvas.addEventListener('click', eventListen => {
-  const { sound } = state
-  let leftToCanvas = canvas.offsetLeft
-  let topToCanvas = canvas.offsetTop
-  let mousePos = getMousePos(canvas, eventListen)
-
-  if (mousePos.x < 45 && mousePos.y < 45) {
-    sound.mode = !sound.mode
-  }
-  if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
-  else { images.sound = document.getElementById('img-sound0') }
-
-  event(eventListen)
-})
-
 
 const getMousePos = (canvas, eventListen) => {
   let canvasPos = canvas.getBoundingClientRect()
@@ -423,12 +407,31 @@ document.addEventListener('keydown', e => {
   }
 })
 
-canvas.addEventListener('click', e => {
+
+canvas.addEventListener('click', eventListen => {
+  const { sound } = state
+  let leftToCanvas = canvas.offsetLeft
+  let topToCanvas = canvas.offsetTop
+  let mousePos = getMousePos(canvas, eventListen)
+
+  if (mousePos.x < 45 && mousePos.y < 45) {
+    sound.mode = !sound.mode
+  }
+  if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
+  else { images.sound = document.getElementById('img-sound0') }
+
   if (state.deer.isDead === false) {
-    e.preventDefault()
+    eventListen.preventDefault()
     jump()
   }
+  else if (eventListen)
+  {
+    eventListen.preventDefault()
+    startGame()
+  }
+  // console.log(eventListen)
 })
+
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
@@ -442,13 +445,6 @@ const startGame = () => {
 
 document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === true)) {
-    e.preventDefault()
-    startGame()
-  }
-})
-
-canvas.addEventListener('click', e => {
-  if (state.deer.isDead === true) {
     e.preventDefault()
     startGame()
   }
