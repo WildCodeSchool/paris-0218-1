@@ -16,6 +16,7 @@ let images = {
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),],
+  sound: document.getElementById('img-sound1'),
 }
 
 const rdmNumber = (min, max) => {
@@ -108,6 +109,30 @@ const renderScores = users => {
     .join('')
 }
 
+canvas.addEventListener('click', eventListen => {
+  const { sound } = state
+  let leftToCanvas = canvas.offsetLeft
+  let topToCanvas = canvas.offsetTop
+  let mousePos = getMousePos(canvas, eventListen)
+
+  if (mousePos.x < 45 && mousePos.y < 45) {
+    sound.mode = !sound.mode
+    if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
+    else { images.sound = document.getElementById('img-sound0') }
+  }
+
+  event(eventListen)
+})
+
+
+const getMousePos = (canvas, eventListen) => {
+  let canvasPos = canvas.getBoundingClientRect()
+
+  return {
+    x: eventListen.clientX - canvasPos.left,
+    y: eventListen.clientY - canvasPos.top
+  }
+}
 
 const teleport = offset => canvas.width + Math.random() * offset
 
@@ -143,6 +168,13 @@ const basicState = () => ({
     height: 40,
     move: -0.3,
   },
+  sound: {
+    x: 5,
+    y: 5,
+    width: 35,
+    height: 35,
+    mode: true
+  },
   rdmNb: 0,
   score: 0,
   speed: 1,
@@ -152,7 +184,6 @@ const basicState = () => ({
 })
 
 let state = basicState()
-
 
 const drawStart = () => {
   ctx.beginPath()
@@ -206,6 +237,9 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
+  if (state.sound.mode)
+  {gameOverSound.play()}
+  }
 }
 
 const drawBackground = background => {
@@ -214,6 +248,10 @@ const drawBackground = background => {
 
 const drawBush = bush => {
   ctx.drawImage(images.bush[state.rdmNb], bush.x, bush.y, bush.width, bush.height)
+}
+
+const drawSound = sound => {
+  ctx.drawImage(images.sound, sound.x, sound.y, sound.width, sound.height)
 }
 
 const drawSock = sock => {
@@ -229,7 +267,7 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
+  const { background, deer, bush, sock, score, sound, nbSocks, userBestScore } = state
 
   clear()
 
@@ -238,7 +276,7 @@ const draw = () => {
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-
+  drawSound(sound)
 
   drawScore(score, nbSocks, userBestScore)
 
@@ -340,6 +378,10 @@ const handleCollisions = () => {
   if (collides(deer, sock)) {
     handlePickupSock()
     state.nbSocks++
+    if (state.sound.mode)
+      {sockSound.play()}
+  }
+
   }
   // check collision with border
   if (sock.x < -sock.width) {
