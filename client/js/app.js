@@ -12,10 +12,12 @@ const scoreListElement = document.getElementById('score_list')
 const images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
-  socks: document.getElementById('img-socks'),
+  sock: document.getElementById('img-sock'),
+  superSock1: document.getElementById('img-superSock1'), 
+  superSock2: document.getElementById('img-superSock2'),   
   bush: [document.getElementById('img-bush0'),
-        document.getElementById('img-bush1')]
-  }
+  document.getElementById('img-bush1')]
+}
 
 const playerIdBestScore = users => {
   const user = users.find(user => state.playerId === user.id)
@@ -27,19 +29,19 @@ const playerIdRank = users => {
   let scoresEndGame
   let findPlayerIndex = users.findIndex(user => state.playerId === user.id)
   let findPlayerIndex2 = users.findIndex(user => state.playerId === user.id)
-    
+
   if (findPlayerIndex === 0) {
     scoresEndGame = users.slice(findPlayerIndex, findPlayerIndex + 5)
   }
-  else if (findPlayerIndex === 1){
+  else if (findPlayerIndex === 1) {
     scoresEndGame = users.slice(findPlayerIndex - 1, findPlayerIndex + 4)
-    findPlayerIndex = findPlayerIndex  - 1
+    findPlayerIndex = findPlayerIndex - 1
   }
-  else if (findPlayerIndex === users.length - 2){
+  else if (findPlayerIndex === users.length - 2) {
     scoresEndGame = users.slice(findPlayerIndex - 3, findPlayerIndex + 2)
     findPlayerIndex = findPlayerIndex - 3
   }
-  else if (findPlayerIndex === users.length - 1){
+  else if (findPlayerIndex === users.length - 1) {
     scoresEndGame = users.slice(findPlayerIndex - 4, findPlayerIndex + 1)
     findPlayerIndex = findPlayerIndex - 4
   }
@@ -47,18 +49,18 @@ const playerIdRank = users => {
     scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
     findPlayerIndex = findPlayerIndex - 2
   }
-  
-  
+
+
   let i = 0
   scoresEndGame.map(user1 => {
-    
+
     ctx.beginPath()
     ctx.moveTo(100, 168 + (22 * i))
     ctx.lineTo(390, 168 + (22 * i))
     ctx.stroke()
     ctx.font = '12px Courier'
-    
-    if (findPlayerIndex + i === findPlayerIndex2){
+
+    if (findPlayerIndex + i === findPlayerIndex2) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
       // ctx.fillRect(120, 160, 415,(22 * i));
       ctx.font = '17px Courier'
@@ -91,8 +93,8 @@ const basicState = () => ({
   background: {
     x: 0,
     y: 0,
-    width: 650,
-    height: 375,
+    width: 480,
+    height: 320,
   },
   deer: {
     x: 50,
@@ -110,13 +112,27 @@ const basicState = () => ({
     height: 30,
     move: -0.3
   },
+  superSock1: {
+    x: teleport(15000),
+    y: 150,
+    width: 50,
+    height: 55,
+    move: -0.3
+  },
+  superSock2: {
+    x: teleport(15000),
+    y: 150,
+    width: 50,
+    height: 55,
+    move: -0.3
+  },
   bush: {
     x: teleport(1000),
     y: 250,
     width: 40,
     height: 40,
     move: -0.3,
-    alt:0
+    alt: 0
   },
   score: 0,
   speed: 1,
@@ -152,10 +168,10 @@ const drawScore = (score, nbSocks, userBestScore) => {
     ctx.font = '20px Courier'
     ctx.fillStyle = 'White'
     ctx.fillText(`Score : ${Math.round(score)}`, 465, 25)
-    ctx.drawImage(images.socks, 395, 30, 20, 25)
+    ctx.drawImage(images.sock, 400, 32, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
-    ctx.font = '15px Courier'  
-    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)    
+    ctx.font = '13px Courier'
+    ctx.fillText(`Meilleur score : ${userBestScore}`, 465, 70)
     ctx.closePath()
   }
 }
@@ -176,7 +192,7 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`🏆 Ton score : ${Math.round(score)}`, 240, 90)
   ctx.fillText(`Tu as attrapé ${nbSocks} chaussettes`, 260, 110)
-  ctx.drawImage(images.socks, 90, 90, 20, 25)
+  ctx.drawImage(images.sock, 90, 90, 20, 25)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
@@ -191,7 +207,52 @@ const drawBush = bush => {
 }
 
 const drawSock = sock => {
-  ctx.drawImage(images.socks, sock.x, sock.y, sock.width, sock.height)
+  ctx.drawImage(images.sock, sock.x, sock.y, sock.width, sock.height)
+}
+
+const drawEffectSock = () => {
+  console.log("blabla")
+  ctx.font = '50px Courier'
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`BRAVO`, 240, 90)
+}
+
+const drawsuperSock1 = (sock, superSock1, score) => {
+  const distanceSocks = superSock1.x - sock.x
+  // console.log(distanceSocks)
+  if (score > 500 && (distanceSocks < 5) && (distanceSocks > -5)) {
+    // console.log("bah")
+    superSock1.x = teleport(15000)
+  }
+
+  if (score > 500) {
+    // console.log(superSock1.x)
+    ctx.drawImage(images.superSock1, superSock1.x, superSock1.y, superSock1.width, superSock1.height)
+  }
+
+  if (superSock1.x < 0) {
+    superSock1.x = teleport(15000)
+  }
+
+
+}
+
+const drawsuperSock2 = (sock, superSock2, score) => {
+  const distanceSocks = superSock2.x - sock.x
+  if (score > 500 && (distanceSocks < 5) && (distanceSocks > -5)) {
+    superSock2.x = teleport(15000)
+  }
+
+  if (score > 1500) {
+    console.log("1500 !")
+    ctx.drawImage(images.superSock2, superSock2.x, superSock2.y, superSock2.width, superSock2.height)
+  }
+
+  if (superSock2.x < 0) {
+    superSock2.x = teleport(15000)
+  }
+
+
 }
 
 const drawDeer = deer => {
@@ -203,26 +264,28 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
+  const { background, deer, bush, sock, superSock1, superSock2, score, nbSocks, userBestScore } = state
 
   clear()
-  
-  
+
+
   drawBackground(background)
   drawBush(bush)
   drawSock(sock)
-  drawDeer(deer)
-  
-  
-  drawScore(score, nbSocks, userBestScore)
 
+  drawsuperSock1(sock, superSock1, score)
+  drawsuperSock2(sock, superSock2, score)
   
+
+  drawDeer(deer)
+
+
+  drawScore(score, nbSocks, userBestScore)
 
   if ((deer.isDead) && (score !== 0)) {
     drawGameOver(score)
   }
 
-  
 }
 
 const updateSpeed = () => {
@@ -257,9 +320,19 @@ const moveSock = (deltaTime) => {
   state.sock.x += state.sock.move * deltaTime * state.speed
 }
 
+const movesuperSock1 = (deltaTime) => {
+  state.superSock1.x += state.superSock1.move * deltaTime * state.speed
+}
+
+const movesuperSock2 = (deltaTime) => {
+  state.superSock2.x += state.superSock2.move * deltaTime * state.speed
+}
+
 const update = (deltaTime) => {
   moveBush(deltaTime)
   moveSock(deltaTime)
+  movesuperSock1(deltaTime)
+  movesuperSock2(deltaTime)  
   moveDeer(deltaTime)
 
   updateScore(deltaTime)
@@ -293,12 +366,24 @@ const handleDeath = () => {
 }
 
 const handlePickupSock = () => {
+  drawEffectSock()
   state.score += 100
   state.sock.x = teleport(2000)
 }
 
+const handlePickupsuperSock1 = () => {
+  state.score += 200
+  state.superSock1.x = teleport(15000)
+}
+
+const handlePickupsuperSock2 = () => {
+  state.speed = 1,
+  state.moduloSpeed = 100,
+  state.superSock2.x = teleport(15000)
+}
+
 const handleCollisions = () => {
-  const { deer, sock, bush } = state
+  const { deer, sock, superSock1, superSock2, bush } = state
 
   // bush
   if (collides(deer, bush)) {
@@ -315,6 +400,19 @@ const handleCollisions = () => {
     handlePickupSock()
     state.nbSocks++
   }
+
+  // super sock 1
+  if (collides(deer, superSock1)) {
+    handlePickupsuperSock1()
+    state.nbSocks++
+  }
+
+  // super sock 2
+  if (collides(deer, superSock2)) {
+    handlePickupsuperSock2()
+    state.nbSocks++
+  }
+
   // check collision with border
   if (sock.x < -sock.width) {
     sock.x = teleport(2000)
@@ -359,11 +457,11 @@ canvas.addEventListener('click', e => {
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
-    
+
   const bestScore = state.userBestScore
-  
+
   state = basicState()
-  state.deer.isDead = false  
+  state.deer.isDead = false
   state.userBestScore = bestScore
 }
 
