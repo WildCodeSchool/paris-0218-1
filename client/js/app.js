@@ -239,6 +239,7 @@ const drawsuperSock1 = (sock, superSock1, score) => {
 
 const drawsuperSock2 = (sock, superSock2, score) => {
   const distanceSocks = superSock2.x - sock.x
+  
   if (score > 500 && (distanceSocks < 5) && (distanceSocks > -5)) {
     superSock2.x = teleport(15000)
   }
@@ -251,7 +252,6 @@ const drawsuperSock2 = (sock, superSock2, score) => {
   if (superSock2.x < 0) {
     superSock2.x = teleport(15000)
   }
-
 
 }
 
