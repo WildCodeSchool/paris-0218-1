@@ -19,6 +19,8 @@ let images = {
   sound: document.getElementById('img-sound1'),
 }
 
+const gameOverSound =
+
 const rdmNumber = (min, max) => {
   let i = 0
   let nb = Math.random() * (max - min) + min
@@ -239,8 +241,8 @@ const drawGameOver = () => {
   ctx.closePath()
   if (state.sound.mode)
   {gameOverSound.play()}
-  }
 }
+
 
 const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
@@ -382,7 +384,7 @@ const handleCollisions = () => {
       {sockSound.play()}
   }
 
-  }
+
   // check collision with border
   if (sock.x < -sock.width) {
     sock.x = teleport(2000)
