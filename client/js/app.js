@@ -19,7 +19,9 @@ let images = {
   sound: document.getElementById('img-sound1'),
 }
 
-const gameOverSound =
+const sockSound = new Audio('sound/sockSound.mp3')
+const gameOverSound = new Audio('sound/gameOverSound.mp3')
+
 
 const rdmNumber = (min, max) => {
   let i = 0
@@ -119,9 +121,9 @@ canvas.addEventListener('click', eventListen => {
 
   if (mousePos.x < 45 && mousePos.y < 45) {
     sound.mode = !sound.mode
-    if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
-    else { images.sound = document.getElementById('img-sound0') }
   }
+  if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
+  else { images.sound = document.getElementById('img-sound0') }
 
   event(eventListen)
 })
@@ -175,7 +177,7 @@ const basicState = () => ({
     y: 5,
     width: 35,
     height: 35,
-    mode: true
+    mode: false
   },
   rdmNb: 0,
   score: 0,
@@ -220,7 +222,7 @@ const drawScore = (score, nbSocks, userBestScore) => {
 }
 
 const drawGameOver = () => {
-  const { sock, score, nbSocks } = state
+  const { sock, score, nbSocks, sound } = state
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
   ctx.fillRect(0, 0, 480, 320);
@@ -239,8 +241,9 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
-  if (state.sound.mode)
-  {gameOverSound.play()}
+
+  if (sound.mode)
+    gameOverSound.play()
 }
 
 
@@ -381,7 +384,7 @@ const handleCollisions = () => {
     handlePickupSock()
     state.nbSocks++
     if (state.sound.mode)
-      {sockSound.play()}
+      sockSound.play()
   }
 
 
