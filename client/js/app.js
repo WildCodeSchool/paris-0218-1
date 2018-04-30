@@ -131,7 +131,7 @@ const basicState = () => ({
     x: 0,
     y: 0,
     width: 650,
-    height: 375,
+    height: 320,
     move: -0.05,
   },
   deer: {
