@@ -7,16 +7,31 @@ const sectionEditProfile = document.getElementById('edit_profil')
 const showProfile = user => sectionInfoProfile.innerHTML = createProfile(user)
 const updateProfile = user => sectionEditProfile.innerHTML = editProfile(user)
 
+sectionEditProfile.style.display = 'none'
+sectionInfoProfile.style.display = 'block'
 
-getProfile()
-  .then(user => {
-  showProfile(user)
-  updateProfile(user)
+const start = async () => {
+  // get profile
+  await getProfile()
+    .then(user => {
+      showProfile(user)
+      updateProfile(user)
+    })
+
+  // read profile
+  const editButton = document.getElementById('edit_button')
+  editButton.addEventListener('click', event => {
+    event.preventDefault()
+    console.log('clic')
+    sectionInfoProfile.style.display = 'none'
+    sectionEditProfile.style.display = 'block'
+  })
 
   const formProfile = document.getElementById('edit_form')
   const messageElement = document.getElementById('error_message')
   const handleErrors = res => messageElement.innerHTML = res.error || ''
 
+  // edit profile
   formProfile.addEventListener('submit', event => {
     event.preventDefault()
 
@@ -36,21 +51,17 @@ getProfile()
       .then(handleErrors)
       .then(() => {
         getProfile()
-          .then(user => showProfile(user))
+          .then(user => {
+            showProfile(user)
+            sectionInfoProfile.style.display = 'block'
+            sectionEditProfile.style.display = 'none'
+            start()
+          })
       .catch(err => console.log('error ' + err.message))
       })
 
     .catch(err => console.log('error ' + err.message))
-    })
   })
+}
 
-// getProfile()
-//   .then(user => showProfile(user))
-//   .then(() => {
-//     const editButton = document.getElementById('edit')
-//     console.log(`yo`);
-//     editButton.addEventListener('clic', event => {
-//       event.preventDefault()
-//       console.log('clic')
-//     })
-//   })
+start()
