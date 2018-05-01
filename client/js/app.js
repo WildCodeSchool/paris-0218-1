@@ -118,7 +118,7 @@ const basicState = () => ({
     move: -0.3,
     alt: 0
   },
-  score: 0,
+  score: 1,
   speed: 1,
   moduloSpeed: 100,
   frameId: -1,
@@ -180,6 +180,7 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
+
 }
 
 const drawBackground = background => {
@@ -343,9 +344,6 @@ const gameloop = (timestamp) => {
   prevTimestamp = timestamp
 }
 
-
-
-
 document.addEventListener('keydown', e => {
   eventStart(e)
 })
@@ -358,34 +356,26 @@ canvas.addEventListener('click', e => {
 const eventStart = (e) => {
 
   e.preventDefault()
-  if (!state.deer.isDead && !state.score) {
-    console.log('pret')
-  }
-  else if (state.deer.isDead === true) {
-    console.log('j attend')
 
-        setTimeout(() => {
-          startGame()
-        }, 3000);
-        state = basicState()
-        state.deer.isDead = false
+  if (state.deer.isDead === true && state.score) {
+    state.score = 0
+    console.log('chronos appel', state.deer.isDead)
+
+    setTimeout(() => {
+      console.log('jspr chronos vient', state.deer.isDead)
+      state = basicState()
+      state.deer.isDead = false
+      state.score = 0
+    }, 1700)
     // || ((e.code === 'Space') && (state.deer.isDead === true))) {
   }
   else {
-    jump()
+    if (!state.deer.isDead && !state.score)
+      startGame()
+    else
+      jump()
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
@@ -406,4 +396,3 @@ getScores().then(users => {
 })
 
 drawStart()
-
