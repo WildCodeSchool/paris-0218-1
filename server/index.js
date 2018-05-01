@@ -83,6 +83,10 @@ app.post('/sign-up', async (req, res, next) => {
     return next(Error('Username already exists'))
   }
 
+  user.firstName = ""
+  user.lastName = ""
+  user.campus = ""
+  user.avatar = ""
   user.bestScore = 0
   user.score = []
 
