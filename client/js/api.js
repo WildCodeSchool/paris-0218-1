@@ -58,3 +58,5 @@ export const signOut = () => {
   return fetch('http://localhost:3000/sign-out', { 'credentials': 'include' })
     .then(res => res.json())
 }
+export const getProfile = () => fetch('http://localhost:3000/profile', { 'credentials': 'include' })
+  .then(res => res.json())

@@ -139,6 +139,14 @@ app.get('/sign-out', (req, res, next) => {
   res.json(req.session.user)
 })
 
+// PROFILE
+// Get user profile
+app.get('/profile', (req, res) => {
+  const userId = req.session.user.id
+
+  db.getUserById(userId)
+    .then(user => res.json(user))
+})
 app.use((err, req, res, next) => {
   if (err) {
     res.json({ message: err.message })
