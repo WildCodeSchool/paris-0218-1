@@ -379,7 +379,11 @@ const eventStart = (e) => {
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
-
+  getScores().then(users => {
+    renderScores(users)
+    const user = users.find(user => state.playerId === user.id)
+    state.userBestScore = user.bestScore
+  })
   const bestScore = state.userBestScore
 
   state = basicState()
