@@ -38,6 +38,7 @@ export const editProfile = user => `
       <input id="edit_wild_side" type="text" placeholder="${user.wildside}" name="wildside">
     </label><br/>
     <label for="edit_profile_picture">Profile picture:
+      <img src="http://localhost:3000/images/${user.avatar}">
       <input type="file" name="avatar">
     </label><br/>
     <input type="submit" value="Save update">
