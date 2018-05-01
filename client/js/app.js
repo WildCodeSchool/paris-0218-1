@@ -280,6 +280,7 @@ const collides = (rect1, rect2) => {
 
 const handleDeath = () => {
   state.deer.isDead = true
+
   cancelAnimationFrame(state.frameId)
 
   sendScore(state.playerId, state.score, state.nbSocks)
@@ -297,12 +298,12 @@ const handlePickupSock = () => {
   state.sock.x = teleport(2000)
 }
 
-const handleCollisions = () => {
+const handleCollisions = (deltaTime) => {
   const { deer, sock, bush } = state
 
   // bush
   if (collides(deer, bush)) {
-    handleDeath()
+    handleDeath(deltaTime)
   }
   // check collision with border
   if (bush.x < -bush.width) {
@@ -343,6 +344,8 @@ const gameloop = (timestamp) => {
 }
 
 
+
+
 document.addEventListener('keydown', e => {
   eventStart(e)
 })
@@ -353,15 +356,35 @@ canvas.addEventListener('click', e => {
 
 
 const eventStart = (e) => {
-  if ((state.deer.isDead === true) || ((e.code === 'Space') && (state.deer.isDead === true))) {
-    e.preventDefault()
-    startGame()
+
+  e.preventDefault()
+  if (!state.deer.isDead && !state.score) {
+    console.log('pret')
+  }
+  else if (state.deer.isDead === true) {
+    console.log('j attend')
+
+        setTimeout(() => {
+          startGame()
+        }, 3000);
+        state = basicState()
+        state.deer.isDead = false
+    // || ((e.code === 'Space') && (state.deer.isDead === true))) {
   }
   else {
-    e.preventDefault()
     jump()
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 const startGame = () => {
