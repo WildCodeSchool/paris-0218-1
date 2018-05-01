@@ -163,6 +163,18 @@ const basicState = () => ({
     height: 35,
     mode: false
   },
+  restart: {
+    x: 100,
+    y: 245,
+    width: 110,
+    height: 32,
+  },
+  rank: {
+    x: 280,
+    y: 245,
+    width: 110,
+    height: 32,
+  },
   rdmNb: 0,
   score: 0,
   speed: 1,
@@ -416,10 +428,23 @@ document.addEventListener('keydown', e => {
 
 
 canvas.addEventListener('click', eventListen => {
-  const { sound } = state
+  const { sound, restart, rank, } = state
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, eventListen)
+
+  if (mousePos.x > restart.x && mousePos.y > restart.y
+    && mousePos.y < restart.y + restart.height
+    && mousePos.x < restart.x + restart.width && state.deer.isDead) {
+    console.log('restart')
+
+    startGame()
+  }
+  else if (mousePos.x > rank.x && mousePos.y > rank.y
+    && mousePos.y < rank.y + rank.height
+    && mousePos.x < rank.x + rank.width && state.deer.isDead) {
+    console.log('need charge new page with classement')
+  }
 
   if (mousePos.x < 45 && mousePos.y < 45) {
     sound.mode = !sound.mode
@@ -431,8 +456,7 @@ canvas.addEventListener('click', eventListen => {
     eventListen.preventDefault()
     jump()
   }
-  else if (eventListen)
-  {
+  else if (eventListen) {
     eventListen.preventDefault()
     startGame()
   }
