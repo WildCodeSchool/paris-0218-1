@@ -147,6 +147,20 @@ app.get('/profile', (req, res) => {
   db.getUserById(userId)
     .then(user => res.json(user))
 })
+
+// Update profile - image uploads
+// app.post('/update-profile', upload.single('avatar'), async (req, res, next) => {
+app.post('/update-profile', async (req, res, next) => {
+    const userId = req.session.user.id
+    const personalInfo = req.body
+    const newAvatar = req.file
+
+    db.addPersonalInformations(userId, personalInfo, newAvatar)
+      .then(() => res.json('ok'))
+      .catch(next)
+  })
+})
+
 app.use((err, req, res, next) => {
   if (err) {
     res.json({ message: err.message })
