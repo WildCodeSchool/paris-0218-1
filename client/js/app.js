@@ -110,21 +110,27 @@ const basicState = () => ({
     y: 150,
     width: 25,
     height: 30,
-    move: -0.3
+    move: -0.3,
+    catch: false,
+    catchPositionX: 0 
   },
   superSock1: {
     x: teleport(15000),
     y: 150,
     width: 50,
     height: 55,
-    move: -0.3
+    move: -0.3,
+    catch: false,
+    catchPositionX: 0
   },
   superSock2: {
     x: teleport(15000),
     y: 150,
     width: 50,
     height: 55,
-    move: -0.3
+    move: -0.3,
+    catch: false,
+    catchPositionX: 0
   },
   bush: {
     x: teleport(1000),
@@ -210,11 +216,25 @@ const drawSock = sock => {
   ctx.drawImage(images.sock, sock.x, sock.y, sock.width, sock.height)
 }
 
-const drawEffectSock = () => {
-  console.log("blabla")
-  ctx.font = '50px Courier'
-  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`BRAVO`, 240, 90)
+const drawEffectSock = (deer, sock) => {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  ctx.drawImage(images.sock, sock.catchPositionX - (sock.width / 2), sock.y - (sock.height / 2), sock.width * 1.5, sock.height * 1.5)
+  setTimeout(() => sock.catch = false, 50)
+}
+
+const drawEffectSuperSock1 = (deer, superSock1) => {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  ctx.drawImage(images.superSock1, superSock1.catchPositionX - (superSock1.width / 2), superSock1.y - (superSock1.height / 2), superSock1.width * 1.5, superSock1.height * 1.5)
+  setTimeout(() => superSock1.catch = false, 50)
+}
+
+const drawEffectSuperSock2 = (deer, superSock2) => {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  ctx.drawImage(images.superSock2, superSock2.catchPositionX - (superSock2.width / 2), superSock2.y - (superSock2.height / 2), superSock2.width * 1.5, superSock2.height * 1.5)
+  setTimeout(() => superSock2.catch = false, 50)
 }
 
 const drawsuperSock1 = (sock, superSock1, score) => {
@@ -233,7 +253,6 @@ const drawsuperSock1 = (sock, superSock1, score) => {
   if (superSock1.x < 0) {
     superSock1.x = teleport(15000)
   }
-
 
 }
 
@@ -276,15 +295,27 @@ const draw = () => {
   drawsuperSock1(sock, superSock1, score)
   drawsuperSock2(sock, superSock2, score)
   
-
   drawDeer(deer)
-
-
+  
   drawScore(score, nbSocks, userBestScore)
+
+  if (sock.catch) {
+    drawEffectSock(deer, sock)
+  }
+
+  if (superSock1.catch) {
+    console.log("blabla")
+    drawEffectSuperSock1(deer, superSock1)
+  }
+
+  if (superSock2.catch) {
+    drawEffectSuperSock2(deer, superSock2)
+  }
 
   if ((deer.isDead) && (score !== 0)) {
     drawGameOver(score)
   }
+
 
 }
 
@@ -366,7 +397,6 @@ const handleDeath = () => {
 }
 
 const handlePickupSock = () => {
-  drawEffectSock()
   state.score += 100
   state.sock.x = teleport(2000)
 }
@@ -397,18 +427,23 @@ const handleCollisions = () => {
 
   // sock
   if (collides(deer, sock)) {
+    sock.catchPositionX = sock.x
     handlePickupSock()
+    sock.catch = true
     state.nbSocks++
   }
 
   // super sock 1
   if (collides(deer, superSock1)) {
+    superSock1.catchPositionX = superSock1.x
+    console.log(superSock1.catchPositionX)
     handlePickupsuperSock1()
     state.nbSocks++
   }
 
   // super sock 2
   if (collides(deer, superSock2)) {
+    superSock2.catchPositionX = superSock2.x
     handlePickupsuperSock2()
     state.nbSocks++
   }
