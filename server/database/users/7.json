@@ -1,4 +1,8 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"",
+  "avatar":"default.jpg",
   "id": 7,
   "username": "Yoyo le Magnifik",
   "email": "yoyo@wcs.com",
