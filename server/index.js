@@ -187,9 +187,10 @@ app.post('/update-profile', async (req, res, next) => {
   })
 })
 
+// ERRORS
 app.use((err, req, res, next) => {
   if (err) {
-    res.json({ message: err.message })
+    res.json({ error: err.message })
     console.error(err)
   }
 
