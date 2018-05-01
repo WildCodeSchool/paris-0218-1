@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const fileStore = require('session-file-store')(session)
+const multer = require('multer')
+const path = require('path')
 
 const port = 3000
 const secret = 'something wild'
@@ -15,6 +17,19 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// multer set up
+const uploadDir = path.join(__dirname, 'public/images')
+
+const storage = multer.diskStorage({
+  destination: uploadDir,
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({
+  storage: storage,
+}).single('avatar')
 // Headers middleware
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin)
