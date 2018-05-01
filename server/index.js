@@ -29,6 +29,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  fileFilter: (req, file, cb) => { //accepts only images
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+      req.fileValidationError = 'invalid file type'
+      return cb(new Error('invalid file type'), false)
+    }
+    cb(null, true)
+  },
+  limits: { // limited at 5 Mo
+    fileSize: 5000000,
+  }
 }).single('avatar')
 
 // images - authorize Access
@@ -155,6 +166,17 @@ app.get('/profile', (req, res) => {
 // Update profile - image uploads
 // app.post('/update-profile', upload.single('avatar'), async (req, res, next) => {
 app.post('/update-profile', async (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.log('there is an error', err)
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.json({error: 'file too big'});
+      }
+      if (req.fileValidationError) {
+        return res.json({ error: 'Invalid type file' })
+      }
+    }
+
     const userId = req.session.user.id
     const personalInfo = req.body
     const newAvatar = req.file

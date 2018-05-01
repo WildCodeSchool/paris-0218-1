@@ -14,6 +14,9 @@ getProfile()
   updateProfile(user)
 
   const formProfile = document.getElementById('edit_form')
+  const messageElement = document.getElementById('error_message')
+  const handleErrors = res => messageElement.innerHTML = res.error || ''
+
   formProfile.addEventListener('submit', event => {
     event.preventDefault()
 
@@ -24,7 +27,13 @@ getProfile()
       password: formData.get('password'),
       repeatPassword: formData.get('repeat_password')
     }
+
+    if (credentials.password !== credentials.repeatPassword) {
+      return messageElement.innerHTML = 'Error with passwords'
+    }
+
     sendNewProfile(formData)
+      .then(handleErrors)
       .then(() => {
         getProfile()
           .then(user => showProfile(user))
