@@ -14,8 +14,8 @@ const images = {
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),
-        document.getElementById('img-bush1')]
-  }
+  document.getElementById('img-bush1')]
+}
 
 const playerIdBestScore = users => {
   const user = users.find(user => state.playerId === user.id)
@@ -27,19 +27,19 @@ const playerIdRank = users => {
   let scoresEndGame
   let findPlayerIndex = users.findIndex(user => state.playerId === user.id)
   let findPlayerIndex2 = users.findIndex(user => state.playerId === user.id)
-    
+
   if (findPlayerIndex === 0) {
     scoresEndGame = users.slice(findPlayerIndex, findPlayerIndex + 5)
   }
-  else if (findPlayerIndex === 1){
+  else if (findPlayerIndex === 1) {
     scoresEndGame = users.slice(findPlayerIndex - 1, findPlayerIndex + 4)
-    findPlayerIndex = findPlayerIndex  - 1
+    findPlayerIndex = findPlayerIndex - 1
   }
-  else if (findPlayerIndex === users.length - 2){
+  else if (findPlayerIndex === users.length - 2) {
     scoresEndGame = users.slice(findPlayerIndex - 3, findPlayerIndex + 2)
     findPlayerIndex = findPlayerIndex - 3
   }
-  else if (findPlayerIndex === users.length - 1){
+  else if (findPlayerIndex === users.length - 1) {
     scoresEndGame = users.slice(findPlayerIndex - 4, findPlayerIndex + 1)
     findPlayerIndex = findPlayerIndex - 4
   }
@@ -47,18 +47,18 @@ const playerIdRank = users => {
     scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
     findPlayerIndex = findPlayerIndex - 2
   }
-  
-  
+
+
   let i = 0
   scoresEndGame.map(user1 => {
-    
+
     ctx.beginPath()
     ctx.moveTo(100, 168 + (22 * i))
     ctx.lineTo(390, 168 + (22 * i))
     ctx.stroke()
     ctx.font = '12px Courier'
-    
-    if (findPlayerIndex + i === findPlayerIndex2){
+
+    if (findPlayerIndex + i === findPlayerIndex2) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
       // ctx.fillRect(120, 160, 415,(22 * i));
       ctx.font = '17px Courier'
@@ -116,7 +116,7 @@ const basicState = () => ({
     width: 40,
     height: 40,
     move: -0.3,
-    alt:0
+    alt: 0
   },
   score: 0,
   speed: 1,
@@ -154,8 +154,8 @@ const drawScore = (score, nbSocks, userBestScore) => {
     ctx.fillText(`Score : ${Math.round(score)}`, 465, 25)
     ctx.drawImage(images.socks, 395, 30, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
-    ctx.font = '15px Courier'  
-    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)    
+    ctx.font = '15px Courier'
+    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)
     ctx.closePath()
   }
 }
@@ -206,23 +206,23 @@ const draw = () => {
   const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
 
   clear()
-  
-  
+
+
   drawBackground(background)
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-  
-  
+
+
   drawScore(score, nbSocks, userBestScore)
 
-  
+
 
   if ((deer.isDead) && (score !== 0)) {
     drawGameOver(score)
   }
 
-  
+
 }
 
 const updateSpeed = () => {
@@ -344,42 +344,35 @@ const gameloop = (timestamp) => {
 
 
 document.addEventListener('keydown', e => {
-  if ((e.code === 'Space') && (state.deer.isDead === false)) {
-    e.preventDefault()
-    jump()
-  }
+  eventStart(e)
 })
 
 canvas.addEventListener('click', e => {
-  if (state.deer.isDead === false) {
+  eventStart(e)
+})
+
+
+const eventStart = (e) => {
+  if ((state.deer.isDead === true) || ((e.code === 'Space') && (state.deer.isDead === true))) {
+    e.preventDefault()
+    startGame()
+  }
+  else {
     e.preventDefault()
     jump()
   }
-})
+}
+
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
-    
+
   const bestScore = state.userBestScore
-  
+
   state = basicState()
-  state.deer.isDead = false  
+  state.deer.isDead = false
   state.userBestScore = bestScore
 }
-
-document.addEventListener('keydown', e => {
-  if ((e.code === 'Space') && (state.deer.isDead === true)) {
-    e.preventDefault()
-    startGame()
-  }
-})
-
-canvas.addEventListener('click', e => {
-  if (state.deer.isDead === true) {
-    e.preventDefault()
-    startGame()
-  }
-})
 
 // START
 
