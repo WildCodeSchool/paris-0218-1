@@ -14,7 +14,8 @@ const images = {
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),
-  document.getElementById('img-bush1')]
+  document.getElementById('img-bush1')],
+  flyBush: document.getElementById('img-flyBush'),
 }
 
 const playerIdBestScore = users => {
@@ -118,6 +119,13 @@ const basicState = () => ({
     move: -0.3,
     alt: 0
   },
+  flyBush: {
+    x: 4000 + teleport(2300),
+    y: 230,
+    width: 30,
+    height: 30,
+    move: -0.25,
+  },
   score: 1,
   speed: 1,
   moduloSpeed: 100,
@@ -191,6 +199,10 @@ const drawBush = bush => {
   ctx.drawImage(images.bush[state.bush.alt], bush.x, bush.y, bush.width, bush.height)
 }
 
+const drawFlyBush = flyBush => {
+  ctx.drawImage(images.flyBush, flyBush.x, flyBush.y, flyBush.width, flyBush.height)
+}
+
 const drawSock = sock => {
   ctx.drawImage(images.socks, sock.x, sock.y, sock.width, sock.height)
 }
@@ -204,13 +216,15 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
+  const { background, deer, bush, flyBush, sock, score, nbSocks, userBestScore } = state
 
   clear()
 
 
   drawBackground(background)
   drawBush(bush)
+  drawFlyBush(flyBush)
+
   drawSock(sock)
   drawDeer(deer)
 
@@ -241,6 +255,10 @@ const moveBush = (deltaTime) => {
   state.bush.x += state.bush.move * deltaTime * state.speed
 }
 
+const moveFlyBush = (deltaTime) => {
+  state.flyBush.x += state.flyBush.move * deltaTime * state.speed
+}
+
 const moveDeer = (deltaTime) => {
   const { deer } = state
   deer.y += deer.jumpState * deer.move * deltaTime
@@ -260,6 +278,7 @@ const moveSock = (deltaTime) => {
 
 const update = (deltaTime) => {
   moveBush(deltaTime)
+  moveFlyBush(deltaTime)
   moveSock(deltaTime)
   moveDeer(deltaTime)
 
@@ -300,16 +319,19 @@ const handlePickupSock = () => {
 }
 
 const handleCollisions = (deltaTime) => {
-  const { deer, sock, bush } = state
+  const { deer, sock, bush, flyBush } = state
 
   // bush
-  if (collides(deer, bush)) {
+  if (collides(deer, bush) || collides(deer, flyBush)) {
     handleDeath(deltaTime)
   }
   // check collision with border
   if (bush.x < -bush.width) {
     bush.x = teleport(1000)
     state.bush.alt = Math.round(Math.random())
+  }
+  if (flyBush.x < -flyBush.width) {
+    flyBush.x = 2000 + teleport(2300)
   }
 
   // sock
