@@ -30,6 +30,10 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
 }).single('avatar')
+
+// images - authorize Access
+app.use('/images', express.static(uploadDir)) // module to access images
+
 // Headers middleware
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin)
