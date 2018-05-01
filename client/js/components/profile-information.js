@@ -7,7 +7,7 @@ export const createProfile = user => `
   <p class="info" id="campus">Campus: ${user.campus}</p>
   <p class="info" id="wild_side">Wild side: ${user.wildside}</p>
   <img src="http://localhost:3000/images/${user.avatar}">
-  <button id="edit">Edit</button>
+  <button id="edit_button">Edit</button>
 `
 
 export const editProfile = user => `
