@@ -191,7 +191,8 @@ const drawStart = () => {
 const drawScore = (score, nbSocks, userBestScore) => {
 
   // console.log(userBestScore)
-
+//coucou pull responseur
+//youpiyè
   if (!state.deer.isDead) {
     ctx.beginPath()
     ctx.textAlign = 'right'
