@@ -130,7 +130,8 @@ const basicState = () => ({
     x: 0,
     y: 0,
     width: 650,
-    height: 375,
+    height: 320,
+    move: -0.05,
   },
   deer: {
     x: 50,
@@ -230,6 +231,7 @@ const drawGameOver = () => {
   ctx.closePath()
 
 
+
   sendScore(state.playerId, state.score, state.nbSocks)
   .then(() => {
     getScores()
@@ -246,6 +248,10 @@ const drawGameOver = () => {
 
   const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
+  ctx.closePath()
+  ctx.drawImage(images.background, background.x + 650, background.y, background.width, background.height)
+  if (background.x < -650)
+    background.x = 0
 }
 
 const drawBush = bush => {
@@ -313,6 +319,11 @@ const moveBush = (deltaTime) => {
   state.bush.x += state.bush.move * deltaTime * state.speed
 }
 
+
+const moveBackGround = (deltaTime) => {
+  state.background.x += state.background.move * deltaTime * state.speed
+}
+
 const moveDeer = (deltaTime) => {
   const { deer } = state
   deer.y += deer.jumpState * deer.move * deltaTime
@@ -334,7 +345,7 @@ const update = (deltaTime) => {
   moveBush(deltaTime)
   moveSock(deltaTime)
   moveDeer(deltaTime)
-
+  moveBackGround(deltaTime)
   updateScore(deltaTime)
 
   updateSpeed()
