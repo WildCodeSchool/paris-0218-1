@@ -12,7 +12,6 @@ const scoreListElement = document.getElementById('score_list')
 
 let images = {
   background: document.getElementById('img-background'),
-  sound: document.getElementById('img-sound0'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),],
@@ -184,7 +183,9 @@ const drawStart = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`Pour lancer la partie,`, 80, 160)
   ctx.fillText(`appuie sur la barre espace.`, 40, 190)
+  drawSound(state.sound)
   ctx.closePath()
+
 }
 
 const drawScore = (score, nbSocks, userBestScore) => {
@@ -207,12 +208,13 @@ const drawScore = (score, nbSocks, userBestScore) => {
 
 const drawGameOver = () => {
   const { sock, score, nbSocks, sound } = state
-  ctx.beginPath()
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-  ctx.fillRect(0, 0, 480, 320);
-  ctx.closePath()
+  // ctx.beginPath()
+  // ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
+  // ctx.fillRect(0, 0, 480, 320);
+  // ctx.closePath()
 
   ctx.beginPath()
+  ctx.fillStyle = 'rgba(255, 255, 255, 1)'
   ctx.textAlign = 'center'
   ctx.font = '50px Courier'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
@@ -226,12 +228,22 @@ const drawGameOver = () => {
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
 
-  if (sound.mode)
-    gameOverSound.play()
-}
+
+  sendScore(state.playerId, state.score, state.nbSocks)
+  .then(() => {
+    getScores()
+    .then(scores => {
+      renderScores(scores)
+      playerIdRank(scores)
+    })
+    })
+    drawScore(score)
+    drawSound(sound)
+
+  }
 
 
-const drawBackground = background => {
+  const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
 }
 
@@ -240,6 +252,9 @@ const drawBush = bush => {
 }
 
 const drawSound = sound => {
+  ctx.clearRect(0, 0, 45, 45)
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
+  ctx.fillRect(0, 0, 45, 45)
   ctx.drawImage(images.sound, sound.x, sound.y, sound.width, sound.height)
 }
 
@@ -265,13 +280,17 @@ const draw = () => {
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-  drawSound(sound)
+  // drawSound(sound)
 
   drawScore(score, nbSocks, userBestScore)
 
 
 
   if ((deer.isDead) && (score !== 0)) {
+    ctx.beginPath()
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
+    ctx.fillRect(0, 0, 480, 320);
+    ctx.closePath()
     drawGameOver(score)
   }
 
@@ -335,14 +354,17 @@ const handleDeath = () => {
   state.deer.isDead = true
   cancelAnimationFrame(state.frameId)
 
-  sendScore(state.playerId, state.score, state.nbSocks)
-    .then(() => {
-      getScores()
-        .then(scores => {
-          renderScores(scores)
-          playerIdRank(scores)
-        })
-    })
+  if (state.sound.mode)
+    gameOverSound.play()
+
+  // sendScore(state.playerId, state.score, state.nbSocks)
+  //   .then(() => {
+  //     getScores()
+  //       .then(scores => {
+  //         renderScores(scores)
+  //         playerIdRank(scores)
+  //       })
+  //   })
 }
 
 const handlePickupSock = () => {
@@ -404,6 +426,7 @@ document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === false)) {
     e.preventDefault()
     jump()
+    console.log(state.sound.mode)
   }
 })
 
@@ -414,18 +437,27 @@ canvas.addEventListener('click', eventListen => {
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, eventListen)
 
-  if (mousePos.x < 45 && mousePos.y < 45) {
+  if ((state.deer.isDead) && (mousePos.x < 45 && mousePos.y < 45)) {
     sound.mode = !sound.mode
+    if (sound.mode)
+      images.sound = document.getElementById('img-sound1')
+    else
+      images.sound = document.getElementById('img-sound0')
+
+    if (state.score) {
+      drawSound(sound)
+    }
+    else {
+      drawSound(sound)
+    }
   }
-  if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
-  else { images.sound = document.getElementById('img-sound0') }
+
 
   if (state.deer.isDead === false) {
     eventListen.preventDefault()
     jump()
   }
-  else if (eventListen)
-  {
+  else if ((eventListen) && !(mousePos.x < 45 && mousePos.y < 45)) {
     eventListen.preventDefault()
     startGame()
   }
@@ -438,7 +470,13 @@ const startGame = () => {
 
   const bestScore = state.userBestScore
 
-  state = basicState()
+  if (state.sound.mode) {
+    state = basicState()
+    state.sound.mode = true
+  }
+  else
+    state = basicState()
+
   state.deer.isDead = false
   state.userBestScore = bestScore
 }
