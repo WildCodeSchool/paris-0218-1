@@ -41,6 +41,7 @@ export const editProfile = user => `
       <img src="http://localhost:3000/images/${user.avatar}">
       <input type="file" name="avatar">
     </label><br/>
+    <button id="cancel_button">Annuler</button>
     <input type="submit" value="Save update">
   </form>
   <div id="error_message" style="color: red"></div>

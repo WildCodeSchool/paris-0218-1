@@ -29,6 +29,17 @@ const start = async () => {
     sectionEditProfile.style.display = 'block'
   })
 
+  const cancelButton = document.getElementById('cancel_button')
+  cancelButton.addEventListener('click', event => {
+    getProfile()
+      .then(user => {
+        showProfile(user)
+        sectionInfoProfile.style.display = 'block'
+        sectionEditProfile.style.display = 'none'
+        start()
+      })
+  })
+
   const formProfile = document.getElementById('edit_form')
   const messageElement = document.getElementById('error_message')
   const handleErrors = res => messageElement.innerHTML = res.error || ''
