@@ -23,7 +23,14 @@ export const editProfile = user => `
       <input id="edit_username" type="text" placeholder="${user.username}" name="username">
     </label><br/>
     <label for="edit_campus">Campus:
-      <input id="edit_campus" type="text" placeholder="${user.campus}" name="campus">
+      <select id="campus" name="campus">
+        <option value="${user.campus}" selected>${user.campus}</option>
+        <option value="Paris">Paris</option>
+        <option value="Lyon">Lyon</option>
+        <option value="La Loupe">La Loupe</option>
+        <option value="Biarritz">Biarritz</option>
+        <option value="Reims">Reims</option>
+      </select>
     </label><br/>
     <label for="edit_email">Email:
       <input id="edit_email" type="email" placeholder="${user.email}" name="email">
