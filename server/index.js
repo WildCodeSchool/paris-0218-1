@@ -115,7 +115,7 @@ app.post('/sign-up', async (req, res, next) => {
 
   user.firstName = ''
   user.lastName = ''
-  user.avatar = ''
+  user.avatar = 'default.jpg'
   user.bestScore = 0
   user.score = []
 
