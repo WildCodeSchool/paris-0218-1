@@ -96,7 +96,7 @@ app.post('/addscore', (req, res, next) => {
 // Sign up : check the database to verify that the email get from client doesn't exist
 // then write a new file in database/users to create the new user
 app.post('/sign-up', async (req, res, next) => {
-  const user = req.body // username, email, password
+  const user = req.body // username, email, password, campus
 
   // error handling
   const users = await db.getUsers()
@@ -115,7 +115,6 @@ app.post('/sign-up', async (req, res, next) => {
 
   user.firstName = ''
   user.lastName = ''
-  user.campus = ''
   user.avatar = ''
   user.bestScore = 0
   user.score = []
