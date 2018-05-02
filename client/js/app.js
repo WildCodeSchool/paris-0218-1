@@ -13,6 +13,7 @@ const images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
   sock: document.getElementById('img-sock'),
+  stars: document.getElementById('img-stars'),  
   superSock1: document.getElementById('img-superSock1'), 
   superSock2: document.getElementById('img-superSock2'),   
   bush: [document.getElementById('img-bush0'),
@@ -114,6 +115,12 @@ const basicState = () => ({
     catch: false,
     catchPositionX: 0 
   },
+  stars: {
+    x: 0,
+    y: 150,
+    width: 85,
+    height: 95,
+  },
   superSock1: {
     x: teleport(15000),
     y: 150,
@@ -140,7 +147,7 @@ const basicState = () => ({
     move: -0.3,
     alt: 0
   },
-  score: 0,
+  score: 500,
   speed: 1,
   moduloSpeed: 100,
   frameId: -1,
@@ -216,24 +223,27 @@ const drawSock = sock => {
   ctx.drawImage(images.sock, sock.x, sock.y, sock.width, sock.height)
 }
 
-const drawEffectSock = (deer, sock) => {
+const drawEffectSock = (deer, sock, stars) => {
   ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
   ctx.fillRect(0, 0, 480, 320)
   ctx.drawImage(images.sock, sock.catchPositionX - (sock.width / 2), sock.y - (sock.height / 2), sock.width * 1.5, sock.height * 1.5)
-  setTimeout(() => sock.catch = false, 50)
+  ctx.drawImage(images.stars, sock.catchPositionX - (stars.width / 2.3), stars.y - (stars.height / 2.1))  
+  setTimeout(() => sock.catch = false, 100)
 }
 
-const drawEffectSuperSock1 = (deer, superSock1) => {
+const drawEffectSuperSock1 = (deer, superSock1, stars) => {
   ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
   ctx.fillRect(0, 0, 480, 320)
-  ctx.drawImage(images.superSock1, superSock1.catchPositionX - (superSock1.width / 2), superSock1.y - (superSock1.height / 2), superSock1.width * 1.5, superSock1.height * 1.5)
+  ctx.drawImage(images.superSock1, superSock1.catchPositionX - (superSock1.width / 2), superSock1.y - (superSock1.height / 2), superSock1.width * 1.1, superSock1.height * 1.1)
+  ctx.drawImage(images.stars, superSock1.catchPositionX - (stars.width / 1.8), stars.y - (stars.height / 1.7), stars.width * 1.2, stars.height * 1.2)    
   setTimeout(() => superSock1.catch = false, 50)
 }
 
-const drawEffectSuperSock2 = (deer, superSock2) => {
+const drawEffectSuperSock2 = (deer, superSock2, stars) => {
   ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
   ctx.fillRect(0, 0, 480, 320)
   ctx.drawImage(images.superSock2, superSock2.catchPositionX - (superSock2.width / 2), superSock2.y - (superSock2.height / 2), superSock2.width * 1.5, superSock2.height * 1.5)
+  ctx.drawImage(images.stars, superSock2.catchPositionX - (stars.width / 1.8), stars.y - (stars.height / 1.7), stars.width * 1.2, stars.height * 1.2)   
   setTimeout(() => superSock2.catch = false, 50)
 }
 
@@ -283,7 +293,7 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, superSock1, superSock2, score, nbSocks, userBestScore } = state
+  const { background, deer, bush, sock, stars, superSock1, superSock2, score, nbSocks, userBestScore } = state
 
   clear()
 
@@ -300,16 +310,16 @@ const draw = () => {
   drawScore(score, nbSocks, userBestScore)
 
   if (sock.catch) {
-    drawEffectSock(deer, sock)
+    drawEffectSock(deer, sock, stars)
   }
 
   if (superSock1.catch) {
     console.log("blabla")
-    drawEffectSuperSock1(deer, superSock1)
+    drawEffectSuperSock1(deer, superSock1, stars)
   }
 
   if (superSock2.catch) {
-    drawEffectSuperSock2(deer, superSock2)
+    drawEffectSuperSock2(deer, superSock2, stars)
   }
 
   if ((deer.isDead) && (score !== 0)) {
@@ -438,6 +448,7 @@ const handleCollisions = () => {
     superSock1.catchPositionX = superSock1.x
     console.log(superSock1.catchPositionX)
     handlePickupsuperSock1()
+    superSock1.catch = true    
     state.nbSocks++
   }
 
@@ -445,6 +456,7 @@ const handleCollisions = () => {
   if (collides(deer, superSock2)) {
     superSock2.catchPositionX = superSock2.x
     handlePickupsuperSock2()
+    superSock2.catch = true        
     state.nbSocks++
   }
 
