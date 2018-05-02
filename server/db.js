@@ -49,7 +49,7 @@ const updateUser = (params) => exec(`update scores set userName = ?, firstName =
         params.userId, params.userId ])
 const addScore = (params) => exec(`insert into scores (userId, score, createdAt) values (?, ?, ?);`, [ params.userId, params.score, params.createdAt ])
 const getBestScores = () => exec(`select username, score from scores left join users on scores.userId = users.userId
-                                  order by score desc limit 5;`)
+                                  order by score desc;`)
 const updateBestScore = (id) => exec(`update users set bestScore = (select max(score) from scores where userId = ? group by userId) where userId = ?;`, [ id, id ])
 
 app.use((request, response, next) => {

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "exec": "^0.2.1",
-    "express": "^4.16.3",
-    "mysql2": "^1.5.3"
+  "express": "^4.16.3",
+  "express-session": "^1.15.6",
+  "session-file-store": "^1.2.0"
   },
   "devDependencies": {},
   "scripts": {
