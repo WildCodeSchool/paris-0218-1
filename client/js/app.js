@@ -70,14 +70,6 @@ const drawGameOver = () => {
   ctx.closePath()
 }
 
-// const drawRect = (x, y, w, h, color) => {
-//   ctx.beginPath()
-//   ctx.rect(x, y, w, h)
-//   ctx.fillStyle = color
-//   ctx.fill()
-//   ctx.closePath()
-// }
-
 const drawBush = bush => {
   ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)
 }
