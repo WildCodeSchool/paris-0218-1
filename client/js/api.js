@@ -3,13 +3,13 @@
 import { api } from './config.js'
 
 const postJson = (url, content) => fetch(url, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    body: JSON.stringify(content)
-  })
+  method: 'post',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  credentials: 'include',
+  body: JSON.stringify(content)
+})
 
 // GAME - SCORES
 export const getScores = () => {
@@ -26,11 +26,9 @@ export const sendScore = (userId, score) => {
   return postJson(`${api.host}:${api.port}/addscore`, body)
 }
 
-
 // SESSION
 export const getUser = () => fetch('http://localhost:3000/', { 'credentials': 'include' })
   .then(res => res.json())
-
 
 // USER ACCOUNT
 export const signUp = credentials => {
@@ -57,6 +55,6 @@ export const sendNewProfile = formData => {
     'credentials': 'include',
     body: formData
   })
-  .then(res => res.json())
+    .then(res => res.json())
   // .catch(err => res.json(err.message))
 }

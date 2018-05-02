@@ -1,4 +1,6 @@
-import { getUser, sendNewProfile, getProfile } from './api.js'
+/* global FormData */
+
+import { sendNewProfile, getProfile } from './api.js'
 import { createProfile, editProfile } from './components/profile-information.js'
 
 const sectionInfoProfile = document.getElementById('info_profil')

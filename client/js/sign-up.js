@@ -1,3 +1,5 @@
+/* global FormData */
+
 import { signUp } from './api.js'
 
 const signUpForm = document.getElementById('sign-up-form')

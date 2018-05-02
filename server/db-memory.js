@@ -8,7 +8,7 @@ const users = [
   require(path.join(usersDir, '3.json')),
   require(path.join(usersDir, '4.json')),
   require(path.join(usersDir, '5.json')),
-  require(path.join(usersDir, '6.json')),
+  require(path.join(usersDir, '6.json'))
 ]
 
 const getUsers = () => Promise.resolve(users)
@@ -51,5 +51,5 @@ module.exports = {
   getUsers,
   getUserById,
   addUser,
-  addScore,
+  addScore
 }

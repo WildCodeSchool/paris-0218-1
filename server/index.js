@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const fileStore = require('session-file-store')(session)
+const FileStore = require('session-file-store')(session)
 const multer = require('multer')
 const path = require('path')
 
@@ -29,8 +29,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  fileFilter: (req, file, cb) => { //accepts only images
-    const ext = path.extname(file.originalname).toLowerCase();
+  fileFilter: (req, file, cb) => { // accepts only images
+    const ext = path.extname(file.originalname).toLowerCase()
     if (ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
       req.fileValidationError = 'invalid file type'
       return cb(new Error('invalid file type'), false)
@@ -38,7 +38,7 @@ const upload = multer({
     cb(null, true)
   },
   limits: { // limited at 5 Mo
-    fileSize: 5000000,
+    fileSize: 5000000
   }
 }).single('avatar')
 
@@ -58,7 +58,7 @@ app.use(session({
   secret,
   resave: true,
   saveUninitialized: false,
-  store: new fileStore({secret}),
+  store: new FileStore({secret})
 }))
 
 // Logger middleware
@@ -104,7 +104,7 @@ app.post('/sign-up', async (req, res, next) => {
   const emails = users.map(user => user.email)
   const emailAlreadyExists = emails.some(email => email === user.email)
   if (emailAlreadyExists) {
-    return res.json({ error: 'Email already exists'})
+    return res.json({ error: 'Email already exists' })
   }
 
   const usernames = users.map(user => user.username)
@@ -113,10 +113,10 @@ app.post('/sign-up', async (req, res, next) => {
     return res.json({ error: 'Username already exists' })
   }
 
-  user.firstName = ""
-  user.lastName = ""
-  user.campus = ""
-  user.avatar = ""
+  user.firstName = ''
+  user.lastName = ''
+  user.campus = ''
+  user.avatar = ''
   user.bestScore = 0
   user.score = []
 
@@ -170,7 +170,7 @@ app.post('/update-profile', async (req, res, next) => {
     if (err) {
       console.log('there is an error', err)
       if (err.code === 'LIMIT_FILE_SIZE') {
-        return res.json({error: 'file too big'});
+        return res.json({error: 'file too big'})
       }
       if (req.fileValidationError) {
         return res.json({ error: 'Invalid type file' })
