@@ -201,13 +201,19 @@ const drawStart = () => {
   drawSound(state.sound)
   ctx.closePath()
 
+  setTimeout(() => {
+    state = basicState()
+    state.deer.isDead = false
+    state.score = 0
+  }, 2500)
+
 }
 
 const drawScore = (score, nbSocks, userBestScore) => {
 
   // console.log(userBestScore)
-//coucou pull responseur
-//youpiyè
+  //coucou pull responseur
+  //youpiyè
   if (!state.deer.isDead) {
     ctx.beginPath()
     ctx.textAlign = 'right'
@@ -252,20 +258,26 @@ const drawGameOver = () => {
   ctx.closePath()
 
   sendScore(state.playerId, state.score, state.nbSocks)
-  .then(() => {
-    getScores()
-    .then(scores => {
-      renderScores(scores)
-      playerIdRank(scores)
+    .then(() => {
+      getScores()
+        .then(scores => {
+          renderScores(scores)
+          playerIdRank(scores)
+        })
     })
-    })
-    drawScore(score)
-    drawSound(sound)
+  setTimeout(() => {
+    state = basicState()
+    state.deer.isDead = false
+    state.score = 0
+  }, 2500)
 
-  }
+  drawScore(score)
+  drawSound(sound)
+
+}
 
 
-  const drawBackground = background => {
+const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
   ctx.closePath()
   ctx.drawImage(images.background, background.x + 650, background.y, background.width, background.height)
@@ -388,14 +400,6 @@ const handleDeath = () => {
   if (state.sound.mode)
     gameOverSound.play()
 
-  // sendScore(state.playerId, state.score, state.nbSocks)
-  //   .then(() => {
-  //     getScores()
-  //       .then(scores => {
-  //         renderScores(scores)
-  //         playerIdRank(scores)
-  //       })
-  //   })
 }
 
 const handlePickupSock = () => {
@@ -459,6 +463,19 @@ document.addEventListener('keydown', e => {
 
 canvas.addEventListener('click', e => {
   eventStart(e)
+  let leftToCanvas = canvas.offsetLeft
+  let topToCanvas = canvas.offsetTop
+  let mousePos = getMousePos(canvas, e)
+
+  if ((state.score <= 1) && (mousePos.x < 45 && mousePos.y < 45)) {
+    state.sound.mode = !state.sound.mode
+    if (state.sound.mode)
+      images.sound = document.getElementById('img-sound1')
+    else
+      images.sound = document.getElementById('img-sound0')
+    drawSound(state.sound)
+    console.log('klick', state.sound.mode)
+  }
 })
 
 
@@ -473,49 +490,19 @@ const eventStart = (e) => {
 
   if (mousePos.x > restart.x && mousePos.y > restart.y
     && mousePos.y < restart.y + restart.height
-    && mousePos.x < restart.x + restart.width && state.deer.isDead) {
-    console.log('restart')
+    && mousePos.x < restart.x + restart.width && (state.deer.isDead || state.score < 2)) {
 
     startGame()
   }
   else if (mousePos.x > rank.x && mousePos.y > rank.y
     && mousePos.y < rank.y + rank.height
-    && mousePos.x < rank.x + rank.width && state.deer.isDead) {
-    console.log('need charge new page with classement')
+    && mousePos.x < rank.x + rank.width && state.score < 2) {
+    //liens vers classement
   }
 
-  if ((state.deer.isDead) && (mousePos.x < 45 && mousePos.y < 45)) {
-    sound.mode = !sound.mode
-    if (sound.mode)
-      images.sound = document.getElementById('img-sound1')
-    else
-      images.sound = document.getElementById('img-sound0')
 
-    if (state.score) {
-      drawSound(sound)
-    }
-    else {
-      drawSound(sound)
-    }
-  }
-
-  //else if ((eventListen) && !(mousePos.x < 45 && mousePos.y < 45)) {
-    //eventListen.preventDefault()
-    //startGame()
-  //}
-
-
-  if (state.deer.isDead === true && state.score) {
+  if (state.deer.isDead && state.score) {
     state.score = 0
-    console.log('chronos appel', state.deer.isDead)
-
-    setTimeout(() => {
-      console.log('jspr chronos vient', state.deer.isDead)
-      state = basicState()
-      state.deer.isDead = false
-      state.score = 0
-    }, 1700)
-    // || ((e.code === 'Space') && (state.deer.isDead === true))) {
   }
   else {
     if (!state.deer.isDead && !state.score && !(mousePos.x < 45 && mousePos.y < 45))
@@ -525,13 +512,14 @@ const eventStart = (e) => {
   }
 }
 
+
 const startGame = () => {
   requestAnimationFrame(gameloop)
-  getScores().then(users => {
-    renderScores(users)
-    const user = users.find(user => state.playerId === user.id)
-    state.userBestScore = user.bestScore
-  })
+  // getScores().then(users => {
+  //   renderScores(users)
+  //   const user = users.find(user => state.playerId === user.id)
+  //   state.userBestScore = user.bestScore
+  // })
   const bestScore = state.userBestScore
 
 
@@ -549,7 +537,7 @@ const startGame = () => {
 // START
 
 getScores().then(users => {
-  renderScores(users)
+  <ren></ren>derScores(users)
   const user = users.find(user => state.playerId === user.id)
   state.userBestScore = user.bestScore
 })
