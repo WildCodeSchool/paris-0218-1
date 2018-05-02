@@ -16,7 +16,6 @@ let images = {
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),],
-  sound: document.getElementById('img-sound0'),
 }
 
 const sockSound = new Audio('sound/sockSound.mp3')
