@@ -12,10 +12,15 @@ const scoreListElement = document.getElementById('score_list')
 
 let images = {
   background: document.getElementById('img-background'),
+  sound: document.getElementById('img-sound0'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
   bush: [document.getElementById('img-bush0'),],
 }
+
+const sockSound = new Audio('sound/sockSound.mp3')
+const gameOverSound = new Audio('sound/gameOverSound.mp3')
+
 
 const rdmNumber = (min, max) => {
   let i = 0
@@ -107,6 +112,14 @@ const renderScores = users => {
     .join('')
 }
 
+const getMousePos = (canvas, eventListen) => {
+  let canvasPos = canvas.getBoundingClientRect()
+
+  return {
+    x: eventListen.clientX - canvasPos.left,
+    y: eventListen.clientY - canvasPos.top
+  }
+}
 
 const teleport = offset => canvas.width + Math.random() * offset
 
@@ -117,7 +130,8 @@ const basicState = () => ({
     x: 0,
     y: 0,
     width: 650,
-    height: 375,
+    height: 320,
+    move: -0.05,
   },
   deer: {
     x: 50,
@@ -142,6 +156,13 @@ const basicState = () => ({
     height: 40,
     move: -0.3,
   },
+  sound: {
+    x: 5,
+    y: 5,
+    width: 35,
+    height: 35,
+    mode: false
+  },
   rdmNb: 0,
   score: 0,
   speed: 1,
@@ -151,7 +172,6 @@ const basicState = () => ({
 })
 
 let state = basicState()
-
 
 const drawStart = () => {
   ctx.beginPath()
@@ -186,7 +206,7 @@ const drawScore = (score, nbSocks, userBestScore) => {
 }
 
 const drawGameOver = () => {
-  const { sock, score, nbSocks } = state
+  const { sock, score, nbSocks, sound } = state
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
   ctx.fillRect(0, 0, 480, 320);
@@ -205,14 +225,25 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
   ctx.closePath()
+
+  if (sound.mode)
+    gameOverSound.play()
 }
 
 const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
+  ctx.closePath()
+  ctx.drawImage(images.background, background.x + 650, background.y, background.width, background.height)
+  if (background.x < -650)
+    background.x = 0
 }
 
 const drawBush = bush => {
   ctx.drawImage(images.bush[state.rdmNb], bush.x, bush.y, bush.width, bush.height)
+}
+
+const drawSound = sound => {
+  ctx.drawImage(images.sound, sound.x, sound.y, sound.width, sound.height)
 }
 
 const drawSock = sock => {
@@ -228,7 +259,7 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
+  const { background, deer, bush, sock, score, sound, nbSocks, userBestScore } = state
 
   clear()
 
@@ -237,7 +268,7 @@ const draw = () => {
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-
+  drawSound(sound)
 
   drawScore(score, nbSocks, userBestScore)
 
@@ -265,6 +296,11 @@ const moveBush = (deltaTime) => {
   state.bush.x += state.bush.move * deltaTime * state.speed
 }
 
+
+const moveBackGround = (deltaTime) => {
+  state.background.x += state.background.move * deltaTime * state.speed
+}
+
 const moveDeer = (deltaTime) => {
   const { deer } = state
   deer.y += deer.jumpState * deer.move * deltaTime
@@ -286,7 +322,7 @@ const update = (deltaTime) => {
   moveBush(deltaTime)
   moveSock(deltaTime)
   moveDeer(deltaTime)
-
+  moveBackGround(deltaTime)
   updateScore(deltaTime)
 
   updateSpeed()
@@ -339,7 +375,11 @@ const handleCollisions = () => {
   if (collides(deer, sock)) {
     handlePickupSock()
     state.nbSocks++
+    if (state.sound.mode)
+      sockSound.play()
   }
+
+
   // check collision with border
   if (sock.x < -sock.width) {
     sock.x = teleport(2000)
@@ -375,12 +415,31 @@ document.addEventListener('keydown', e => {
   }
 })
 
-canvas.addEventListener('click', e => {
+
+canvas.addEventListener('click', eventListen => {
+  const { sound } = state
+  let leftToCanvas = canvas.offsetLeft
+  let topToCanvas = canvas.offsetTop
+  let mousePos = getMousePos(canvas, eventListen)
+
+  if (mousePos.x < 45 && mousePos.y < 45) {
+    sound.mode = !sound.mode
+  }
+  if (sound.mode === true) { images.sound = document.getElementById('img-sound1') }
+  else { images.sound = document.getElementById('img-sound0') }
+
   if (state.deer.isDead === false) {
-    e.preventDefault()
+    eventListen.preventDefault()
     jump()
   }
+  else if (eventListen)
+  {
+    eventListen.preventDefault()
+    startGame()
+  }
+  // console.log(eventListen)
 })
+
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
@@ -394,13 +453,6 @@ const startGame = () => {
 
 document.addEventListener('keydown', e => {
   if ((e.code === 'Space') && (state.deer.isDead === true)) {
-    e.preventDefault()
-    startGame()
-  }
-})
-
-canvas.addEventListener('click', e => {
-  if (state.deer.isDead === true) {
     e.preventDefault()
     startGame()
   }
