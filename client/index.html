@@ -15,65 +15,70 @@
 
   <div id="portrait_mode">Basculez votre téléphone en mode paysage.</div>
   <div id="content">
-  <!-- HEADER / NAV + LOGO -->
+    <!-- HEADER / NAV + LOGO -->
 
-  <header>
-    <div class="menu">
-      <h1>Wildeer</h1>
+    <header>
+      <div class="menu">
+        <h1>Wildeer</h1>
+      </div>
+    </header>
+
+
+    <!-- SECTION 1 / JEU -->
+
+    <section id="game">
+      <div>
+        <canvas id="canvas" width="480" height="320"> </canvas>
+      </div>
+    </section>
+
+
+    <div style="display:none;">
+      <img id="img-background" src="../img/background_wildeer.jpg">    
+      <img id="img-deer" src="../img/deer.png">
+      <img id="img-sock" src="../img/sock_1.png">
+      <img id="img-stars" src="../img/stars.png">    
+      <img id="img-superSock1" src="../img/sock_2.png">   
+      <img id="img-superSock2" src="../img/sock_3.png"> 
+      <img id="img-bush0" src="../img/bush0.png">
+      <img id="img-bush1" src="../img/bush1.png">
+      <img id="img-bush2" src="../img/bush2.png">
+      <img id="img-bush3" src="../img/bush3.png">
+      <img id="img-sound1" src="../img/soundOff.png">
+      <img id="img-sound0" src="../img/soundOn.png">
     </div>
-  </header>
+  
 
+    <!-- SECTION 2 / SCORING -->
 
-  <!-- SECTION 1 / JEU -->
+    <section id="scoring">
+      <div class="section_name_table">
+        <h2>Scores</h2>
+      </div>
+      <div class="score_table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Best score</th>
+            </tr>
+          </thead>
+          <tbody id="score_list">
+            <!-- InnerHTML JS -->
+          </tbody>
+        </table>
+      </div>
+      <br/>
+      <br/>
+    </section>
 
-  <section id="game">
-    <div>
-      <canvas id="canvas" width="480" height="320"> </canvas>
-    </div>
-  </section>
-
-
-  <div style="display:none;">
-    <img id="img-background" src="../img/background_wildeer.jpg">    
-    <img id="img-deer" src="../img/deer.png">
-    <img id="img-sock" src="../img/sock_1.png">
-    <img id="img-stars" src="../img/stars.png">    
-    <img id="img-superSock1" src="../img/sock_2.png">   
-    <img id="img-superSock2" src="../img/sock_3.png">    
-    <img id="img-bush0" src="../img/bush0.png">
-    <img id="img-bush1" src="../img/bush1.png">
+    <!-- FOOTER -->
+    <footer>
+      <div class="info_footer">
+        <p>Wild Code School, Paris - 2018</p>
+      </div>
+    </footer>
   </div>
-
-  <!-- SECTION 2 / SCORING -->
-
-  <section id="scoring">
-    <div class="section_name_table">
-      <h2>Scores</h2>
-    </div>
-    <div class="score_table">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Best score</th>
-          </tr>
-        </thead>
-        <tbody id="score_list">
-          <!-- InnerHTML JS -->
-        </tbody>
-      </table>
-    </div>
-    <br/>
-    <br/>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="info_footer">
-      <p>Wild Code School, Paris - 2018</p>
-    </div>
-  </footer>
-</div>
 
   <script type="module" src="./js/app.js"></script>
 </body>
