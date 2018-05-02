@@ -14,6 +14,7 @@ let images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
+
   bush: [document.getElementById('img-bush0'),],
   sound: document.getElementById('img-sound0'),
 }
@@ -247,9 +248,7 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 248, 300)
   ctx.closePath()
-
-
-
+  
   sendScore(state.playerId, state.score, state.nbSocks)
   .then(() => {
     getScores()
@@ -305,7 +304,6 @@ const draw = () => {
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-  // drawSound(sound)
 
   drawScore(score, nbSocks, userBestScore)
 
@@ -382,6 +380,7 @@ const collides = (rect1, rect2) => {
 
 const handleDeath = () => {
   state.deer.isDead = true
+
   cancelAnimationFrame(state.frameId)
 
   if (state.sound.mode)
@@ -402,12 +401,12 @@ const handlePickupSock = () => {
   state.sock.x = teleport(2000)
 }
 
-const handleCollisions = () => {
+const handleCollisions = (deltaTime) => {
   const { deer, sock, bush } = state
 
   // bush
   if (collides(deer, bush)) {
-    handleDeath()
+    handleDeath(deltaTime)
   }
   // check collision with border
   if (bush.x < -bush.width) {
@@ -451,21 +450,24 @@ const gameloop = (timestamp) => {
   prevTimestamp = timestamp
 }
 
-
 document.addEventListener('keydown', e => {
-  if ((e.code === 'Space') && (state.deer.isDead === false)) {
-    e.preventDefault()
-    jump()
-    console.log(state.sound.mode)
-  }
+
+  eventStart(e)
+})
+
+canvas.addEventListener('click', e => {
+  eventStart(e)
 })
 
 
-canvas.addEventListener('click', eventListen => {
+const eventStart = (e) => {
   const { sound, restart, rank, } = state
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, eventListen)
+  
+  e.preventDefault()
+  
 
   if (mousePos.x > restart.x && mousePos.y > restart.y
     && mousePos.y < restart.y + restart.height
@@ -495,25 +497,42 @@ canvas.addEventListener('click', eventListen => {
     }
   }
 
+  //else if ((eventListen) && !(mousePos.x < 45 && mousePos.y < 45)) {
+    //eventListen.preventDefault()
+    //startGame()
+  //}
 
-  if (state.deer.isDead === false) {
-    eventListen.preventDefault()
-    jump()
+
+  if (state.deer.isDead === true && state.score) {
+    state.score = 0
+    console.log('chronos appel', state.deer.isDead)
+
+    setTimeout(() => {
+      console.log('jspr chronos vient', state.deer.isDead)
+      state = basicState()
+      state.deer.isDead = false
+      state.score = 0
+    }, 1700)
+    // || ((e.code === 'Space') && (state.deer.isDead === true))) {
   }
-
-  else if ((eventListen) && !(mousePos.x < 45 && mousePos.y < 45)) {
-    eventListen.preventDefault()
-    startGame()
+  else {
+    if (!state.deer.isDead && !state.score)
+      startGame()
+    else
+      jump()
   }
-  // console.log(eventListen)
-})
-
+}
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
-
+  getScores().then(users => {
+    renderScores(users)
+    const user = users.find(user => state.playerId === user.id)
+    state.userBestScore = user.bestScore
+  })
   const bestScore = state.userBestScore
-
+  
+  
   if (state.sound.mode) {
     state = basicState()
     state.sound.mode = true
@@ -525,13 +544,6 @@ const startGame = () => {
   state.userBestScore = bestScore
 }
 
-document.addEventListener('keydown', e => {
-  if ((e.code === 'Space') && (state.deer.isDead === true)) {
-    e.preventDefault()
-    startGame()
-  }
-})
-
 // START
 
 getScores().then(users => {
@@ -541,4 +553,3 @@ getScores().then(users => {
 })
 
 drawStart()
-
