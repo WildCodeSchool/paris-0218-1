@@ -14,7 +14,8 @@ signUpForm.addEventListener('submit', event => {
   const credentials = {
     username: formData.get('username'),
     email: formData.get('email'),
-    password: formData.get('password')
+    password: formData.get('password'),
+    campus: formData.get('campus')
   }
 
   const repeatPassword = formData.get('repeat_password')
