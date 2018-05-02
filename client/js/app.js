@@ -9,7 +9,8 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
-
+//youpiyè
+//pull responseur !
 let images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
@@ -205,7 +206,8 @@ const drawStart = () => {
 const drawScore = (score, nbSocks, userBestScore) => {
 
   // console.log(userBestScore)
-
+//coucou pull responseur
+//youpiyè
   if (!state.deer.isDead) {
     ctx.beginPath()
     ctx.textAlign = 'right'
