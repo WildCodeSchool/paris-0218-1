@@ -1,6 +1,11 @@
+/* global FormData */
+
 import { signUp } from './api.js'
 
 const signUpForm = document.getElementById('sign-up-form')
+const messageElement = document.getElementById('error_message')
+const handleErrors = res => messageElement.innerHTML = res.error || ''
+
 signUpForm.addEventListener('submit', event => {
   event.preventDefault()
 
@@ -15,8 +20,9 @@ signUpForm.addEventListener('submit', event => {
   const repeatPassword = formData.get('repeat_password')
 
   if (credentials.password !== repeatPassword) {
-    return console.log('Error with passwords')
+    return messageElement.innerHTML = 'Error with passwords'
   }
 
-  signUp(credentials).then(res => console.log(res))
+  signUp(credentials)
+    .then(handleErrors)
 })

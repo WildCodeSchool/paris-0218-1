@@ -1,4 +1,8 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"",
+  "avatar":"default.jpg",
   "id": 8,
   "username": "DEMO",
   "email": "demo@wcs.com",

@@ -1,4 +1,8 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"",
+  "avatar":"default.jpg",
   "username": "Demo",
   "email": "demo@demo.fr",
   "password": "demo",

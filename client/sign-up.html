@@ -12,21 +12,23 @@
     <h1>Authentication</h1>
     <form id="sign-up-form">
       <label for="input_username">Username:
-        <input type="text" name="username">
+        <input type="text" name="username" pattern=".{1,20}" placeholder="20 characters max" required>
       </label>
       <label for="input_email">Email:
-        <input type="email" name="email">
+        <input type="email" name="email" required>
       </label>
       <label for="input_password">Password:
-        <input type="password" name="password">
+        <input type="password" name="password" pattern=".{5,20}" placeholder="Between 5 and 20 characters" required>
       </label>
       <label for="input_repeat_password">Repeat password:
-        <input type="password" name="repeat_password">
+        <input type="password" name="repeat_password" pattern=".{5,20}" placeholder="Between 5 and 20 characters" required>
       </label>
       <input type="submit" value="Sign Up">
     </form>
     <a href="/sign-in.html">Sign in</a>
   </section>
+
+  <div id="error_message" style="color: red"></div>
 
   <script type="module" src="./js/sign-up.js"></script>
 </body>
