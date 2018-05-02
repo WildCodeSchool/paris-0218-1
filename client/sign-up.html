@@ -8,20 +8,22 @@
 </head>
 
 <body>
+  <div id="errorMessage"></div>
+
   <section id="authentication">
     <h1>Authentication</h1>
     <form id="sign-up-form">
       <label for="input_username">Username:
-        <input type="text" name="username">
+        <input type="text" name="username" pattern=".{1,20}" placeholder="Limité à 20 caractères" required>
       </label>
       <label for="input_email">Email:
-        <input type="email" name="email">
+        <input type="email" name="email" required>
       </label>
       <label for="input_password">Password:
-        <input type="password" name="password">
+        <input type="password" name="password" pattern=".{5,20}" placeholder="Entre 5 et 20 caractères" required>
       </label>
       <label for="input_repeat_password">Repeat password:
-        <input type="password" name="repeat_password">
+        <input type="password" name="repeat_password" pattern=".{5,20}" placeholder="Entre 5 et 20 caractères" required>
       </label>
       <input type="submit" value="Sign Up">
     </form>
@@ -29,6 +31,7 @@
   </section>
 
   <script type="module" src="./js/sign-up.js"></script>
+
 </body>
 
 </html>

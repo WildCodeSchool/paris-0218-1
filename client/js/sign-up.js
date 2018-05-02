@@ -1,6 +1,12 @@
 import { signUp } from './api.js'
 
 const signUpForm = document.getElementById('sign-up-form')
+
+// Print error customer side
+const messageElement = document.getElementById('errorMessage')
+
+const messageFail = () =>
+
 signUpForm.addEventListener('submit', event => {
   event.preventDefault()
 
@@ -15,8 +21,9 @@ signUpForm.addEventListener('submit', event => {
   const repeatPassword = formData.get('repeat_password')
 
   if (credentials.password !== repeatPassword) {
-    return console.log('Error with passwords')
-  }
+      messageElement.innerHTML = 'Salut'
+    }
 
-  signUp(credentials).then(res => console.log(res))
+  signUp(credentials)
+  .then(res => console.log(res))
 })
