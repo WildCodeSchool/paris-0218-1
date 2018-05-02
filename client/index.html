@@ -15,62 +15,69 @@
 
   <div id="portrait_mode">Basculez votre téléphone en mode paysage.</div>
   <div id="content">
-  <!-- HEADER / NAV + LOGO -->
+    <!-- HEADER / NAV + LOGO -->
 
-  <header>
-    <div class="menu">
-      <h1>Wildeer</h1>
+    <header>
+      <div class="menu">
+        <h1>Wildeer</h1>
+      </div>
+    </header>
+
+
+    <!-- SECTION 1 / JEU -->
+
+    <section id="game">
+      <div>
+        <canvas id="canvas" width="480" height="320"> </canvas>
+      </div>
+    </section>
+
+
+    <div style="display:none;">
+      <img id="img-background" src="../img/background.jpg">
+      <img id="img-deer" src="../img/deer.png">
+      <img id="img-socks" src="../img/socks.png">
+      <img id="img-bush0" src="../img/bush0.png">
+      <img id="img-bush1" src="../img/bush1.png">
+      <img id="img-bush2" src="../img/bush2.png">
+      <img id="img-bush3" src="../img/bush3.png">
+      <img id="img-bush4" src="../img/bush4.png">
+      <img id="img-bush5" src="../img/bush5.png">
+      <img id="img-bush6" src="../img/bush6.png"> 
     </div>
-  </header>
+  
 
 
-  <!-- SECTION 1 / JEU -->
+    <!-- SECTION 2 / SCORING -->
 
-  <section id="game">
-    <div>
-      <canvas id="canvas" width="480" height="320"> </canvas>
-    </div>
-  </section>
+    <section id="scoring">
+      <div class="section_name_table">
+        <h2>Scores</h2>
+      </div>
+      <div class="score_table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Best score</th>
+            </tr>
+          </thead>
+          <tbody id="score_list">
+            <!-- InnerHTML JS -->
+          </tbody>
+        </table>
+      </div>
+      <br/>
+      <br/>
+    </section>
 
-
-  <div style="display:none;">
-    <img id="img-background" src="../img/background.jpg">    
-    <img id="img-deer" src="../img/deer.png">
-    <img id="img-socks" src="../img/socks.png">
-    <img id="img-bush0" src="../img/bush0.png">
-    <img id="img-bush1" src="../img/bush1.png">
+    <!-- FOOTER -->
+    <footer>
+      <div class="info_footer">
+        <p>Wild Code School, Paris - 2018</p>
+      </div>
+    </footer>
   </div>
-
-  <!-- SECTION 2 / SCORING -->
-
-  <section id="scoring">
-    <div class="section_name_table">
-      <h2>Scores</h2>
-    </div>
-    <div class="score_table">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Best score</th>
-          </tr>
-        </thead>
-        <tbody id="score_list">
-          <!-- InnerHTML JS -->
-        </tbody>
-      </table>
-    </div>
-    <br/>
-    <br/>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="info_footer">
-      <p>Wild Code School, Paris - 2018</p>
-    </div>
-  </footer>
-</div>
 
   <script type="module" src="./js/app.js"></script>
 </body>

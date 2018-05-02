@@ -9,13 +9,38 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
-const images = {
+
+let images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
-  bush: [document.getElementById('img-bush0'),
-        document.getElementById('img-bush1')]
+  bush: [document.getElementById('img-bush0'),],
+}
+
+const rdmNumber = (min, max) => {
+  let i = 0
+  let nb = Math.random() * (max - min) + min
+
+  state.rdmNb = Math.floor(nb)
+
+  //luck to draw First bush than other
+  while (i++ < 1) {
+    if (state.rdmNb !== 0) {
+      nb = Math.random() * (max - min) + min
+      state.rdmNb = Math.floor(nb)
+    }
+    else
+      return
   }
+}
+
+const maxBushImg = () => {
+  let i = 1
+  while (i++ < 7) {
+    images.bush.push(document.getElementById(`img-bush${i}`))
+  }
+}
+maxBushImg()
 
 const playerIdBestScore = users => {
   const user = users.find(user => state.playerId === user.id)
@@ -27,19 +52,19 @@ const playerIdRank = users => {
   let scoresEndGame
   let findPlayerIndex = users.findIndex(user => state.playerId === user.id)
   let findPlayerIndex2 = users.findIndex(user => state.playerId === user.id)
-    
+
   if (findPlayerIndex === 0) {
     scoresEndGame = users.slice(findPlayerIndex, findPlayerIndex + 5)
   }
-  else if (findPlayerIndex === 1){
+  else if (findPlayerIndex === 1) {
     scoresEndGame = users.slice(findPlayerIndex - 1, findPlayerIndex + 4)
-    findPlayerIndex = findPlayerIndex  - 1
+    findPlayerIndex = findPlayerIndex - 1
   }
-  else if (findPlayerIndex === users.length - 2){
+  else if (findPlayerIndex === users.length - 2) {
     scoresEndGame = users.slice(findPlayerIndex - 3, findPlayerIndex + 2)
     findPlayerIndex = findPlayerIndex - 3
   }
-  else if (findPlayerIndex === users.length - 1){
+  else if (findPlayerIndex === users.length - 1) {
     scoresEndGame = users.slice(findPlayerIndex - 4, findPlayerIndex + 1)
     findPlayerIndex = findPlayerIndex - 4
   }
@@ -47,18 +72,18 @@ const playerIdRank = users => {
     scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
     findPlayerIndex = findPlayerIndex - 2
   }
-  
-  
+
+
   let i = 0
   scoresEndGame.map(user1 => {
-    
+
     ctx.beginPath()
     ctx.moveTo(100, 168 + (22 * i))
     ctx.lineTo(390, 168 + (22 * i))
     ctx.stroke()
     ctx.font = '12px Courier'
-    
-    if (findPlayerIndex + i === findPlayerIndex2){
+
+    if (findPlayerIndex + i === findPlayerIndex2) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
       // ctx.fillRect(120, 160, 415,(22 * i));
       ctx.font = '17px Courier'
@@ -116,8 +141,8 @@ const basicState = () => ({
     width: 40,
     height: 40,
     move: -0.3,
-    alt:0
   },
+  rdmNb: 0,
   score: 0,
   speed: 1,
   moduloSpeed: 100,
@@ -154,8 +179,8 @@ const drawScore = (score, nbSocks, userBestScore) => {
     ctx.fillText(`Score : ${Math.round(score)}`, 465, 25)
     ctx.drawImage(images.socks, 395, 30, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
-    ctx.font = '15px Courier'  
-    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)    
+    ctx.font = '15px Courier'
+    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)
     ctx.closePath()
   }
 }
@@ -187,7 +212,7 @@ const drawBackground = background => {
 }
 
 const drawBush = bush => {
-  ctx.drawImage(images.bush[state.bush.alt], bush.x, bush.y, bush.width, bush.height)
+  ctx.drawImage(images.bush[state.rdmNb], bush.x, bush.y, bush.width, bush.height)
 }
 
 const drawSock = sock => {
@@ -206,23 +231,23 @@ const draw = () => {
   const { background, deer, bush, sock, score, nbSocks, userBestScore } = state
 
   clear()
-  
-  
+
+
   drawBackground(background)
   drawBush(bush)
   drawSock(sock)
   drawDeer(deer)
-  
-  
+
+
   drawScore(score, nbSocks, userBestScore)
 
-  
+
 
   if ((deer.isDead) && (score !== 0)) {
     drawGameOver(score)
   }
 
-  
+
 }
 
 const updateSpeed = () => {
@@ -307,7 +332,7 @@ const handleCollisions = () => {
   // check collision with border
   if (bush.x < -bush.width) {
     bush.x = teleport(1000)
-    state.bush.alt = Math.round(Math.random())
+    rdmNumber(0, 6)
   }
 
   // sock
@@ -359,11 +384,11 @@ canvas.addEventListener('click', e => {
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
-    
+
   const bestScore = state.userBestScore
-  
+
   state = basicState()
-  state.deer.isDead = false  
+  state.deer.isDead = false
   state.userBestScore = bestScore
 }
 
