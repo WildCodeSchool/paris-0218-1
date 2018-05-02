@@ -83,8 +83,8 @@ const playerIdRank = users => {
   scoresEndGame.map(user1 => {
 
     ctx.beginPath()
-    ctx.moveTo(100, 168 + (22 * i))
-    ctx.lineTo(390, 168 + (22 * i))
+    ctx.moveTo(100, 148 + (22 * i))
+    ctx.lineTo(390, 148 + (22 * i))
     ctx.stroke()
     ctx.font = '12px Courier'
 
@@ -95,11 +95,11 @@ const playerIdRank = users => {
     }
     ctx.fillStyle = 'rgba(0, 0, 0, 1)'
     ctx.textAlign = 'center'
-    ctx.fillText(`${findPlayerIndex + i + 1}`, 120, 162 + (22 * i))
+    ctx.fillText(`${findPlayerIndex + i + 1}`, 120, 142 + (22 * i))
     ctx.textAlign = 'center'
-    ctx.fillText(`${user1.userName}`, 240, 162 + (22 * i))
+    ctx.fillText(`${user1.userName}`, 240, 142 + (22 * i))
     ctx.textAlign = 'center'
-    ctx.fillText(`${user1.bestScore}`, 360, 162 + (22 * i))
+    ctx.fillText(`${user1.bestScore}`, 360, 142 + (22 * i))
     ctx.closePath()
     i++
   })
@@ -163,6 +163,18 @@ const basicState = () => ({
     height: 35,
     mode: false
   },
+  restart: {
+    x: 100,
+    y: 245,
+    width: 110,
+    height: 32,
+  },
+  rank: {
+    x: 280,
+    y: 245,
+    width: 110,
+    height: 32,
+  },
   rdmNb: 0,
   score: 0,
   speed: 1,
@@ -225,8 +237,15 @@ const drawGameOver = () => {
   ctx.fillText(`🏆 Ton score : ${Math.round(score)}`, 240, 90)
   ctx.fillText(`Tu as attrapé ${nbSocks} chaussettes`, 260, 110)
   ctx.drawImage(images.socks, 90, 90, 20, 25)
+  ctx.fillStyle = 'black'
+  ctx.fillRect(100, 245, 110, 32)
+  ctx.fillRect(280, 245, 110, 32)
+  ctx.font = '17px Courier'
+  ctx.fillStyle = 'white'
+  ctx.fillText(`Restart`, 157, 265)
+  ctx.fillText(`Classement`, 335, 265)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`[ESPACE] pour relancer une partie.`, 240, 300)
+  ctx.fillText(`[ESPACE] pour relancer une partie.`, 248, 300)
   ctx.closePath()
 
 
@@ -443,10 +462,23 @@ document.addEventListener('keydown', e => {
 
 
 canvas.addEventListener('click', eventListen => {
-  const { sound } = state
+  const { sound, restart, rank, } = state
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, eventListen)
+
+  if (mousePos.x > restart.x && mousePos.y > restart.y
+    && mousePos.y < restart.y + restart.height
+    && mousePos.x < restart.x + restart.width && state.deer.isDead) {
+    console.log('restart')
+
+    startGame()
+  }
+  else if (mousePos.x > rank.x && mousePos.y > rank.y
+    && mousePos.y < rank.y + rank.height
+    && mousePos.x < rank.x + rank.width && state.deer.isDead) {
+    console.log('need charge new page with classement')
+  }
 
   if ((state.deer.isDead) && (mousePos.x < 45 && mousePos.y < 45)) {
     sound.mode = !sound.mode
@@ -468,6 +500,7 @@ canvas.addEventListener('click', eventListen => {
     eventListen.preventDefault()
     jump()
   }
+
   else if ((eventListen) && !(mousePos.x < 45 && mousePos.y < 45)) {
     eventListen.preventDefault()
     startGame()
