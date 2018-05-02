@@ -15,9 +15,3 @@ export const createUserScoreRow = score => `
     <td>${score.nbSocks}</td>
   </tr>
 `
-
-export const createUserPerformances = user => `
-  <p>Best score you ever did : ${user.bestscore}</p>
-  <p>Moy of your scores : ${score.score}</p>
-  <p>${score.nbSocks}</p>
-`
