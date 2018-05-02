@@ -85,6 +85,13 @@ app.get('/scores', (req, res) => {
     .catch(err => res.status(500).end(err.message))
 })
 
+app.get('/all-scores', (req, res) => {
+  db.getUsers()
+    .then(users => users.sort((user1, user2) => user2.bestScore - user1.bestScore))
+    .then(users => res.json(users))
+    .catch(err => res.status(500).end(err.message))
+})
+
 app.post('/addscore', (req, res, next) => {
   const { userId, score } = req.body
 
