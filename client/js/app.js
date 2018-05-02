@@ -11,7 +11,7 @@ const scoreListElement = document.getElementById('score_list')
 const images = {
   deer: document.getElementById('img-deer'),
   socks: document.getElementById('img-socks'),
-  bush: document.getElementById('img-bush'),
+  bush: document.getElementById('img-bush')
 }
 
 const renderScores = users => {
@@ -70,13 +70,13 @@ const drawGameOver = () => {
   ctx.closePath()
 }
 
-const drawRect = (x, y, w, h, color) => {
-  ctx.beginPath()
-  ctx.rect(x, y, w, h)
-  ctx.fillStyle = color
-  ctx.fill()
-  ctx.closePath()
-}
+// const drawRect = (x, y, w, h, color) => {
+//   ctx.beginPath()
+//   ctx.rect(x, y, w, h)
+//   ctx.fillStyle = color
+//   ctx.fill()
+//   ctx.closePath()
+// }
 
 const drawBush = bush => {
   ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)
@@ -235,7 +235,6 @@ getUser().then(user => {
   if (!user.username) {
     window.location = '/sign-in.html'
   }
-
 })
 
 getScores().then(scores => renderScores(scores))

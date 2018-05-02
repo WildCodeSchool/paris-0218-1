@@ -1,3 +1,5 @@
+/* global FormData */
+
 import { getUser, signIn, signOut } from './api.js'
 
 const signInForm = document.getElementById('sign_in_form')
