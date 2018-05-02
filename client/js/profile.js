@@ -50,8 +50,11 @@ const start = async () => {
     }
 
     sendNewProfile(formData)
-      .then(handleErrors)
-      .then(() => {
+      .then(res => {
+        console.log(res);
+        if (res.error) {
+          return handleErrors(res)
+        }
         getProfile()
           .then(user => {
             showProfile(user)
@@ -59,10 +62,8 @@ const start = async () => {
             sectionEditProfile.style.display = 'none'
             start()
           })
-      .catch(err => console.log('error ' + err.message))
+          .catch(err => console.log('error ' + err.message))
       })
-
-    .catch(err => console.log('error ' + err.message))
   })
 }
 
