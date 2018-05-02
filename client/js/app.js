@@ -113,12 +113,12 @@ const renderScores = users => {
     .join('')
 }
 
-const getMousePos = (canvas, eventListen) => {
+const getMousePos = (canvas, e) => {
   let canvasPos = canvas.getBoundingClientRect()
 
   return {
-    x: eventListen.clientX - canvasPos.left,
-    y: eventListen.clientY - canvasPos.top
+    x: e.clientX - canvasPos.left,
+    y: e.clientY - canvasPos.top
   }
 }
 
@@ -177,7 +177,7 @@ const basicState = () => ({
     height: 32,
   },
   rdmNb: 0,
-  score: 0,
+  score: 1,
   speed: 1,
   moduloSpeed: 100,
   frameId: -1,
@@ -248,7 +248,7 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 248, 300)
   ctx.closePath()
-  
+
   sendScore(state.playerId, state.score, state.nbSocks)
   .then(() => {
     getScores()
@@ -464,10 +464,10 @@ const eventStart = (e) => {
   const { sound, restart, rank, } = state
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
-  let mousePos = getMousePos(canvas, eventListen)
-  
+  let mousePos = getMousePos(canvas, e)
+
   e.preventDefault()
-  
+
 
   if (mousePos.x > restart.x && mousePos.y > restart.y
     && mousePos.y < restart.y + restart.height
@@ -516,7 +516,7 @@ const eventStart = (e) => {
     // || ((e.code === 'Space') && (state.deer.isDead === true))) {
   }
   else {
-    if (!state.deer.isDead && !state.score)
+    if (!state.deer.isDead && !state.score && !(mousePos.x < 45 && mousePos.y < 45))
       startGame()
     else
       jump()
@@ -531,8 +531,8 @@ const startGame = () => {
     state.userBestScore = user.bestScore
   })
   const bestScore = state.userBestScore
-  
-  
+
+
   if (state.sound.mode) {
     state = basicState()
     state.sound.mode = true
