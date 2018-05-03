@@ -40,7 +40,7 @@ const updateUser = user => {
   return writeFile(filepath, JSON.stringify(user, null, 2), 'utf8')
 }
 
-const addScore = async (userId, score) => {
+const addScore = async (userId, score, nbSocks) => {
   return getUserById(userId)
     .then(user => {
       if (score > user.bestScore) {
@@ -50,6 +50,7 @@ const addScore = async (userId, score) => {
       user.score.push({
         id: user.score.length + 1,
         score: score,
+        nbSocks: nbSocks,
         date: Date.now()
       })
 

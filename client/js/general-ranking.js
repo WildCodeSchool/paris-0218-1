@@ -1,5 +1,5 @@
 import { createBestPlayerInsert, createAllScoreRow, createCampusRaw, createCampusInsert } from './components/rankings.js'
-import { getAllScores } from './api.js'
+import { getAllScores, getUser } from './api.js'
 
 const bestPlayerElement = document.getElementById('best_player')
 const allScoresElement = document.getElementById('all_scores_list')
@@ -113,3 +113,12 @@ getAllScores()
     getBestCampus(users)
     getWorstCampus(users)
   })
+
+
+getUser().then(user => {
+  console.log(user)
+
+  if (!user.username) {
+    window.location = '/sign-in.html'
+  }
+})

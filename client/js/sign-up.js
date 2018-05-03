@@ -28,5 +28,12 @@ signUpForm.addEventListener('submit', event => {
   }
 
   signUp(credentials)
-    .then(handleErrors)
+    .then(res => {
+      if (res.error) {
+        handleErrors(res)
+        return
+      }
+      window.location = '/'
+    })
+    // .then(handleErrors)
 })
