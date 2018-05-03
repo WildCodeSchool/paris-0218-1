@@ -17,8 +17,10 @@ export const createAllScoreRow = user => `
   </tr>
 `
 
-// a faire
-// export const createCampusInsert = user => `
-//   <img src="http://localhost:3000/images/${user.avatar}">
-//   <p>${user.campus}</p>
-// `
+export const createCampusRaw = campus => `
+  <tr>
+    <td>${campus.name}</td>
+    <td>${campus.score}</td>
+    <td>${campus.nbStudents}</td>
+  </tr>
+`
