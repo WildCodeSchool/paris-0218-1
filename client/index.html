@@ -6,8 +6,15 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
   <title>Wildeer - Wild Code School</title>
 
+
   <!-- CSS -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu|VT323" rel="stylesheet">
 
 </head>
 
@@ -15,62 +22,74 @@
 
   <div id="portrait_mode">Basculez votre téléphone en mode paysage.</div>
   <div id="content">
-  <!-- HEADER / NAV + LOGO -->
+    <!-- HEADER / NAV + LOGO -->
 
-  <header>
-    <div class="menu">
-      <h1>Wildeer</h1>
+    <header>
+      <div id="menu">
+        Load navbar
+      </div>
+    </header>
+
+
+    <div id="content_home">
+
+    <!-- SECTION 1 / JEU -->
+    <section id="game">
+      <div class="container_game">
+        <div>
+          <canvas id="canvas" width="480" height="320"> </canvas>
+        </div>
+
+      </div>
+    </section>
+
+
+    <div style="display:none;">
+      <img id="img-deer" src="../img/deer.png">
+      <img id="img-socks" src="../img/socks.png">
+      <img id="img-bush" src="../img/bush.png">
     </div>
-  </header>
 
+    <!-- SECTION 2 / SCORING -->
 
-  <!-- SECTION 1 / JEU -->
+    <section id="scoring">
+      <div class="container_score">
+        <div class="section_name_table">
+          <h2>best players</h2>
+        </div>
+        <div class="score_table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Best score</th>
+              </tr>
+            </thead>
+            <tbody id="score_list">
+              <!-- InnerHTML JS -->
+            </tbody>
+          </table>
+          
+        </div>
+        <br/>
+        <div class="globalranking"><a href="general-ranking.html" class="link_globalranking">See general ranking</a></div>
+        <br/>
+      </div>
+    </section>
 
-  <section id="game">
-    <div>
-      <canvas id="canvas" width="480" height="320"> </canvas>
-    </div>
-  </section>
-
-
-  <div style="display:none;">
-    <img id="img-deer" src="../img/deer.png">
-    <img id="img-socks" src="../img/socks.png">
-    <img id="img-bush" src="../img/bush.png">
   </div>
 
-  <!-- SECTION 2 / SCORING -->
+    <!-- FOOTER -->
+    <footer>
+      <div class="info_footer">
+        <p>Wild Code School, Paris - 2018</p>
+      </div>
+    </footer>
+  </div>
 
-  <section id="scoring">
-    <div class="section_name_table">
-      <h2>Scores</h2>
-    </div>
-    <div class="score_table">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Best score</th>
-          </tr>
-        </thead>
-        <tbody id="score_list">
-          <!-- InnerHTML JS -->
-        </tbody>
-      </table>
-    </div>
-    <br/>
-    <br/>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="info_footer">
-      <p>Wild Code School, Paris - 2018</p>
-    </div>
-  </footer>
-</div>
-
+  <script type="module" src="./js/myNavbar.js"></script>
   <script type="module" src="./js/app.js"></script>
+
 </body>
 
 </html>
