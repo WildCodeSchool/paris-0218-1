@@ -33,7 +33,7 @@ const rdmNumber = (min, max) => {
   state.rdmNb = Math.floor(nb)
 
   //luck to draw First bush than other
-  while (i++ < 1) {
+  while (i++ < 2) {
     if (state.rdmNb !== 0) {
       nb = Math.random() * (max - min) + min
       state.rdmNb = Math.floor(nb)
@@ -224,17 +224,22 @@ const basicState = () => ({
 let state = basicState()
 
 const drawStart = () => {
+
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
   ctx.fillRect(0, 0, 480, 320)
   ctx.closePath()
 
   ctx.beginPath()
-  ctx.font = '25px Courier'
-  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Pour lancer la partie,`, 80, 160)
-  ctx.fillText(`appuie sur la barre espace.`, 40, 190)
   drawSound(state.sound)
+  ctx.font = '40px Serif'
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+  ctx.fillText(`Evites les obstacles, `, 90, 140)
+  ctx.fillText(`Attrapes des chaussettes.`, 50, 180)
+  ctx.font = '20px Serif'
+  ctx.fillText(`[ESPACE] pour demarrer une partie`, 95, 300)
+
+
   ctx.closePath()
 
   setTimeout(() => {
@@ -243,6 +248,7 @@ const drawStart = () => {
     state.deer.isDead = false
     state.score = 0
   }, 2000)
+
 }
 
 const drawScore = (score, nbSocks, userBestScore) => {
@@ -632,7 +638,6 @@ canvas.addEventListener('click', e => {
       images.sound = document.getElementById('img-sound0')
     drawSound(state.sound)
     console.log('klickapresIF', state.sound.mode)
-
   }
   eventStart(e)
 })
