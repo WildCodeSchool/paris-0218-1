@@ -102,7 +102,7 @@ const userIdRank = users => {
     ctx.textAlign = 'center'
     ctx.fillText(`${findUserIndex + i + 1}`, 120, 142 + (22 * i))
     ctx.textAlign = 'center'
-    ctx.fillText(`${user1.userName}`, 240, 142 + (22 * i))
+    ctx.fillText(`${user1.username}`, 240, 142 + (22 * i))
     ctx.textAlign = 'center'
     ctx.fillText(`${user1.bestScore}`, 360, 142 + (22 * i))
     ctx.closePath()
