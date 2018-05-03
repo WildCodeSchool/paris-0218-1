@@ -1,13 +1,13 @@
 {
   "firstName": "",
   "lastName": "",
-  "campus":"Reims",
-  "avatar":"default.jpg",
+  "campus": "Reims",
+  "avatar": "default.jpg",
   "id": 8,
   "username": "DEMO",
   "email": "demo@wcs.com",
   "password": "DEMOpass",
-  "bestScore": 201,
+  "bestScore": 920,
   "score": [
     {
       "id": 1,
@@ -158,6 +158,51 @@
       "id": 30,
       "score": 15,
       "date": 1524679850844
+    },
+    {
+      "id": 31,
+      "score": 526,
+      "date": 1525369517527
+    },
+    {
+      "id": 32,
+      "score": 920,
+      "date": 1525369545293
+    },
+    {
+      "id": 33,
+      "score": 116,
+      "date": 1525369556628
+    },
+    {
+      "id": 34,
+      "score": 511,
+      "date": 1525369607486
+    },
+    {
+      "id": 35,
+      "score": 64,
+      "date": 1525369613753
+    },
+    {
+      "id": 36,
+      "score": 69,
+      "date": 1525369649143
+    },
+    {
+      "id": 37,
+      "score": 420,
+      "date": 1525369690493
+    },
+    {
+      "id": 38,
+      "score": 63,
+      "date": 1525369696719
+    },
+    {
+      "id": 39,
+      "score": 299,
+      "date": 1525369726541
     }
   ]
 }
