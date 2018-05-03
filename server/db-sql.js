@@ -41,11 +41,10 @@ const addUser = user => {
   return exec(query, params)
 }
 
-
 const updateUser = (params) => exec(`UPDATE scores SET username = ?, firstName = ?, lastName = ?, avatar = ?, wildSide = ?, campus = ?, email = ?, password = ?,
       bestScore = (SELECT MAX(score) FROM scores WHERE userId = ? group by userId) WHERE userId = ?;`,
-      [ params.username, params.firstName, params.lastName, params.avatar, params.wildSide, params.campus, params.email, params.password,
-        params.userId, params.userId ])
+[ params.username, params.firstName, params.lastName, params.avatar, params.wildSide, params.campus, params.email, params.password,
+  params.userId, params.userId ])
 
 const updateBestScore = id => exec(`UPDATE users SET bestScore = (SELECT MAX(score) FROM scores WHERE userId = ?) WHERE userId = ?;`, [ id, id ])
 
@@ -56,7 +55,7 @@ const addScore = async (userId, score) => {
 }
 
 const getBestScores = () => exec(`SELECT username, score FROM scores LEFT JOIN users on scores.userId = users.userId ORDER BY score DESC;`)
-  
+
 const getLastUserId = () => exec(`SELECT MAX(userId) as userId FROM users;`)
 
 
@@ -67,10 +66,10 @@ module.exports = {
   addScore,
   getBestScores,
   getLastUserId,
+  addPersonalInformations
 }
 
 // console.log(getUsers())
-
 
 // TESTS
 
@@ -79,14 +78,14 @@ module.exports = {
 // getUserByUserName('Filoo').then(console.log)
 
 const testUser = {
-  "username": "Test",
-  "email": "test@wcs.com",
-  "password": "t3st",
-  "firstName": '',
-  "lastName": '',
-  "campus": '',
-  "avatar": '',
-  "bestScore": 0,
+  'username': 'Test',
+  'email': 'test@wcs.com',
+  'password': 't3st',
+  'firstName': '',
+  'lastName': '',
+  'campus': '',
+  'avatar': '',
+  'bestScore': 0
 }
 
 // addUser(testUser).then(console.log, console.error)
