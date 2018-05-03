@@ -9,9 +9,9 @@ const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
 const images = {
-  deer: document.getElementById('img-deer'),
-  socks: document.getElementById('img-socks'),
-  bush: document.getElementById('img-bush')
+  deer: document.getElementById('img_deer'),
+  socks: document.getElementById('img_socks'),
+  bush: document.getElementById('img_bush')
 }
 
 const renderScores = users => {

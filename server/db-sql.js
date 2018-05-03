@@ -14,21 +14,21 @@ const exec = async (query, params) => {
   return result[0]
 }
 
-const sqlCurrentDate = () => {
-  const currentDate = new Date()
-  const currentYear = currentDate.getFullYear().toString()
-  let currentMonthNum = currentDate.getMonth() + 1
-  let currentMonth = currentMonthNum.toString()
-  currentMonth = (currentMonth.length < 2 ? '0' : '').concat(currentMonth)
-  let currentDay = currentDate.getDate().toString()
-  currentDay = (currentDay.length < 2 ? '0' : '').concat(currentDay)
-
-  return currentYear.concat(currentMonth.concat(currentDay))
-}
+// const sqlCurrentDate = () => {
+//   const currentDate = new Date()
+//   const currentYear = currentDate.getFullYear().toString()
+//   let currentMonthNum = currentDate.getMonth() + 1
+//   let currentMonth = currentMonthNum.toString()
+//   currentMonth = (currentMonth.length < 2 ? '0' : '').concat(currentMonth)
+//   let currentDay = currentDate.getDate().toString()
+//   currentDay = (currentDay.length < 2 ? '0' : '').concat(currentDay)
+//
+//   return currentYear.concat(currentMonth.concat(currentDay))
+// }
 
 const getUsers = () => exec(`SELECT userId, username, firstName, lastName, avatar, wildSide, campus, email, bestScore FROM users;`)
 const getUserById = (id) => exec(`SELECT username, firstName, lastName, avatar, wildSide, campus, email, password FROM users WHERE userId = ?;`, [ id ])
-const getUserByUserName = (name) => exec(`SELECT userId, username, firstName, lastName, avatar, wildSide, campus, email, password FROM users WHERE username = ?;`, [ name ])
+// const getUserByUserName = (name) => exec(`SELECT userId, username, firstName, lastName, avatar, wildSide, campus, email, password FROM users WHERE username = ?;`, [ name ])
 
 const addUser = user => {
   const keys = [ 'username', 'email', 'password', 'firstName', 'lastName', 'campus', 'avatar', 'bestScore' ]
@@ -49,7 +49,7 @@ const updateUser = (params) => exec(`UPDATE scores SET username = ?, firstName =
 const updateBestScore = id => exec(`UPDATE users SET bestScore = (SELECT MAX(score) FROM scores WHERE userId = ?) WHERE userId = ?;`, [ id, id ])
 
 const addScore = async (userId, score) => {
-  const result = await exec(`INSERT INTO scores (userId, score) VALUES (?, ?);`, [ userId, score ])
+  await exec(`INSERT INTO scores (userId, score) VALUES (?, ?);`, [ userId, score ])
 
   return updateBestScore(userId)
 }
@@ -77,16 +77,16 @@ module.exports = {
 // getUserById(1).then(console.log)
 // getUserByUserName('Filoo').then(console.log)
 
-const testUser = {
-  'username': 'Test',
-  'email': 'test@wcs.com',
-  'password': 't3st',
-  'firstName': '',
-  'lastName': '',
-  'campus': '',
-  'avatar': '',
-  'bestScore': 0
-}
+// const testUser = {
+//   'username': 'Test',
+//   'email': 'test@wcs.com',
+//   'password': 't3st',
+//   'firstName': '',
+//   'lastName': '',
+//   'campus': '',
+//   'avatar': '',
+//   'bestScore': 0
+// }
 
 // addUser(testUser).then(console.log, console.error)
 // addScore(9, 121).then(console.log, console.error)
