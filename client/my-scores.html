@@ -1,68 +1,120 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>User scores</title>
-  </head>
-  <body>
-    <h1>My scores</h1>
-    <div id="my_scores">
-      <section id="scores_performances">
-        <p>Best score I ever did : <span id="my_best_score"></span></p>
-        <p>My scores averrage : <span id="my_score_averrage"></span></p>
-        <p>My socks averrage : <span id="my_socks_averrage"></span></p>
-      </section>
 
-      <!-- SECTION 2 / SCORES HISTORY - chronologic display -->
-      <section id="scores_history">
-        <div class="section_name_table">
-          <h2>My last scores</h2>
-        </div>
-        <div class="score_table">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Score</th>
-                <th>Socks</th>
-                <!-- <th>Socks</th> -->
-              </tr>
-            </thead>
-            <tbody id="score_history_list">
-              <!-- InnerHTML JS -->
-            </tbody>
-          </table>
-        </div>
-        <br/>
-        <br/>
-      </section>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <title>Wildeer - Wild Code School</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
-      <!-- SECTION 2 / BEST SCORES -->
-      <section id="best_scores">
-        <div class="section_name_table">
-          <h2>My best scores</h2>
-        </div>
-        <div class="score_table">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Score</th>
-                <th>Socks</th>
-              </tr>
-            </thead>
-            <tbody id="best_scores_list">
-              <!-- InnerHTML JS -->
-            </tbody>
-          </table>
-        </div>
-        <br/>
-        <br/>
-      </section>
-    </div>
-    <div id="no_score"></div>
+  <link rel="stylesheet" type="text/css" href="./css/my-scores.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu|VT323" rel="stylesheet">
+</head>
 
+<body>
+  <div id="portrait_mode">Basculez votre téléphone en mode paysage.</div>
+  <div id="content">
+
+
+    <!-- HEADER / NAV + LOGO -->
+
+    <header>
+
+      <div id="menu">
+        Load navbar
+      </div>
+    </header>
+
+
+    <div id="content_signup">
+      <div class="container_signup">
+
+
+        <h1>My scores</h1>
+        <div id="my_scores">
+          <section id="scores_performances">
+            <div class="container">
+              <div class="resume">
+                <div>
+                  <p>Best score I ever did :
+                    <span id="my_best_score"></span>
+                    <br> 
+                    My scores averrage :
+                    <span id="my_score_averrage"></span>
+                    <br>
+                    My socks averrage :
+                    <span id="my_socks_averrage"></span>
+                  </p>
+                </div>
+              </div>
+          </section>
+
+          <!-- SECTION 2 / SCORES HISTORY - chronologic display -->
+          <section id="scores_history">
+            <div class="section_name_table">
+              <h2>My last scores</h2>
+            </div>
+            <div class="score_table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Socks</th>
+                    <!-- <th>Socks</th> -->
+                  </tr>
+                </thead>
+                <tbody id="score_history_list">
+                  <!-- InnerHTML JS -->
+                </tbody>
+              </table>
+            </div>
+            <br/>
+            <br/>
+          </section>
+
+          <!-- SECTION 2 / BEST SCORES -->
+          <section id="best_scores">
+            <div class="section_name_table">
+              <h2>My best scores</h2>
+            </div>
+            <div class="score_table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Socks</th>
+                  </tr>
+                </thead>
+                <tbody id="best_scores_list">
+                  <!-- InnerHTML JS -->
+                </tbody>
+              </table>
+            </div>
+            <br/>
+            <br/>
+            </div>
+          </section>
+        </div>
+        <div id="no_score"></div>
+        <!-- FOOTER -->
+        <footer>
+          <div class="info_footer">
+            <p>Wild Code School, Paris - 2018</p>
+          </div>
+        </footer>
+      </div>
+      <script type="module" src="./js/myNavbar.js"></script>
       <script type="module" src="./js/my-scores.js"></script>
 
-  </body>
+</body>
+
 </html>
