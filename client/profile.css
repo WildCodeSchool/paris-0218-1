@@ -1,0 +1,21 @@
+#myProfile {
+  text-align: center;
+}
+
+#tableau {
+  border: solid;
+  background-color: red;
+}
+
+#imgAvatar {
+  width: 300px;
+  height: 300px;
+}
+
+td {
+  align: center;
+}
+
+tr {
+  padding: 30px;
+}

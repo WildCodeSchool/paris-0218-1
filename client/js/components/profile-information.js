@@ -1,12 +1,36 @@
 export const createProfile = user => `
-  <h1>My profile</h1>
-  <p class="info" id="lastName">First name: ${user.firstName}</p>
-  <p class="info" id="firstName">Last name: ${user.lastName}</p>
-  <p class="info" id="email">Username: ${user.username}</p>
-  <p class="info" id="email">Email: ${user.email}</p>
-  <p class="info" id="campus">Campus: ${user.campus}</p>
-  <p class="info" id="wild_side">Wild side: ${user.wildside}</p>
-  <img src="http://localhost:3000/images/${user.avatar}">
+  <h1 id="myProfile">My profile</h1>
+    <table id="tableau">
+        <tr>
+      <td class="info" id="firstName">First name:</td>
+      <td class="infoUser" id="firstName">${user.firstName}</td>
+        </tr>
+        <tr>
+      <td class="info" id="lastName">Last name:</td>
+      <td class="infoUser" id="lastName">${user.lastName}</td>
+        </tr>
+        <tr>
+      <td class="info" id="username">Username:</td>
+      <td class="infoUser" id="username">${user.username}</td>
+        </tr>
+        <tr>
+      <td class="info" id="email">Email:</td>
+      <td class="infoUser" id="email">${user.email}</td>
+        </tr>
+        <tr>
+      <td class="info" id="campus">Campus:</td>
+      <td class="infoUser" id="email">${user.campus}</td>
+        </tr>
+        <tr>
+      <td class="info" id="wild_side">Wild side:</td>
+      <td class="infoUser" id="email">${user.wildside}</td>
+        </tr>
+        <tr>
+      <td class="info" id="avatar">Avatar:</td>
+      <td class="infoUser" id="avatar"><img id="imgAvatar" src="http://localhost:3000/images/${user.avatar}"></td>
+      </tr>
+    </table>
+
   <button id="edit_button">Edit</button>
 `
 
