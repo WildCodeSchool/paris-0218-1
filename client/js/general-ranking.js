@@ -1,11 +1,11 @@
 import { createBestPlayerInsert, createAllScoreRow, createCampusRaw, createCampusInsert } from './components/rankings.js'
 import { getAllScores } from './api.js'
 
-const bestPlayerElement = document.getElementById('best-player')
+const bestPlayerElement = document.getElementById('best_player')
 const allScoresElement = document.getElementById('all_scores_list')
 const campusScoresElement = document.getElementById('campus_ranking_list')
-const bestCampusElement = document.getElementById('best-campus')
-const worstCampusElement = document.getElementById('worst-campus')
+const bestCampusElement = document.getElementById('best_campus')
+const worstCampusElement = document.getElementById('worst_campus')
 
 const campusList = [
   'Paris',
@@ -51,6 +51,11 @@ const getCampusRanking = users => {
 
 const showCampusRanking = async users => {
   const campusRanking = await getCampusRanking(users)
+  const iterator = campusRanking.keys()
+
+  for (const key of iterator) {
+    campusRanking[key].position = key + 1
+  }
 
   campusScoresElement.innerHTML = campusRanking
     .map(createCampusRaw)
@@ -63,7 +68,9 @@ const getBestCampus = async users => {
 
   campusRanking
     .slice(0, 1)
-    .map(campus => bestCampusElement.innerHTML = createCampusInsert(campus))
+    .map(campus => {
+      bestCampusElement.innerHTML = createCampusInsert(campus)
+    })
 }
 
 const getWorstCampus = async users => {
@@ -71,21 +78,24 @@ const getWorstCampus = async users => {
 
   campusRanking
     .slice(-1)
-    .map(campus => worstCampusElement.innerHTML = createCampusInsert(campus))
+    .map(campus => {
+      worstCampusElement.innerHTML = createCampusInsert(campus)
+    })
 }
 
 // best player
 const getBestPlayer = users => users
   .slice(0, 1)
-  .map(user => bestPlayerElement.innerHTML = createBestPlayerInsert(user))
-
+  .map(user => {
+    bestPlayerElement.innerHTML = createBestPlayerInsert(user)
+  })
 
 // general ranking
 const getGeneralRanking = users => {
   const bestToWorst = users.sort((a, b) => b.bestScore - a.bestScore)
   const allScoresArr = []
 
-  for (let i = 0 ; i < bestToWorst.length ; i++) {
+  for (let i = 0; i < bestToWorst.length; i++) {
     const user = bestToWorst[i]
     user.position = i + 1
     allScoresArr.push(createAllScoreRow(user))
@@ -93,7 +103,6 @@ const getGeneralRanking = users => {
 
   allScoresElement.innerHTML = allScoresArr.join('')
 }
-
 
 // start
 getAllScores()

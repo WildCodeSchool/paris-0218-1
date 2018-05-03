@@ -22,10 +22,11 @@ export const getAllScores = () => {
     .then(res => res.json())
 }
 
-export const sendScore = (userId, score) => {
+export const sendScore = (userId, score, nbSocks) => {
   const body = {
     userId: userId,
-    score: Math.round(score)
+    score: Math.round(score),
+    nbSocks: nbSocks
   }
 
   return postJson(`${api.host}:${api.port}/addscore`, body)

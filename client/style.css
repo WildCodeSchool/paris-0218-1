@@ -1,17 +1,29 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    background-image: url("img/pattern_deer.jpg");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    
+    }
+    
+#content_home {
+    position: relative;
+    margin: auto;
+    width: 65vw;
+    background-color: white;
+    box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.15);
 }
 
-#canvas{
-    background: #7BB0D0;
+    #canvas{
+    background: black;
     display:block;
     margin: 0 auto;
-}
-
-@media screen and (orientation: landscape) {
-  #portrait_mode {
+    }
+    
+    @media screen and (orientation: landscape) {
+    #portrait_mode {
     visibility: hidden;
     position: absolute;
     display: flex;
@@ -25,19 +37,19 @@ body {
     height: 100%;
     max-height: 100%;
     z-index: 2000;
-}
- }
-
-@media screen and (orientation: portrait) {
+    }
+    }
+    
+    @media screen and (orientation: portrait) {
     body {
-        background-color: black;
+    background-color: black;
     }
-
+    
     #content {
-        display: none;
+    display: none;
     }
-
-  #portrait_mode {
+    
+    #portrait_mode {
     visibility: visible;
     position: absolute;
     display: flex;
@@ -52,106 +64,195 @@ body {
     height: 100%;
     max-height: 100%;
     z-index: 2000;
-}
-}
-
-.menu {
+    }
+    }
+    
+    .navbar {
     position: fixed;
     width: 100vw;
-    height: 100px;
+    height: 80px;
+    background-color: black !important;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    z-index: 1000;
+    color: white;
+    } 
+
+    .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+        color: white;
+    }
+    
+    .navbar-light .navbar-nav .nav-link {
+        color: white;
+    }
+
+
+
+
+    /* .separateur_menu {
+    position: relative;
+    width: 100vw;
+    height: 30px;
+    background-image: url("img/pattern_deer_bandeau.jpg");
+    background-repeat: repeat;
+    border-bottom: 3px solid black;
+    } */
+    
+    h1 {
+    font-size: 50px;
+    color: white;
+    text-transform: uppercase;
+    }
+  
+    .container_game {
+    position: relative;
+    width: 80%;
+    min-width: 520px;
+    padding-top: 110px;
+    padding-bottom: 40px;
+    margin: 0;
+    /* background-color: white; */
+    /* box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.15); */
+    }
+
+    .container_score {
+    position: relative;
+    width: 80%;
+    min-width: 520px;
+    margin: 0;
+    padding-bottom: 30px;
+    /* background-color: white; */
+    /* box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.15); */
+    }
+    
+    .section_name_table {
+        position: relative;
+        width: 95%;
+        height: 35px;
+        margin: 15px auto ;
+        background-color: #f1a720;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section_name_table h2 {
+        padding: 10px;
+        font-family: 'VT323', monospace;
+        text-transform: uppercase;
+        font-size: 30px;
+        color: white;
+    }
+    
+    .score_table {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    }
+    
+    .table {
+    width: 96%;
+    height: auto;
+    margin: 0; 
+    padding: 0;
+    }
+
+    .table thead {
     background-color: black;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    }
+    
+.table tbody {
+    color: black;
+    text-transform: uppercase;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    padding: 5px;
+    }
+    
+    .table td {
+    text-align: center;
+    border-bottom: 1px solid #f1a720;
+    padding: 3px;
+    }
+
+.globalranking {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: black;
+    text-align: center;
+}
+
+.globalranking a {
+    color: black;
+}
+.globalranking a:hover {
+    color: #f1a720;
+    text-decoration: none;
+}
+
+    footer {
+    position: fixed;
+    width: 100vw;
+    height: 30px;
+    bottom: 0;
+    background-color: black;
+    color: white;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-}
-
-h1 {
-    font-size: 50px;
-    color: white;
-    text-transform: uppercase;
-}
-
-.section_name_table h2 {
-    padding: 10px;
-    text-align: center;
-
-}
-
-.score_table {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.table {
-    width: 500px;
-    height: auto;
-}
-
-.table thead, th {
-    background-color:black;
-    color: white;
-    text-transform: uppercase;
-    font-size: 15px;
-    padding: 5px;
-}
-
-.table td {
-    text-align: center;
-    border-bottom: 1px solid black;
-    padding: 3px;
-}
-
-footer {
-    position: relative;
-    width: 100vw;
-    height: 50px;
-    background-color: black;
-    color: white;
+    }
+    
+    .info_footer {
+    padding: 0;
     margin: 0;
-    padding: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.info_footer {
-    padding: 0px;
-    margin: 0px;
-}
-
-.info_footer p{
+    }
+    
+    .info_footer p{
     padding-right: 10px;
     font-size: 12px;
-}
-
-#game {
+    }
+    
+    #game {
     position : relative;
-    padding-top: 140px;
+    /* padding-top: 140px; */
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#game div {
-    border: 1px solid black;
-    background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    #game div {
+    /* background-color: rgba(0, 0, 0, 0.2); */
     display: flex;
     align-items: center;
     justify-content: center
-}
-
-#game p {
+    }
+    
+    
+    #game p {
     text-align: center;
     font-size: 50px;
     text-transform: uppercase;
-}
-
-#scoring {
-    position: relative;
-    width: 100vw;
-    height: auto;
-}
+    }
+    
+    #scoring {
+    position : relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }

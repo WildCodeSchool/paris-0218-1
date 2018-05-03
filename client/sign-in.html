@@ -4,15 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="sign-in.css">.
   <title>Wildeer - Wild Code School - Sign in</title>
 </head>
 
 <body>
+  <h1>Sign in</h1>
   <div id="auth"></div>
 
-  <section id="signIn">
+  <section id="sign_in">
     <h1>Sign in</h1>
     <form id="sign_in_form">
+    <div class="container">
+
       <label for="input_username">Username:
         <input id="input_username" type="text" name="username">
       </label>
@@ -20,11 +24,13 @@
         <input id="input_password" type="password" name="password">
       </label>
       <input type="submit" value="Login">
+      <a href="/sign-up.html">Sign up</a>
+
+    </div>
     </form>
-    <a href="/sign-up.html">Sign up</a>
   </section>
 
-  <section id="signOut">
+  <section id="sign_out">
     <form id="sign_out_form" style="display: none">
       <input type="submit" value="logout">
     </form>

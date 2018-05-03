@@ -1,11 +1,11 @@
 import { createUserScoreRow } from './components/user-scores.js'
 import { getProfile } from './api.js'
 
-const myScoresElement = document.getElementById('my-scores')
-const noScoreElement = document.getElementById('no-score')
-const bestScoreElement = document.getElementById('my-best-score')
-const scoreAverrageElement = document.getElementById('my-score-averrage')
-const socksAverrageElement = document.getElementById('my-socks-averrage')
+const myScoresElement = document.getElementById('my_scores')
+const noScoreElement = document.getElementById('no_score')
+const bestScoreElement = document.getElementById('my_best_score')
+const scoreAverrageElement = document.getElementById('my_score_averrage')
+const socksAverrageElement = document.getElementById('my_socks_averrage')
 const historyElement = document.getElementById('score_history_list')
 const bestScoresElement = document.getElementById('best_scores_list')
 
