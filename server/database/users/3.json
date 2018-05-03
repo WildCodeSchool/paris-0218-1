@@ -1,8 +1,8 @@
 {
-  "firstName": "",
+  "firstName": "Lul",
   "lastName": "",
-  "campus": "",
-  "avatar": "default.jpg",
+  "campus": "Paris",
+  "avatar": "IMG_0997.jpg",
   "id": 3,
   "username": "Lulu",
   "email": "lulu@wcs.com",
@@ -138,6 +138,57 @@
       "id": 26,
       "score": 41,
       "date": 1525107016058
+    },
+    {
+      "id": 27,
+      "score": 19,
+      "date": 1525256700739
+    },
+    {
+      "id": 28,
+      "score": 18,
+      "date": 1525261462017
+    },
+    {
+      "id": 29,
+      "score": 29,
+      "date": 1525269369389
+    },
+    {
+      "id": 30,
+      "score": 35,
+      "date": 1525269378744
+    },
+    {
+      "id": 31,
+      "score": 25,
+      "date": 1525269756642
+    },
+    {
+      "id": 32,
+      "score": 161,
+      "date": 1525269912411
+    },
+    {
+      "id": 33,
+      "score": 17,
+      "date": 1525270029259
+    },
+    {
+      "id": 34,
+      "score": 40,
+      "date": 1525270241983
+    },
+    {
+      "id": 35,
+      "score": 24,
+      "date": 1525277709407
+    },
+    {
+      "id": 36,
+      "score": 14,
+      "date": 1525282072883
     }
-  ]
+  ],
+  "wildside": "Lulu la technoDingo"
 }
