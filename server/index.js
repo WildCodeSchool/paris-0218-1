@@ -77,7 +77,7 @@ app.get('/', (req, res) => {
 
 const keepBests = users => users
   .sort((user1, user2) => user2.bestScore - user1.bestScore)
-// .slice(0, 5)
+  .slice(0, 5)
 
 app.get('/scores', (req, res) => {
   db.getUsers()
