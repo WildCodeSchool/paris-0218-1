@@ -127,6 +127,8 @@ app.post('/sign-up', async (req, res, next) => {
   user.bestScore = 0
   user.score = []
 
+  req.session.user = user
+
   db.addUser(user)
     .then(() => res.json('OK'))
     .catch(err => res.status(500).end(err.message))
