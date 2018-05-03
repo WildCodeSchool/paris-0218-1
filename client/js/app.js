@@ -9,9 +9,9 @@ const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
 const images = {
-  deer: document.getElementById('img-deer'),
-  socks: document.getElementById('img-socks'),
-  bush: document.getElementById('img-bush')
+  deer: document.getElementById('img_deer'),
+  socks: document.getElementById('img_socks'),
+  bush: document.getElementById('img_bush')
 }
 
 const renderScores = users => {
@@ -69,14 +69,6 @@ const drawGameOver = () => {
   ctx.fillText(`Game Over`, 80, 160)
   ctx.closePath()
 }
-
-// const drawRect = (x, y, w, h, color) => {
-//   ctx.beginPath()
-//   ctx.rect(x, y, w, h)
-//   ctx.fillStyle = color
-//   ctx.fill()
-//   ctx.closePath()
-// }
 
 const drawBush = bush => {
   ctx.drawImage(images.bush, bush.x, bush.y, bush.width, bush.height)

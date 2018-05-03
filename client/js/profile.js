@@ -6,8 +6,13 @@ import { createProfile, editProfile } from './components/profile-information.js'
 const sectionInfoProfile = document.getElementById('info_profil')
 const sectionEditProfile = document.getElementById('edit_profil')
 
-const showProfile = user => sectionInfoProfile.innerHTML = createProfile(user)
-const updateProfile = user => sectionEditProfile.innerHTML = editProfile(user)
+const showProfile = user => {
+  sectionInfoProfile.innerHTML = createProfile(user)
+}
+
+const updateProfile = user => {
+  sectionEditProfile.innerHTML = editProfile(user)
+}
 
 sectionEditProfile.style.display = 'none'
 sectionInfoProfile.style.display = 'block'
@@ -42,7 +47,9 @@ const start = async () => {
 
   const formProfile = document.getElementById('edit_form')
   const messageElement = document.getElementById('error_message')
-  const handleErrors = res => messageElement.innerHTML = res.error || ''
+  const handleErrors = res => {
+    messageElement.innerHTML = res.error || ''
+  }
 
   // edit profile
   formProfile.addEventListener('submit', event => {
@@ -57,7 +64,8 @@ const start = async () => {
     }
 
     if (credentials.password !== credentials.repeatPassword) {
-      return messageElement.innerHTML = 'Error with passwords'
+      messageElement.innerHTML = 'Error with passwords'
+      return
     }
 
     sendNewProfile(formData)

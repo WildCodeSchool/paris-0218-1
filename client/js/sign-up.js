@@ -2,9 +2,11 @@
 
 import { signUp } from './api.js'
 
-const signUpForm = document.getElementById('sign-up-form')
+const signUpForm = document.getElementById('sign_up_form')
 const messageElement = document.getElementById('error_message')
-const handleErrors = res => messageElement.innerHTML = res.error || ''
+const handleErrors = res => {
+  messageElement.innerHTML = res.error || ''
+}
 
 signUpForm.addEventListener('submit', event => {
   event.preventDefault()
@@ -14,13 +16,15 @@ signUpForm.addEventListener('submit', event => {
   const credentials = {
     username: formData.get('username'),
     email: formData.get('email'),
-    password: formData.get('password')
+    password: formData.get('password'),
+    campus: formData.get('campus')
   }
 
   const repeatPassword = formData.get('repeat_password')
 
   if (credentials.password !== repeatPassword) {
-    return messageElement.innerHTML = 'Error with passwords'
+    messageElement.innerHTML = 'Error with passwords'
+    return
   }
 
   signUp(credentials)

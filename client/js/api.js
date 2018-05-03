@@ -17,6 +17,11 @@ export const getScores = () => {
     .then(res => res.json())
 }
 
+export const getAllScores = () => {
+  return fetch(`${api.host}:${api.port}/all-scores`, { 'credentials': 'include' })
+    .then(res => res.json())
+}
+
 export const sendScore = (userId, score) => {
   const body = {
     userId: userId,

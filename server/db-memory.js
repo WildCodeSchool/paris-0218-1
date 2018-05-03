@@ -31,7 +31,7 @@ const addScore = async (userId, score) => {
   const user = await getUserById(userId)
 
   if (!user) {
-    return Promise.reject()
+    return Promise.reject(Error('User not found'))
   }
 
   if (score > user.bestScore) {

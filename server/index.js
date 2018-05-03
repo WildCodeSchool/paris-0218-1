@@ -8,7 +8,8 @@ const path = require('path')
 const port = 3000
 const secret = 'something wild'
 
-const db = require('./db-fs.js')
+// const db = require('./db-fs.js')
+const db = require('./db-sql.js')
 
 const app = express()
 
@@ -85,6 +86,13 @@ app.get('/scores', (req, res) => {
     .catch(err => res.status(500).end(err.message))
 })
 
+app.get('/all-scores', (req, res) => {
+  db.getUsers()
+    .then(users => users.sort((user1, user2) => user2.bestScore - user1.bestScore))
+    .then(users => res.json(users))
+    .catch(err => res.status(500).end(err.message))
+})
+
 app.post('/addscore', (req, res, next) => {
   const { userId, score } = req.body
 
@@ -96,7 +104,7 @@ app.post('/addscore', (req, res, next) => {
 // Sign up : check the database to verify that the email get from client doesn't exist
 // then write a new file in database/users to create the new user
 app.post('/sign-up', async (req, res, next) => {
-  const user = req.body // username, email, password
+  const user = req.body // username, email, password, campus
 
   // error handling
   const users = await db.getUsers()
@@ -115,8 +123,7 @@ app.post('/sign-up', async (req, res, next) => {
 
   user.firstName = ''
   user.lastName = ''
-  user.campus = ''
-  user.avatar = ''
+  user.avatar = 'default.jpg'
   user.bestScore = 0
   user.score = []
 

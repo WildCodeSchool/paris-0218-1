@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>User scores</title>
+  </head>
+  <body>
+    <h1>My scores</h1>
+    <div id="my_scores">
+      <section id="scores_performances">
+        <p>Best score I ever did : <span id="my_best_score"></span></p>
+        <p>My scores averrage : <span id="my_score_averrage"></span></p>
+        <p>My socks averrage : <span id="my_socks_averrage"></span></p>
+      </section>
+
+      <!-- SECTION 2 / SCORES HISTORY - chronologic display -->
+      <section id="scores_history">
+        <div class="section_name_table">
+          <h2>My last scores</h2>
+        </div>
+        <div class="score_table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Socks</th>
+                <!-- <th>Socks</th> -->
+              </tr>
+            </thead>
+            <tbody id="score_history_list">
+              <!-- InnerHTML JS -->
+            </tbody>
+          </table>
+        </div>
+        <br/>
+        <br/>
+      </section>
+
+      <!-- SECTION 2 / BEST SCORES -->
+      <section id="best_scores">
+        <div class="section_name_table">
+          <h2>My best scores</h2>
+        </div>
+        <div class="score_table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Socks</th>
+              </tr>
+            </thead>
+            <tbody id="best_scores_list">
+              <!-- InnerHTML JS -->
+            </tbody>
+          </table>
+        </div>
+        <br/>
+        <br/>
+      </section>
+    </div>
+    <div id="no_score"></div>
+
+      <script type="module" src="./js/my-scores.js"></script>
+
+  </body>
+</html>

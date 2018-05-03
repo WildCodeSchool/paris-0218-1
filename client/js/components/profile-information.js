@@ -30,6 +30,15 @@ export const editProfile = user => `
         <option value="La Loupe">La Loupe</option>
         <option value="Biarritz">Biarritz</option>
         <option value="Reims">Reims</option>
+        <option value="Bordeaux">Bordeaux</option>
+        <option value="Orléans">Orléans</option>
+        <option value="Toulouse">Toulouse</option>
+        <option value="Lille">Lille</option>
+        <option value="Strasbourg">Strasbourg</option>
+        <option value="Marseille">Marseille</option>
+        <option value="Tours">Tours</option>
+        <option value="Bruxelles">Bruxelles</option>
+        <option value="Nantes">Nantes</option>
       </select>
     </label><br/>
     <label for="edit_email">Email:
