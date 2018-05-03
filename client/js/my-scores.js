@@ -1,5 +1,5 @@
 import { createUserScoreRow } from './components/user-scores.js'
-import { getProfile } from './api.js'
+import { getProfile, getUser } from './api.js'
 
 const myScoresElement = document.getElementById('my_scores')
 const noScoreElement = document.getElementById('no_score')
@@ -50,3 +50,12 @@ getProfile()
     scoresAverrage(user)
     socksAverrage(user)
   })
+
+// START
+getUser().then(user => {
+  console.log(user)
+
+  if (!user.username) {
+    window.location = '/sign-in.html'
+  }
+})

@@ -1,6 +1,6 @@
 /* global FormData */
 
-import { sendNewProfile, getProfile } from './api.js'
+import { sendNewProfile, getProfile, getUser } from './api.js'
 import { createProfile, editProfile } from './components/profile-information.js'
 
 const sectionInfoProfile = document.getElementById('info_profil')
@@ -87,3 +87,12 @@ const start = async () => {
 }
 
 start()
+
+// START
+getUser().then(user => {
+  console.log(user)
+
+  if (!user.username) {
+    window.location = '/sign-in.html'
+  }
+})
