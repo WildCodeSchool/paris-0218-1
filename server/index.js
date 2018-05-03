@@ -77,7 +77,7 @@ app.get('/', (req, res) => {
 
 const keepBests = users => users
   .sort((user1, user2) => user2.bestScore - user1.bestScore)
-  .slice(0, 5)
+// .slice(0, 5)
 
 app.get('/scores', (req, res) => {
   db.getUsers()
@@ -94,9 +94,9 @@ app.get('/all-scores', (req, res) => {
 })
 
 app.post('/addscore', (req, res, next) => {
-  const { userId, score } = req.body
+  const { userId, score, nbSocks } = req.body
 
-  db.addScore(userId, score)
+  db.addScore(userId, score, nbSocks)
     .then(() => res.json('OK'))
     .catch(next)
 })
