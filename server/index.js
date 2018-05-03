@@ -9,6 +9,7 @@ const port = 3000
 const secret = 'something wild'
 
 const db = require('./db-fs.js')
+//const db = require('./db-sql.js')
 
 const app = express()
 
@@ -76,7 +77,7 @@ app.get('/', (req, res) => {
 
 const keepBests = users => users
   .sort((user1, user2) => user2.bestScore - user1.bestScore)
-  .slice(0, 5)
+// .slice(0, 5)
 
 app.get('/scores', (req, res) => {
   db.getUsers()
@@ -85,10 +86,17 @@ app.get('/scores', (req, res) => {
     .catch(err => res.status(500).end(err.message))
 })
 
-app.post('/addscore', (req, res, next) => {
-  const { userId, score } = req.body
+app.get('/all-scores', (req, res) => {
+  db.getUsers()
+    .then(users => users.sort((user1, user2) => user2.bestScore - user1.bestScore))
+    .then(users => res.json(users))
+    .catch(err => res.status(500).end(err.message))
+})
 
-  db.addScore(userId, score)
+app.post('/addscore', (req, res, next) => {
+  const { userId, score, nbSocks } = req.body
+
+  db.addScore(userId, score, nbSocks)
     .then(() => res.json('OK'))
     .catch(next)
 })
@@ -115,7 +123,7 @@ app.post('/sign-up', async (req, res, next) => {
 
   user.firstName = ''
   user.lastName = ''
-  user.avatar = ''
+  user.avatar = 'default.jpg'
   user.bestScore = 0
   user.score = []
 

@@ -1,4 +1,4 @@
 export const api = {
-  host: 'http://localhost',
+  host: ' http://localhost',
   port: 3000
 }
