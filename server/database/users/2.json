@@ -1,6 +1,12 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Bordeaux",
+  "avatar":"default.jpg",
   "id": 2,
-  "userName": "Héhé",
+  "username": "Héhé",
+  "email": "hehe@wcs.com",
+  "password": "Hehepass",
   "bestScore": 1346,
   "score": []
 }

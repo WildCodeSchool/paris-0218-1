@@ -1,6 +1,5 @@
 import { createScoreRow } from './components/scores.js'
-import { getScores, sendScore } from './api.js'
-// import { start } from 'repl';
+import { getUser, getScores, sendScore } from './api.js'
 
 const requestAnimationFrame = window.requestAnimationFrame
 const cancelAnimationFrame = window.cancelAnimationFrame
@@ -11,15 +10,15 @@ const ctx = canvas.getContext('2d')
 const scoreListElement = document.getElementById('score_list')
 
 let images = {
-  background: document.getElementById('img-background'),
-  deer: document.getElementById('img-deer'),
-  sock: document.getElementById('img-sock'),
-  stars: document.getElementById('img-stars'),
-  superSock1: document.getElementById('img-superSock1'),
-  superSock2: document.getElementById('img-superSock2'),
-  bush: [document.getElementById('img-bush0'),],
-  sound: document.getElementById('img-sound0'),
-  flyBush: document.getElementById('img-flyBush'),
+  background: document.getElementById('img_background'),
+  deer: document.getElementById('img_deer'),
+  sock: document.getElementById('img_sock'),
+  stars: document.getElementById('img_stars'),
+  superSock1: document.getElementById('img_superSock1'),
+  superSock2: document.getElementById('img_superSock2'),
+  bush: [document.getElementById('img_bush0'),],
+  sound: document.getElementById('img_sound0'),
+  flyBush: document.getElementById('img_flyBush'),
 }
 
 const sockSound = new Audio('sound/sockSound.mp3')
@@ -53,35 +52,35 @@ const maxBushImg = () => {
 }
 maxBushImg()
 
-const playerIdBestScore = users => {
-  const user = users.find(user => state.playerId === user.id)
+const userIdBestScore = users => {
+  const user = users.find(user => state.userId === user.id)
 
   stateBis.userBestScore = user.bestScore
 }
 
-const playerIdRank = users => {
+const userIdRank = users => {
   let scoresEndGame
-  let findPlayerIndex = users.findIndex(user => state.playerId === user.id)
-  let findPlayerIndex2 = users.findIndex(user => state.playerId === user.id)
+  let findUserIndex = users.findIndex(user => state.userId === user.id)
+  let findUserIndex2 = users.findIndex(user => state.userId === user.id)
 
-  if (findPlayerIndex === 0) {
-    scoresEndGame = users.slice(findPlayerIndex, findPlayerIndex + 5)
+  if (findUserIndex === 0) {
+    scoresEndGame = users.slice(findUserIndex, findUserIndex + 5)
   }
-  else if (findPlayerIndex === 1) {
-    scoresEndGame = users.slice(findPlayerIndex - 1, findPlayerIndex + 4)
-    findPlayerIndex = findPlayerIndex - 1
+  else if (findUserIndex === 1) {
+    scoresEndGame = users.slice(findUserIndex - 1, findUserIndex + 4)
+    findUserIndex = findUserIndex - 1
   }
-  else if (findPlayerIndex === users.length - 2) {
-    scoresEndGame = users.slice(findPlayerIndex - 3, findPlayerIndex + 2)
-    findPlayerIndex = findPlayerIndex - 3
+  else if (findUserIndex === users.length - 2) {
+    scoresEndGame = users.slice(findUserIndex - 3, findUserIndex + 2)
+    findUserIndex = findUserIndex - 3
   }
-  else if (findPlayerIndex === users.length - 1) {
-    scoresEndGame = users.slice(findPlayerIndex - 4, findPlayerIndex + 1)
-    findPlayerIndex = findPlayerIndex - 4
+  else if (findUserIndex === users.length - 1) {
+    scoresEndGame = users.slice(findUserIndex - 4, findUserIndex + 1)
+    findUserIndex = findUserIndex - 4
   }
   else {
-    scoresEndGame = users.slice(findPlayerIndex - 2, findPlayerIndex + 3)
-    findPlayerIndex = findPlayerIndex - 2
+    scoresEndGame = users.slice(findUserIndex - 2, findUserIndex + 3)
+    findUserIndex = findUserIndex - 2
   }
 
 
@@ -94,14 +93,14 @@ const playerIdRank = users => {
     ctx.stroke()
     ctx.font = '12px Courier'
 
-    if (findPlayerIndex + i === findPlayerIndex2) {
+    if (findUserIndex + i === findUserIndex2) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
       // ctx.fillRect(120, 160, 415,(22 * i));
       ctx.font = '17px Courier'
     }
     ctx.fillStyle = 'rgba(0, 0, 0, 1)'
     ctx.textAlign = 'center'
-    ctx.fillText(`${findPlayerIndex + i + 1}`, 120, 142 + (22 * i))
+    ctx.fillText(`${findUserIndex + i + 1}`, 120, 142 + (22 * i))
     ctx.textAlign = 'center'
     ctx.fillText(`${user1.userName}`, 240, 142 + (22 * i))
     ctx.textAlign = 'center'
@@ -129,6 +128,7 @@ const getMousePos = (canvas, e) => {
 
 const teleport = offset => canvas.width + Math.random() * offset
 
+
 const stateBis = {
   userBestScore: 0,
   sound: {
@@ -141,7 +141,7 @@ const stateBis = {
 }
 
 const basicState = () => ({
-  playerId: 8,
+  userId: 8,
   // userBestScore: 0,
   background: {
     x: 0,
@@ -150,6 +150,7 @@ const basicState = () => ({
     height: 320,
     move: -0.05,
   },
+
   deer: {
     x: 50,
     y: 250,
@@ -304,12 +305,12 @@ const drawGameOver = () => {
   ctx.fillText(`[ESPACE] pour relancer une partie.`, 248, 300)
   ctx.closePath()
 
-  sendScore(state.playerId, state.score, state.nbSocks)
+  sendScore(state.userId, state.score, state.nbSocks)
     .then(() => {
       getScores()
         .then(scores => {
           renderScores(scores)
-          playerIdRank(scores)
+          userIdRank(scores)
         })
     })
 
@@ -709,7 +710,7 @@ const startGame = () => {
   requestAnimationFrame(gameloop)
   getScores().then(users => {
     renderScores(users)
-    const user = users.find(user => state.playerId === user.id)
+    const user = users.find(user => state.userId === user.id)
     stateBis.userBestScore = user.bestScore
   })
   const bestScore = stateBis.userBestScore
@@ -726,10 +727,17 @@ const startGame = () => {
 }
 
 // START
+getUser().then(user => {
+  console.log(user)
+
+  if (!user.username) {
+    window.location = '/sign-in.html'
+  }
+})
 
 getScores().then(users => {
   renderScores(users)
-  const user = users.find(user => state.playerId === user.id)
+  const user = users.find(user => state.userId === user.id)
   stateBis.userBestScore = user.bestScore
 })
 

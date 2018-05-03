@@ -1,6 +1,12 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Paris",
+  "avatar":"default.jpg",
   "id": 1,
-  "userName": "Filoo",
+  "username": "Filoo",
+  "email": "filoo@wcs.com",
+  "password": "Filoopass",
   "bestScore": 123,
   "score": [
     {

@@ -1,67 +1,12 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Biarritz",
+  "avatar":"default.jpg",
   "id": 4,
-  "userName": "Cricri",
-  "bestScore": 271,
-  "score": [
-    {
-      "id": 1,
-      "score": 32,
-      "nbSocks": 0,
-      "date": 1524680211943
-    },
-    {
-      "id": 2,
-      "score": 36,
-      "nbSocks": 0,
-      "date": 1524680352686
-    },
-    {
-      "id": 3,
-      "score": 40,
-      "nbSocks": 0,
-      "date": 1524680415676
-    },
-    {
-      "id": 4,
-      "score": 271,
-      "nbSocks": 2,
-      "date": 1524680467474
-    },
-    {
-      "id": 5,
-      "score": 62,
-      "nbSocks": 0,
-      "date": 1524680473666
-    },
-    {
-      "id": 6,
-      "score": 40,
-      "nbSocks": 0,
-      "date": 1524680496261
-    },
-    {
-      "id": 7,
-      "score": 22,
-      "nbSocks": 0,
-      "date": 1524680651008
-    },
-    {
-      "id": 8,
-      "score": 23,
-      "nbSocks": 0,
-      "date": 1524680731277
-    },
-    {
-      "id": 9,
-      "score": 16,
-      "nbSocks": 0,
-      "date": 1524680755506
-    },
-    {
-      "id": 10,
-      "score": 28,
-      "nbSocks": 0,
-      "date": 1524680878653
-    }
-  ]
+  "username": "Cricri",
+  "email": "cricri@wcs.com",
+  "password": "Cricripass",
+  "bestScore": 56,
+  "score": []
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <title>Wildeer - Wild Code School - Sign in</title>
+</head>
+
+<body>
+  <div id="auth"></div>
+
+  <section id="signIn">
+    <h1>Sign in</h1>
+    <form id="sign_in_form">
+      <label for="input_username">Username:
+        <input id="input_username" type="text" name="username">
+      </label>
+      <label for="input_password">Password:
+        <input id="input_password" type="password" name="password">
+      </label>
+      <input type="submit" value="Login">
+    </form>
+    <a href="/sign-up.html">Sign up</a>
+  </section>
+
+  <section id="signOut">
+    <form id="sign_out_form" style="display: none">
+      <input type="submit" value="logout">
+    </form>
+  </section>
+
+  <div id="error_message" style="color: red"></div>
+
+
+  <script type="module" src="./js/sign-in.js"></script>
+</body>
+
+</html>

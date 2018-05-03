@@ -1,7 +1,13 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Bruxelles",
+  "avatar":"default.jpg",
   "id": 7,
-  "userName": "Yoyo",
-  "bestScore": 70009,
+  "username": "Yoyo le Magnifik",
+  "email": "yoyo@wcs.com",
+  "password": "Yoyopass",
+  "bestScore": 5.151255124241214e+25,
   "score": [
     {
       "id": 1,
@@ -10,21 +16,13 @@
     },
     {
       "id": 2,
-      "score": 29,
-      "nbSocks": 0,
-      "date": 1524678956816
+      "score": 515125535,
+      "date": 1524818686408
     },
     {
       "id": 3,
-      "score": 38,
-      "nbSocks": 0,
-      "date": 1524678995729
-    },
-    {
-      "id": 4,
-      "score": 25,
-      "nbSocks": 0,
-      "date": 1524679402602
+      "score": 5.151255124241214e+25,
+      "date": 1524818719264
     }
   ]
 }

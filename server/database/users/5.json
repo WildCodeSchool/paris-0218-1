@@ -1,25 +1,12 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Reims",
+  "avatar":"default.jpg",
   "id": 5,
-  "userName": "Loulou",
+  "username": "Loulou",
+  "email": "loulou@wcs.com",
+  "password": "Louloupass",
   "bestScore": 556,
-  "score": [
-    {
-      "id": 1,
-      "score": 25,
-      "nbSocks": 0,
-      "date": 1524679432185
-    },
-    {
-      "id": 2,
-      "score": 88,
-      "nbSocks": 0,
-      "date": 1524679441018
-    },
-    {
-      "id": 3,
-      "score": 23,
-      "nbSocks": 0,
-      "date": 1524679573050
-    }
-  ]
+  "score": []
 }
