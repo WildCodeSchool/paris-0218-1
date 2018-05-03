@@ -7,6 +7,13 @@ export const createBestPlayerInsert = user => `
   <p>${user.wildside}</p>
 `
 
+export const createCampusInsert = campus => `
+  <img src="http://localhost:3000/images/${campus}.png">
+  <p>${campus.name}</p>
+  <p>${campus.score}</p>
+  <p>${campus.nbStudents}</p>
+`
+
 export const createAllScoreRow = user => `
   <tr>
     <td>${user.position}</td>
