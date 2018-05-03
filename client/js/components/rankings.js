@@ -8,7 +8,7 @@ export const createBestPlayerInsert = user => `
 `
 
 export const createCampusInsert = campus => `
-  <img src="http://localhost:3000/images/${campus}.png">
+  <img src="http://localhost:3000/images/campus/${campus.name.replace(/ /, '-').replace(/é/, 'e')}.jpg">
   <p>${campus.name}</p>
   <p>${campus.score}</p>
   <p>${campus.nbStudents}</p>
@@ -26,6 +26,7 @@ export const createAllScoreRow = user => `
 
 export const createCampusRaw = campus => `
   <tr>
+    <td><img src="http://localhost:3000/images/campus/${campus.name.replace(/ /, '-').replace(/é/, 'e')}.jpg" width="30px" heigth="30px"></td>
     <td>${campus.name}</td>
     <td>${campus.score}</td>
     <td>${campus.nbStudents}</td>
