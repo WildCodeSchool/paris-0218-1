@@ -243,10 +243,11 @@ const drawStart = () => {
   drawSound(stateBis.sound)
   ctx.font = '40px Serif'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Evites les obstacles, `, 90, 140)
-  ctx.fillText(`Attrapes des chaussettes.`, 50, 180)
+  ctx.textAlign = 'center'
+  ctx.fillText(`Avoid Socks & `, 240, 140)
+  ctx.fillText(`Catch bees `, 240, 180)
   ctx.font = '20px Serif'
-  ctx.fillText(`[ESPACE] pour demarrer une partie`, 95, 300)
+  ctx.fillText(`[SPACE] to start the game`, 240, 300)
 
 
   ctx.closePath()
