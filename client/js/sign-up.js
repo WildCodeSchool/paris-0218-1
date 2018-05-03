@@ -2,7 +2,7 @@
 
 import { signUp } from './api.js'
 
-const signUpForm = document.getElementById('sign-up-form')
+const signUpForm = document.getElementById('sign_up_form')
 const messageElement = document.getElementById('error_message')
 const handleErrors = res => {
   messageElement.innerHTML = res.error || ''
