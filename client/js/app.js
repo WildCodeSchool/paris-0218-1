@@ -127,6 +127,17 @@ const getMousePos = (canvas, e) => {
 
 const teleport = offset => canvas.width + Math.random() * offset
 
+const stateBis = {
+  userBestScore : 0,
+  sound: {
+    x: 5,
+    y: 5,
+    width: 35,
+    height: 35,
+    mode: false
+  },
+}
+
 const basicState = () => ({
   playerId: 8,
   userBestScore: 0,
@@ -194,13 +205,13 @@ const basicState = () => ({
     height: 30,
     move: -0.25,
   },
-  sound: {
-    x: 5,
-    y: 5,
-    width: 35,
-    height: 35,
-    mode: false
-  },
+  // sound: {
+  //   x: 5,
+  //   y: 5,
+  //   width: 35,
+  //   height: 35,
+  //   mode: false
+  // },
   restart: {
     x: 100,
     y: 245,
@@ -231,7 +242,7 @@ const drawStart = () => {
   ctx.closePath()
 
   ctx.beginPath()
-  drawSound(state.sound)
+  drawSound(stateBis.sound)
   ctx.font = '40px Serif'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`Evites les obstacles, `, 90, 140)
@@ -268,7 +279,7 @@ const drawScore = (score, nbSocks, userBestScore) => {
 }
 
 const drawGameOver = () => {
-  const { sock, score, nbSocks, sound } = state
+  const { sock, score, nbSocks, } = state
 
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 1)'
@@ -309,7 +320,7 @@ const drawGameOver = () => {
   }, 2000)
 
   drawScore(score)
-  drawSound(sound)
+  drawSound(stateBis.sound)
 
 }
 
@@ -333,7 +344,7 @@ const drawSound = sound => {
   ctx.clearRect(0, 0, 45, 45)
   ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
   ctx.fillRect(0, 0, 45, 45)
-  ctx.drawImage(images.sound, sound.x, sound.y, sound.width, sound.height)
+  ctx.drawImage(images.sound, stateBis.sound.x, stateBis.sound.y, stateBis.sound.width, stateBis.sound.height)
 }
 
 const drawSock = sock => {
@@ -408,7 +419,7 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { flyBush, background, deer, bush, sock, stars, superSock1, sound, superSock2, score, nbSocks, userBestScore } = state
+  const { flyBush, background, deer, bush, sock, stars, superSock1, superSock2, score, nbSocks, userBestScore } = state
   clear()
 
 
@@ -522,7 +533,7 @@ const handleDeath = () => {
 
   cancelAnimationFrame(state.frameId)
 
-  if (state.sound.mode)
+  if (stateBis.sound.mode)
     gameOverSound.play()
 }
 
@@ -572,7 +583,7 @@ const handleCollisions = (deltaTime) => {
     handlePickupSock()
     sock.catch = true
     state.nbSocks++
-    if (state.sound.mode)
+    if (stateBis.sound.mode)
       sockSound.play()
   }
 
@@ -629,22 +640,22 @@ canvas.addEventListener('click', e => {
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, e)
 
-  console.log('klick', state.sound.mode)
+  console.log('Sound Mode', stateBis.sound.mode)
   if ((state.score <= 1) && (mousePos.x < 45 && mousePos.y < 45)) {
-    state.sound.mode = !state.sound.mode
-    if (state.sound.mode)
+    stateBis.sound.mode = !stateBis.sound.mode
+    if (stateBis.sound.mode)
       images.sound = document.getElementById('img-sound1')
     else
       images.sound = document.getElementById('img-sound0')
-    drawSound(state.sound)
-    console.log('klickapresIF', state.sound.mode)
+    drawSound(stateBis.sound)
+    console.log('Sound Mode', stateBis.sound.mode)
   }
   eventStart(e)
 })
 
 
 const eventStart = (e) => {
-  const { sound, restart, rank, } = state
+  const { restart, rank, } = state
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, e)
@@ -688,9 +699,9 @@ const startGame = () => {
   })
   const bestScore = state.userBestScore
 
-  if (state.sound.mode) {
+  if (stateBis.sound.mode) {
     state = basicState()
-    state.sound.mode = true
+    stateBis.sound.mode = true
   }
   else
     state = basicState()
