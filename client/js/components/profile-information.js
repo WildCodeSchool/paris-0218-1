@@ -35,8 +35,14 @@ export const createProfile = user => `
 `
 
 export const editProfile = user => `
-  <h1>Edit my profile</h1>
-  <form id="edit_form">
+  <h1 id="editProfile">Edit my profile</h1>
+
+      <form id="edit_form">
+
+        <div id="blocForm">
+
+          <div id="firstBloc">
+
     <label for="edit_firstname">First name:
       <input id="edit_firstname" type="text" placeholder="${user.firstName}" name="firstName">
     </label><br/>
@@ -74,15 +80,31 @@ export const editProfile = user => `
     <label for="edit_repeat_password">Repeat password:
       <input id="edit_repeat_password" type="password" placeholder="Repeat new password..." name="repeat_password">
     </label><br/>
+
+        </div>
+
+        <div id="secondBloc">
+
     <label for="edit_wild_side">Wild side:
       <input id="edit_wild_side" type="text" placeholder="${user.wildside}" name="wildside">
     </label><br/>
     <label for="edit_profile_picture">Profile picture:
-      <img src="http://localhost:3000/images/${user.avatar}">
+      <img id="imgAvatar" src="http://localhost:3000/images/${user.avatar}">
       <input type="file" name="avatar">
     </label><br/>
+
+      <div id="buttonEdit">
+
     <button id="cancel_button">Annuler</button>
-    <input type="submit" value="Save update">
+    <input id="save_button" type="submit" value="Save">
+
+      </div>
+
+        </div>
+
+      </div>
+
   </form>
+
   <div id="error_message" style="color: red"></div>
 `
