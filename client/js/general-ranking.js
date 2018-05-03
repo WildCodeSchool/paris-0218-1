@@ -1,11 +1,11 @@
 import { createBestPlayerInsert, createAllScoreRow, createCampusRaw, createCampusInsert } from './components/rankings.js'
 import { getAllScores } from './api.js'
 
-const bestPlayerElement = document.getElementById('best-player')
+const bestPlayerElement = document.getElementById('best_player')
 const allScoresElement = document.getElementById('all_scores_list')
 const campusScoresElement = document.getElementById('campus_ranking_list')
-const bestCampusElement = document.getElementById('best-campus')
-const worstCampusElement = document.getElementById('worst-campus')
+const bestCampusElement = document.getElementById('best_campus')
+const worstCampusElement = document.getElementById('worst_campus')
 
 const campusList = [
   'Paris',
@@ -51,6 +51,11 @@ const getCampusRanking = users => {
 
 const showCampusRanking = async users => {
   const campusRanking = await getCampusRanking(users)
+  const iterator = campusRanking.keys()
+
+  for (const key of iterator) {
+    campusRanking[key].position = key + 1
+  }
 
   campusScoresElement.innerHTML = campusRanking
     .map(createCampusRaw)
