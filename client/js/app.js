@@ -19,6 +19,7 @@ let images = {
   superSock2: document.getElementById('img-superSock2'),
   bush: [document.getElementById('img-bush0'),],
   sound: document.getElementById('img-sound0'),
+  flyBush: document.getElementById('img-flyBush'),
 }
 
 const sockSound = new Audio('sound/sockSound.mp3')
@@ -179,11 +180,19 @@ const basicState = () => ({
     catchPositionX: 0
   },
   bush: {
-    x: teleport(1000),
+    // x: 600 + teleport(1000),
+    x: 800,
     y: 250,
     width: 40,
     height: 40,
     move: -0.3,
+  },
+  flyBush: {
+    x: 3000 + teleport(2300),
+    y: 230,
+    width: 30,
+    height: 30,
+    move: -0.25,
   },
   sound: {
     x: 5,
@@ -286,12 +295,12 @@ const drawGameOver = () => {
         })
     })
 
-    setTimeout(() => {
-      state = basicState()
-      state.userBestScore = bestScore
-      state.deer.isDead = false
-      state.score = 0
-    }, 2000)
+  setTimeout(() => {
+    state = basicState()
+    state.userBestScore = bestScore
+    state.deer.isDead = false
+    state.score = 0
+  }, 2000)
 
   drawScore(score)
   drawSound(sound)
@@ -304,6 +313,10 @@ const drawBackground = background => {
   ctx.drawImage(images.background, background.x + 650, background.y, background.width, background.height)
   if (background.x < -650)
     background.x = 0
+}
+
+const drawFlyBush = flyBush => {
+  ctx.drawImage(images.flyBush, flyBush.x, flyBush.y, flyBush.width, flyBush.height)
 }
 
 const drawBush = bush => {
@@ -389,13 +402,14 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, stars, superSock1, sound, superSock2, score, nbSocks, userBestScore } = state
+  const { flyBush, background, deer, bush, sock, stars, superSock1, sound, superSock2, score, nbSocks, userBestScore } = state
   clear()
 
 
   drawBackground(background)
   drawBush(bush)
   drawSock(sock)
+  drawFlyBush(flyBush)
 
   drawsuperSock1(sock, superSock1, score)
   drawsuperSock2(sock, superSock2, score)
@@ -441,6 +455,10 @@ const moveBush = (deltaTime) => {
   state.bush.x += state.bush.move * deltaTime * state.speed
 }
 
+const moveFlyBush = (deltaTime) => {
+  state.flyBush.x += state.flyBush.move * deltaTime * state.speed
+}
+
 const moveBackGround = (deltaTime) => {
   state.background.x += state.background.move * deltaTime * state.speed
 }
@@ -475,6 +493,8 @@ const update = (deltaTime) => {
   moveSock(deltaTime)
   moveDeer(deltaTime)
   moveBackGround(deltaTime)
+  moveFlyBush(deltaTime)
+
   updateScore(deltaTime)
 
   updateSpeed()
@@ -517,12 +537,23 @@ const handlePickupsuperSock2 = () => {
 }
 
 const handleCollisions = (deltaTime) => {
-  const { deer, sock, superSock1, superSock2, bush } = state
+  const { flyBush, deer, sock, superSock1, superSock2, bush } = state
 
   //bush
   if (collides(deer, bush)) {
     handleDeath()
   }
+
+  if (collides(deer, flyBush)) {
+    state.score = state.score - 200
+    state.flyBush.x = 1000 + teleport(2500)
+
+  }
+
+  if (flyBush.x < -flyBush.width) {
+    flyBush.x = 2000 + teleport(2300)
+  }
+
   // check collision with border
   if (bush.x < -bush.width) {
     bush.x = teleport(1000)
@@ -596,15 +627,15 @@ canvas.addEventListener('click', e => {
   if ((state.score <= 1) && (mousePos.x < 45 && mousePos.y < 45)) {
     state.sound.mode = !state.sound.mode
     if (state.sound.mode)
-    images.sound = document.getElementById('img-sound1')
+      images.sound = document.getElementById('img-sound1')
     else
       images.sound = document.getElementById('img-sound0')
-      drawSound(state.sound)
-      console.log('klickapresIF', state.sound.mode)
+    drawSound(state.sound)
+    console.log('klickapresIF', state.sound.mode)
 
-    }
-    eventStart(e)
-  })
+  }
+  eventStart(e)
+})
 
 
 const eventStart = (e) => {
@@ -626,7 +657,8 @@ const eventStart = (e) => {
   else if (mousePos.x > rank.x && mousePos.y > rank.y
     && mousePos.y < rank.y + rank.height
     && mousePos.x < rank.x + rank.width && state.score < 2) {
-    //liens vers classement
+
+    window.location('/general-ranking.html')
   }
 
 
