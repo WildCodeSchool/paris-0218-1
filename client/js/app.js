@@ -9,13 +9,14 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 const scoreListElement = document.getElementById('score_list')
-//youpiyè
-//pull responseur !
+
 let images = {
   background: document.getElementById('img-background'),
   deer: document.getElementById('img-deer'),
-  socks: document.getElementById('img-socks'),
-
+  sock: document.getElementById('img-sock'),
+  stars: document.getElementById('img-stars'),
+  superSock1: document.getElementById('img-superSock1'),
+  superSock2: document.getElementById('img-superSock2'),
   bush: [document.getElementById('img-bush0'),],
   sound: document.getElementById('img-sound0'),
 }
@@ -43,7 +44,7 @@ const rdmNumber = (min, max) => {
 
 const maxBushImg = () => {
   let i = 1
-  while (i++ < 7) {
+  while (i++ < 3) {
     images.bush.push(document.getElementById(`img-bush${i}`))
   }
 }
@@ -149,7 +150,33 @@ const basicState = () => ({
     y: 150,
     width: 25,
     height: 30,
-    move: -0.3
+    move: -0.3,
+    catch: false,
+    catchPositionX: 0
+  },
+  stars: {
+    x: 0,
+    y: 150,
+    width: 85,
+    height: 95,
+  },
+  superSock1: {
+    x: teleport(15000),
+    y: 150,
+    width: 50,
+    height: 55,
+    move: -0.3,
+    catch: false,
+    catchPositionX: 0
+  },
+  superSock2: {
+    x: teleport(15000),
+    y: 150,
+    width: 50,
+    height: 55,
+    move: -0.3,
+    catch: false,
+    catchPositionX: 0
   },
   bush: {
     x: teleport(1000),
@@ -203,37 +230,30 @@ const drawStart = () => {
 
   setTimeout(() => {
     state = basicState()
+    state.userBestScore = bestScore
     state.deer.isDead = false
     state.score = 0
-  }, 2500)
-
+  }, 2000)
 }
 
 const drawScore = (score, nbSocks, userBestScore) => {
 
-  // console.log(userBestScore)
-  //coucou pull responseur
-  //youpiyè
   if (!state.deer.isDead) {
     ctx.beginPath()
     ctx.textAlign = 'right'
     ctx.font = '20px Courier'
     ctx.fillStyle = 'White'
     ctx.fillText(`Score : ${Math.round(score)}`, 465, 25)
-    ctx.drawImage(images.socks, 395, 30, 20, 25)
+    ctx.drawImage(images.sock, 395, 30, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
-    ctx.font = '15px Courier'
-    ctx.fillText(`Best score : ${userBestScore}`, 465, 70)
+    ctx.font = '13px Courier'
+    ctx.fillText(`Meilleur score : ${userBestScore}`, 465, 70)
     ctx.closePath()
   }
 }
 
 const drawGameOver = () => {
   const { sock, score, nbSocks, sound } = state
-  // ctx.beginPath()
-  // ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-  // ctx.fillRect(0, 0, 480, 320);
-  // ctx.closePath()
 
   ctx.beginPath()
   ctx.fillStyle = 'rgba(255, 255, 255, 1)'
@@ -245,7 +265,7 @@ const drawGameOver = () => {
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
   ctx.fillText(`🏆 Ton score : ${Math.round(score)}`, 240, 90)
   ctx.fillText(`Tu as attrapé ${nbSocks} chaussettes`, 260, 110)
-  ctx.drawImage(images.socks, 90, 90, 20, 25)
+  ctx.drawImage(images.sock, 90, 90, 20, 25)
   ctx.fillStyle = 'black'
   ctx.fillRect(100, 245, 110, 32)
   ctx.fillRect(280, 245, 110, 32)
@@ -265,17 +285,18 @@ const drawGameOver = () => {
           playerIdRank(scores)
         })
     })
-  setTimeout(() => {
-    state = basicState()
-    state.deer.isDead = false
-    state.score = 0
-  }, 2500)
+
+    setTimeout(() => {
+      state = basicState()
+      state.userBestScore = bestScore
+      state.deer.isDead = false
+      state.score = 0
+    }, 2000)
 
   drawScore(score)
   drawSound(sound)
 
 }
-
 
 const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
@@ -297,7 +318,66 @@ const drawSound = sound => {
 }
 
 const drawSock = sock => {
-  ctx.drawImage(images.socks, sock.x, sock.y, sock.width, sock.height)
+  ctx.drawImage(images.sock, sock.x, sock.y, sock.width, sock.height)
+}
+
+const drawEffectSock = (deer, sock, stars) => {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  ctx.drawImage(images.sock, sock.catchPositionX - (sock.width / 2), sock.y - (sock.height / 2), sock.width * 1.5, sock.height * 1.5)
+  ctx.drawImage(images.stars, sock.catchPositionX - (stars.width / 2.3), stars.y - (stars.height / 2.1))
+  setTimeout(() => sock.catch = false, 100)
+}
+
+const drawEffectSuperSock1 = (deer, superSock1, stars) => {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  ctx.drawImage(images.superSock1, superSock1.catchPositionX - (superSock1.width / 2), superSock1.y - (superSock1.height / 2), superSock1.width * 1.1, superSock1.height * 1.1)
+  ctx.drawImage(images.stars, superSock1.catchPositionX - (stars.width / 1.8), stars.y - (stars.height / 1.7), stars.width * 1.2, stars.height * 1.2)
+  setTimeout(() => superSock1.catch = false, 50)
+}
+
+const drawEffectSuperSock2 = (deer, superSock2, stars) => {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  ctx.drawImage(images.superSock2, superSock2.catchPositionX - (superSock2.width / 2), superSock2.y - (superSock2.height / 2), superSock2.width * 1.5, superSock2.height * 1.5)
+  ctx.drawImage(images.stars, superSock2.catchPositionX - (stars.width / 1.8), stars.y - (stars.height / 1.7), stars.width * 1.2, stars.height * 1.2)
+  setTimeout(() => superSock2.catch = false, 50)
+}
+
+const drawsuperSock1 = (sock, superSock1, score) => {
+  const distanceSocks = superSock1.x - sock.x
+  // console.log(distanceSocks)
+  if (score > 500 && (distanceSocks < 5) && (distanceSocks > -5)) {
+    // console.log("bah")
+    superSock1.x = teleport(15000)
+  }
+
+  if (score > 500) {
+    // console.log(superSock1.x)
+    ctx.drawImage(images.superSock1, superSock1.x, superSock1.y, superSock1.width, superSock1.height)
+  }
+
+  if (superSock1.x < 0) {
+    superSock1.x = teleport(15000)
+  }
+}
+
+const drawsuperSock2 = (sock, superSock2, score) => {
+  const distanceSocks = superSock2.x - sock.x
+
+  if (score > 500 && (distanceSocks < 5) && (distanceSocks > -5)) {
+    superSock2.x = teleport(15000)
+  }
+
+  if (score > 1500) {
+    console.log("1500 !")
+    ctx.drawImage(images.superSock2, superSock2.x, superSock2.y, superSock2.width, superSock2.height)
+  }
+
+  if (superSock2.x < 0) {
+    superSock2.x = teleport(15000)
+  }
 }
 
 const drawDeer = deer => {
@@ -309,19 +389,33 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { background, deer, bush, sock, score, sound, nbSocks, userBestScore } = state
-
+  const { background, deer, bush, sock, stars, superSock1, sound, superSock2, score, nbSocks, userBestScore } = state
   clear()
 
 
   drawBackground(background)
   drawBush(bush)
   drawSock(sock)
+
+  drawsuperSock1(sock, superSock1, score)
+  drawsuperSock2(sock, superSock2, score)
+
   drawDeer(deer)
 
   drawScore(score, nbSocks, userBestScore)
 
+  if (sock.catch) {
+    drawEffectSock(deer, sock, stars)
+  }
 
+  if (superSock1.catch) {
+    console.log("blabla")
+    drawEffectSuperSock1(deer, superSock1, stars)
+  }
+
+  if (superSock2.catch) {
+    drawEffectSuperSock2(deer, superSock2, stars)
+  }
 
   if ((deer.isDead) && (score !== 0)) {
     ctx.beginPath()
@@ -330,13 +424,11 @@ const draw = () => {
     ctx.closePath()
     drawGameOver(score)
   }
-
-
 }
 
 const updateSpeed = () => {
   if (Math.round(state.score) % state.moduloSpeed === 0) {
-    state.speed *= 1.2
+    state.speed *= 1.1
     state.moduloSpeed *= 2
   }
 }
@@ -348,7 +440,6 @@ const updateScore = (deltaTime) => {
 const moveBush = (deltaTime) => {
   state.bush.x += state.bush.move * deltaTime * state.speed
 }
-
 
 const moveBackGround = (deltaTime) => {
   state.background.x += state.background.move * deltaTime * state.speed
@@ -369,6 +460,14 @@ const moveDeer = (deltaTime) => {
 
 const moveSock = (deltaTime) => {
   state.sock.x += state.sock.move * deltaTime * state.speed
+}
+
+const movesuperSock1 = (deltaTime) => {
+  state.superSock1.x += state.superSock1.move * deltaTime * state.speed
+}
+
+const movesuperSock2 = (deltaTime) => {
+  state.superSock2.x += state.superSock2.move * deltaTime * state.speed
 }
 
 const update = (deltaTime) => {
@@ -399,7 +498,6 @@ const handleDeath = () => {
 
   if (state.sound.mode)
     gameOverSound.play()
-
 }
 
 const handlePickupSock = () => {
@@ -407,27 +505,56 @@ const handlePickupSock = () => {
   state.sock.x = teleport(2000)
 }
 
-const handleCollisions = (deltaTime) => {
-  const { deer, sock, bush } = state
+const handlePickupsuperSock1 = () => {
+  state.score += 200
+  state.superSock1.x = teleport(15000)
+}
 
-  // bush
+const handlePickupsuperSock2 = () => {
+  state.speed = 1,
+    state.moduloSpeed = 100,
+    state.superSock2.x = teleport(15000)
+}
+
+const handleCollisions = (deltaTime) => {
+  const { deer, sock, superSock1, superSock2, bush } = state
+
+  //bush
   if (collides(deer, bush)) {
-    handleDeath(deltaTime)
+    handleDeath()
   }
   // check collision with border
   if (bush.x < -bush.width) {
     bush.x = teleport(1000)
-    rdmNumber(0, 6)
+    rdmNumber(0, 3)
   }
 
   // sock
   if (collides(deer, sock)) {
+    sock.catchPositionX = sock.x
     handlePickupSock()
+    sock.catch = true
     state.nbSocks++
     if (state.sound.mode)
       sockSound.play()
   }
 
+  // super sock 1
+  if (collides(deer, superSock1)) {
+    superSock1.catchPositionX = superSock1.x
+    console.log(superSock1.catchPositionX)
+    handlePickupsuperSock1()
+    superSock1.catch = true
+    state.nbSocks++
+  }
+
+  // super sock 2
+  if (collides(deer, superSock2)) {
+    superSock2.catchPositionX = superSock2.x
+    handlePickupsuperSock2()
+    superSock2.catch = true
+    state.nbSocks++
+  }
 
   // check collision with border
   if (sock.x < -sock.width) {
@@ -457,26 +584,27 @@ const gameloop = (timestamp) => {
 }
 
 document.addEventListener('keydown', e => {
-
   eventStart(e)
 })
 
 canvas.addEventListener('click', e => {
-  eventStart(e)
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, e)
 
+  console.log('klick', state.sound.mode)
   if ((state.score <= 1) && (mousePos.x < 45 && mousePos.y < 45)) {
     state.sound.mode = !state.sound.mode
     if (state.sound.mode)
-      images.sound = document.getElementById('img-sound1')
+    images.sound = document.getElementById('img-sound1')
     else
       images.sound = document.getElementById('img-sound0')
-    drawSound(state.sound)
-    console.log('klick', state.sound.mode)
-  }
-})
+      drawSound(state.sound)
+      console.log('klickapresIF', state.sound.mode)
+
+    }
+    eventStart(e)
+  })
 
 
 const eventStart = (e) => {
@@ -484,6 +612,7 @@ const eventStart = (e) => {
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, e)
+  const bestScore = state.userBestScore
 
   e.preventDefault()
 
@@ -515,13 +644,12 @@ const eventStart = (e) => {
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
-  // getScores().then(users => {
-  //   renderScores(users)
-  //   const user = users.find(user => state.playerId === user.id)
-  //   state.userBestScore = user.bestScore
-  // })
+  getScores().then(users => {
+    renderScores(users)
+    const user = users.find(user => state.playerId === user.id)
+    state.userBestScore = user.bestScore
+  })
   const bestScore = state.userBestScore
-
 
   if (state.sound.mode) {
     state = basicState()
@@ -537,9 +665,11 @@ const startGame = () => {
 // START
 
 getScores().then(users => {
-  <ren></ren>derScores(users)
+  renderScores(users)
   const user = users.find(user => state.playerId === user.id)
   state.userBestScore = user.bestScore
+  console.log(bestScore)
 })
 
+const bestScore = state.userBestScore
 drawStart()
