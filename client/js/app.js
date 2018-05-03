@@ -24,6 +24,8 @@ let images = {
 
 const sockSound = new Audio('sound/sockSound.mp3')
 const gameOverSound = new Audio('sound/gameOverSound.mp3')
+const flyBushSound0 = new Audio('sound/flyBushSound0.mp3')
+const flyBushSound1 = new Audio('sound/flyBushSound1.mp3')
 
 
 const rdmNumber = (min, max) => {
@@ -54,7 +56,7 @@ maxBushImg()
 const playerIdBestScore = users => {
   const user = users.find(user => state.playerId === user.id)
 
-  state.userBestScore = user.bestScore
+  stateBis.userBestScore = user.bestScore
 }
 
 const playerIdRank = users => {
@@ -128,7 +130,7 @@ const getMousePos = (canvas, e) => {
 const teleport = offset => canvas.width + Math.random() * offset
 
 const stateBis = {
-  userBestScore : 0,
+  userBestScore: 0,
   sound: {
     x: 5,
     y: 5,
@@ -140,7 +142,7 @@ const stateBis = {
 
 const basicState = () => ({
   playerId: 8,
-  userBestScore: 0,
+  // userBestScore: 0,
   background: {
     x: 0,
     y: 0,
@@ -204,14 +206,8 @@ const basicState = () => ({
     width: 30,
     height: 30,
     move: -0.25,
+    catch: false,
   },
-  // sound: {
-  //   x: 5,
-  //   y: 5,
-  //   width: 35,
-  //   height: 35,
-  //   mode: false
-  // },
   restart: {
     x: 100,
     y: 245,
@@ -255,16 +251,18 @@ const drawStart = () => {
 
   setTimeout(() => {
     state = basicState()
-    state.userBestScore = bestScore
+    stateBis.userBestScore = bestScore
     state.deer.isDead = false
     state.score = 0
-  }, 2000)
+  }, 1000)
 
 }
 
 const drawScore = (score, nbSocks, userBestScore) => {
 
   if (!state.deer.isDead) {
+
+
     ctx.beginPath()
     ctx.textAlign = 'right'
     ctx.font = '20px Courier'
@@ -273,7 +271,10 @@ const drawScore = (score, nbSocks, userBestScore) => {
     ctx.drawImage(images.sock, 395, 30, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
     ctx.font = '13px Courier'
-    ctx.fillText(`Meilleur score : ${userBestScore}`, 465, 70)
+    if (score > stateBis.userBestScore)
+      ctx.fillText(`Meilleur score : New Best Score!!!`, 465, 70)
+    else
+      ctx.fillText(`Meilleur score : ${userBestScore}`, 465, 70)
     ctx.closePath()
   }
 }
@@ -314,7 +315,7 @@ const drawGameOver = () => {
 
   setTimeout(() => {
     state = basicState()
-    state.userBestScore = bestScore
+    stateBis.userBestScore = bestScore
     state.deer.isDead = false
     state.score = 0
   }, 2000)
@@ -359,6 +360,12 @@ const drawEffectSock = (deer, sock, stars) => {
   setTimeout(() => sock.catch = false, 100)
 }
 
+const drawEffectFlyBush = (flyBush) => {
+  ctx.fillStyle = 'rgba(255, 0, 0, 0.3)'
+  ctx.fillRect(0, 0, 480, 320)
+  setTimeout(() => flyBush.catch = false, 100)
+}
+
 const drawEffectSuperSock1 = (deer, superSock1, stars) => {
   ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
   ctx.fillRect(0, 0, 480, 320)
@@ -401,7 +408,6 @@ const drawsuperSock2 = (sock, superSock2, score) => {
   }
 
   if (score > 1500) {
-    console.log("1500 !")
     ctx.drawImage(images.superSock2, superSock2.x, superSock2.y, superSock2.width, superSock2.height)
   }
 
@@ -419,9 +425,8 @@ const clear = () => {
 }
 
 const draw = () => {
-  const { flyBush, background, deer, bush, sock, stars, superSock1, superSock2, score, nbSocks, userBestScore } = state
+  const { flyBush, background, deer, bush, sock, stars, superSock1, superSock2, score, nbSocks, } = state
   clear()
-
 
   drawBackground(background)
   drawBush(bush)
@@ -433,11 +438,14 @@ const draw = () => {
 
   drawDeer(deer)
 
-  drawScore(score, nbSocks, userBestScore)
+  drawScore(score, nbSocks, stateBis.userBestScore)
 
   if (sock.catch) {
     drawEffectSock(deer, sock, stars)
   }
+
+  if (flyBush.catch)
+    drawEffectFlyBush(flyBush)
 
   if (superSock1.catch) {
     console.log("blabla")
@@ -562,9 +570,17 @@ const handleCollisions = (deltaTime) => {
   }
 
   if (collides(deer, flyBush)) {
+    flyBush.catch = true
     state.score = state.score - 200
     state.flyBush.x = 1000 + teleport(2500)
-
+    if (stateBis.sound.mode) {
+      let what = Math.round(Math.random())
+      console.log(what)
+      if (what)
+        flyBushSound0.play()
+      else
+        flyBushSound1.play()
+    }
   }
 
   if (flyBush.x < -flyBush.width) {
@@ -590,7 +606,6 @@ const handleCollisions = (deltaTime) => {
   // super sock 1
   if (collides(deer, superSock1)) {
     superSock1.catchPositionX = superSock1.x
-    console.log(superSock1.catchPositionX)
     handlePickupsuperSock1()
     superSock1.catch = true
     state.nbSocks++
@@ -659,7 +674,7 @@ const eventStart = (e) => {
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, e)
-  const bestScore = state.userBestScore
+  const bestScore = stateBis.userBestScore
 
   e.preventDefault()
 
@@ -667,7 +682,7 @@ const eventStart = (e) => {
   if (mousePos.x > restart.x && mousePos.y > restart.y
     && mousePos.y < restart.y + restart.height
     && mousePos.x < restart.x + restart.width && (state.deer.isDead || state.score < 2)) {
-
+    state.deer.y = 250
     startGame()
   }
   else if (mousePos.x > rank.x && mousePos.y > rank.y
@@ -695,9 +710,9 @@ const startGame = () => {
   getScores().then(users => {
     renderScores(users)
     const user = users.find(user => state.playerId === user.id)
-    state.userBestScore = user.bestScore
+    stateBis.userBestScore = user.bestScore
   })
-  const bestScore = state.userBestScore
+  const bestScore = stateBis.userBestScore
 
   if (stateBis.sound.mode) {
     state = basicState()
@@ -707,7 +722,7 @@ const startGame = () => {
     state = basicState()
 
   state.deer.isDead = false
-  state.userBestScore = bestScore
+  stateBis.userBestScore = bestScore
 }
 
 // START
@@ -715,9 +730,8 @@ const startGame = () => {
 getScores().then(users => {
   renderScores(users)
   const user = users.find(user => state.playerId === user.id)
-  state.userBestScore = user.bestScore
-  console.log(bestScore)
+  stateBis.userBestScore = user.bestScore
 })
 
-const bestScore = state.userBestScore
+const bestScore = stateBis.userBestScore
 drawStart()
