@@ -5,9 +5,9 @@ body {
     background-image: url("img/pattern_deer.jpg");
     background-repeat: repeat;
     background-attachment: fixed;
-    
+
     }
-    
+
 #content_home {
     position: relative;
     margin: auto;
@@ -21,7 +21,7 @@ body {
     display:block;
     margin: 0 auto;
     }
-    
+
     @media screen and (orientation: landscape) {
     #portrait_mode {
     visibility: hidden;
@@ -39,16 +39,16 @@ body {
     z-index: 2000;
     }
     }
-    
+
     @media screen and (orientation: portrait) {
     body {
     background-color: black;
     }
-    
+
     #content {
     display: none;
     }
-    
+
     #portrait_mode {
     visibility: visible;
     position: absolute;
@@ -66,7 +66,7 @@ body {
     z-index: 2000;
     }
     }
-    
+
     .navbar {
     position: fixed;
     width: 100vw;
@@ -79,12 +79,12 @@ body {
     /* justify-content: center; */
     z-index: 1000;
     color: white;
-    } 
+    }
 
     .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
         color: white;
     }
-    
+
     .navbar-light .navbar-nav .nav-link {
         color: white;
     }
@@ -100,13 +100,13 @@ body {
     background-repeat: repeat;
     border-bottom: 3px solid black;
     } */
-    
+
     h1 {
     font-size: 50px;
     color: white;
     text-transform: uppercase;
     }
-  
+
     .container_game {
     position: relative;
     width: 80%;
@@ -127,7 +127,7 @@ body {
     /* background-color: white; */
     /* box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.15); */
     }
-    
+
     .section_name_table {
         position: relative;
         width: 95%;
@@ -146,7 +146,7 @@ body {
         font-size: 30px;
         color: white;
     }
-    
+
     .score_table {
     width: 100%;
     display: flex;
@@ -155,11 +155,11 @@ body {
     margin: 0;
     padding: 0;
     }
-    
+
     .table {
     width: 96%;
     height: auto;
-    margin: 0; 
+    margin: 0;
     padding: 0;
     }
 
@@ -170,7 +170,7 @@ body {
     font-family: 'VT323', monospace;
     font-size: 20px;
     }
-    
+
 .table tbody {
     color: black;
     text-transform: uppercase;
@@ -178,7 +178,7 @@ body {
     font-size: 13px;
     padding: 5px;
     }
-    
+
     .table td {
     text-align: center;
     border-bottom: 1px solid #f1a720;
@@ -217,17 +217,17 @@ body {
     align-items: center;
     justify-content: center;
     }
-    
+
     .info_footer {
     padding: 0;
     margin: 0;
     }
-    
+
     .info_footer p{
     padding-right: 10px;
     font-size: 12px;
     }
-    
+
     #game {
     position : relative;
     /* padding-top: 140px; */
@@ -235,24 +235,191 @@ body {
     align-items: center;
     justify-content: center;
     }
-    
+
     #game div {
     /* background-color: rgba(0, 0, 0, 0.2); */
     display: flex;
     align-items: center;
     justify-content: center
     }
-    
-    
+
+
     #game p {
     text-align: center;
     font-size: 50px;
     text-transform: uppercase;
     }
-    
+
     #scoring {
     position : relative;
     display: flex;
     align-items: center;
     justify-content: center;
     }
+
+    /***************** HEADER navigation *****************/
+
+    /* Burger Navigation */
+    .overlay {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #000000;
+      overflow-x: hidden;
+      transition: 0.5s;
+    }
+
+    .overlay-content {
+      position: relative;
+      top: 10%;
+      width: 100%;
+      text-align: center;
+    }
+
+    #Hello {
+      color: #e7a943;
+      font-size: 26px;
+      font-family: 'VT323', monospace;
+      text-transform: uppercase;
+    }
+
+    .overlay > a {
+      padding-top: -15px;
+    }
+
+    .overlay a, .overlay p {
+      padding: 8px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #f9f8f6;
+      display: block;
+      transition: 0.3s;
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 1000;
+    }
+
+    .overlay a:hover,
+    .overlay a:focus {
+      color: #e7a943;
+    }
+
+    /* Navigation - close btn */
+    .overlay #closeNavBtn {
+      position: absolute;
+      top: 0px;
+      right: 20px;
+      font-size: 40px;
+    }
+
+    .overlay #closeNavBtn:hover {
+      color: #f9f8f6;
+    }
+    /***************** END OF HEADER navigation *****************/
+
+    /***************** HEADER navbar *****************/
+    /* General - Fixed position */
+    #wildeerNavbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background-color: #000000;
+      display: block;
+      height: 70px;
+      padding: 0px;
+      z-index: 20;
+    }
+
+    /* Logo */
+    #wildeerLogo {
+      position: absolute;
+      line-height: 70px;
+      text-align: left;
+      margin-left: 20px;
+    }
+
+    #wildeerLogo img {
+      width: 17%;
+    }
+
+    /* Navigation - open btn */
+    #right_nav {
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      line-height: 60px;
+      color: #f9f8f6;
+    }
+
+    #general_ranking, #userBtn {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    #general_ranking a, #userBtn a {
+      color: #ffffff;
+      text-decoration: none;
+      line-height: 70px;
+      font-size: 20px;
+    }
+
+    #general-ranking a {
+      margin-right: 10px;
+    }
+
+    #openNavBtn:hover {
+      text-decoration: none;
+      color: #f9f8f6;
+    }
+
+    #openNavBtn img {
+      margin-right: 10px;
+      margin-top: -5px;
+    }
+
+    #ranking-icon {
+      margin-right: 10px;
+      margin-top: -5px;
+    }
+
+    /* Main navigation */
+    #mainNav {
+      text-align: right;
+      margin-right: 15px;
+      line-height: 60px;
+    }
+
+    #mainNav a {
+      padding: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #f9f8f6;
+      display: inline;
+      transition: 0.3s;
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 1000;
+    }
+
+    #mainNav a:hover,
+    #mainNav a:focus {
+      color: #ff6858;
+    }
+    /***************** END OF HEADER navbar *****************/
+
+
+    @media screen and (max-height: 450px) {
+      .overlay a {
+        font-size: 20px;
+      }
+      .overlay .closeNavBtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+      }
+    }
+
+    /***************** END OF HEADER STYLE *****************/
