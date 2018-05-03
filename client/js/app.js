@@ -47,7 +47,7 @@ const rdmNumber = (min, max) => {
 const maxBushImg = () => {
   let i = 1
   while (i++ < 3) {
-    images.bush.push(document.getElementById(`img-bush${i}`))
+    images.bush.push(document.getElementById(`img_bush${i}`))
   }
 }
 maxBushImg()
