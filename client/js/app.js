@@ -131,6 +131,7 @@ const getMousePos = (canvas, e) => {
 const teleport = offset => canvas.width + Math.random() * offset
 
 const stateBis = {
+  restart: false,
   userId: 0,
   userBestScore: 0,
   sound: {
@@ -253,10 +254,13 @@ const drawStart = () => {
   drawSound(stateBis.sound)
   ctx.font = '40px Serif'
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`Evites les obstacles, `, 90, 140)
-  ctx.fillText(`Attrapes des chaussettes.`, 50, 180)
+  ctx.textAlign = 'center'
+  ctx.fillText(`Avoid Socks & `, 240, 140)
+  ctx.fillText(`Catch bees `, 240, 180)
   ctx.font = '20px Serif'
-  ctx.fillText(`[ESPACE] pour demarrer une partie`, 95, 300)
+  ctx.fillText(`[SPACE] to start the game`, 240, 300)
+
+
   ctx.closePath()
 
   setTimeout(() => {
@@ -301,14 +305,13 @@ const drawGameOver = () => {
   ctx.fillText(`Tu as attrapé ${nbSocks} chaussettes`, 260, 110)
   ctx.drawImage(images.sock, 90, 90, 20, 25)
   ctx.fillStyle = 'black'
-  ctx.fillRect(100, 245, 110, 32)
-  ctx.fillRect(280, 245, 110, 32)
-  ctx.font = '17px Courier'
+  ctx.fillRect(100, 245, 125, 48)
+  ctx.fillRect(280, 245, 125, 48)
+  ctx.font = '19px Courier'
   ctx.fillStyle = 'white'
-  ctx.fillText(`Restart`, 157, 265)
-  ctx.fillText(`Classement`, 335, 265)
+  ctx.fillText(`Restart`, 165, 275)
+  ctx.fillText(`Classement`, 345, 275)
   ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-  ctx.fillText(`[ESPACE] pour relancer une partie.`, 248, 300)
   ctx.closePath()
 
   sendScore(state.userId, state.score, state.nbSocks)
@@ -320,12 +323,15 @@ const drawGameOver = () => {
         })
     })
 
-  setTimeout(() => {
-    state = basicState()
-    updateBestScore()
-    state.deer.isDead = false
-    state.score = 0
-  }, 2000)
+  if (stateBis.restart) {
+    setTimeout(() => {
+      state = basicState()
+      stateBis.userBestScore = bestScore
+      state.deer.isDead = false
+      state.score = 0
+      stateBis.restart = false
+    }, 2000)
+  }
 
   drawScore(score)
   drawSound(stateBis.sound)
@@ -390,14 +396,11 @@ const drawEffectSuperSock2 = (deer, superSock2, stars) => {
 
 const drawsuperSock1 = (sock, superSock1, score) => {
   const distanceSocks = superSock1.x - sock.x
-  // console.log(distanceSocks)
   if (score > 500 && (distanceSocks < 5) && (distanceSocks > -5)) {
-    // console.log("bah")
     superSock1.x = teleport(15000)
   }
 
   if (score > 500) {
-    // console.log(superSock1.x)
     ctx.drawImage(images.superSock1, superSock1.x, superSock1.y, superSock1.width, superSock1.height)
   }
 
@@ -667,9 +670,9 @@ canvas.addEventListener('click', e => {
   if ((state.score <= 1) && (mousePos.x < 45 && mousePos.y < 45)) {
     stateBis.sound.mode = !stateBis.sound.mode
     if (stateBis.sound.mode)
-      images.sound = document.getElementById('img-sound1')
+      images.sound = document.getElementById('img_sound1')
     else
-      images.sound = document.getElementById('img-sound0')
+      images.sound = document.getElementById('img_sound0')
     drawSound(stateBis.sound)
     console.log('Sound Mode', stateBis.sound.mode)
   }
@@ -688,15 +691,18 @@ const eventStart = (e) => {
 
   if (mousePos.x > restart.x && mousePos.y > restart.y
     && mousePos.y < restart.y + restart.height
-    && mousePos.x < restart.x + restart.width && (state.deer.isDead || state.score < 2)) {
-    state.deer.y = 250
-    startGame()
+    && mousePos.x < restart.x + restart.width && (state.deer.isDead)) {
+    state = basicState()
+    stateBis.userBestScore = bestScore
+    state.deer.isDead = false
+    state.score = 0
+    stateBis.restart = false
   }
   else if (mousePos.x > rank.x && mousePos.y > rank.y
     && mousePos.y < rank.y + rank.height
     && mousePos.x < rank.x + rank.width && state.score < 2) {
 
-    window.location('/general-ranking.html')
+    window.location = '/general-ranking.html'
   }
 
 
@@ -704,7 +710,7 @@ const eventStart = (e) => {
     state.score = 0
   }
   else {
-    if (!state.deer.isDead && !state.score && !(mousePos.x < 45 && mousePos.y < 45))
+    if (!state.deer.isDead && !state.score && !(mousePos.x < 45 && mousePos.y < 45) && !(stateBis.restart))
       startGame()
     else
       jump()
@@ -723,7 +729,9 @@ const startGame = () => {
   }
   else
     state = basicState()
-
+  console.log('avant', stateBis.restart)
+  stateBis.restart = false
+  state.deer.y = 250
   state.userId = _user.id
 
   state.deer.isDead = false
@@ -733,7 +741,6 @@ const startGame = () => {
 
 // START
 getUser().then(user => {
-  console.log(user)
 
   if (!user.username) {
     window.location = '/sign-in.html'
