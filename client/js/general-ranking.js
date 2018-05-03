@@ -51,6 +51,11 @@ const getCampusRanking = users => {
 
 const showCampusRanking = async users => {
   const campusRanking = await getCampusRanking(users)
+  const iterator = campusRanking.keys();
+
+  for (const key of iterator) {
+    campusRanking[key].position = key + 1
+  }
 
   campusScoresElement.innerHTML = campusRanking
     .map(createCampusRaw)

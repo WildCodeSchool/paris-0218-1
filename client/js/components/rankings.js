@@ -26,6 +26,7 @@ export const createAllScoreRow = user => `
 
 export const createCampusRaw = campus => `
   <tr>
+    <td>${campus.position}</td>
     <td><img src="http://localhost:3000/images/campus/${campus.name.replace(/ /, '-').replace(/é/, 'e')}.jpg" width="30px" heigth="30px"></td>
     <td>${campus.name}</td>
     <td>${campus.score}</td>
