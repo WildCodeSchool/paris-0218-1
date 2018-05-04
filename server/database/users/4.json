@@ -1,14 +1,14 @@
 {
   "firstName": "",
   "lastName": "",
-  "campus":"Biarritz",
-  "avatar":"default.jpg",
+  "campus": "Biarritz",
+  "avatar": "IMG_4118.jpg",
   "id": 4,
   "username": "Cricri",
   "email": "cricri@wcs.com",
   "password": "Cricripass",
-  "bestScore": 56,
-  "wildside": "",
+  "bestScore": 2095,
+  "wildside": "Et j'ai crié, criéÉ : Aline. Pour qu'elle revienne.",
   "score": [
     {
       "id": 1,
@@ -39,6 +39,12 @@
       "score": 21,
       "nbSocks": 4,
       "date": 1524216613421
+    },
+    {
+      "id": 6,
+      "score": 2095,
+      "nbSocks": 13,
+      "date": 1525432186717
     }
   ]
 }
