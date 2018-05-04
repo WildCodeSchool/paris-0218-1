@@ -1,0 +1,26 @@
+{
+  "username": "LolaDu31<3",
+  "email": "lola@wcs.com",
+  "password": "lolapass",
+  "campus": "Toulouse",
+  "firstName": "",
+  "lastName": "",
+  "avatar": "IMG_4417.jpg",
+  "wildside": "",
+  "bestScore": 5473,
+  "score": [
+    {
+      "id": 1,
+      "score": 36,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 53,
+      "nbSocks": 1,
+      "date": 1524594309656
+    }
+  ],
+  "id": 12
+}

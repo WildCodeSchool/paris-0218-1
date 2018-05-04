@@ -7,6 +7,26 @@
   "username": "Héhé",
   "email": "hehe@wcs.com",
   "password": "Hehepass",
+  "wildside": "",
   "bestScore": 1346,
-  "score": []
+  "score": [
+    {
+      "id": 1,
+      "score": 532,
+      "nbSocks": 8,
+      "date": 1524132852567
+    },
+    {
+      "id": 2,
+      "score": 645,
+      "nbSocks": 2,
+      "date": 1524216712040
+    },
+    {
+      "id": 3,
+      "score": 481,
+      "nbSocks": 4,
+      "date": 1525392197910
+    }
+  ]
 }

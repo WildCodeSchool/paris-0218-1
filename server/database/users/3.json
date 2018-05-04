@@ -2,37 +2,102 @@
   "firstName": "Lul",
   "lastName": "",
   "campus": "Paris",
-  "avatar": "IMG_0997.jpg",
+  "avatar": "IMG_3678.jpg",
   "id": 3,
   "username": "Lulu",
   "email": "lulu@wcs.com",
   "password": "Lulupass",
-  "bestScore": 487,
+  "bestScore": 1576,
   "score": [
     {
       "id": 1,
       "score": 900,
+      "nbSocks": 3,
       "date": 1524132338926
     },
     {
       "id": 2,
       "score": 1000,
+      "nbSocks": 1,
       "date": 1524132363008
     },
     {
       "id": 3,
       "score": 1005,
+      "nbSocks": 8,
       "date": 1524132420444
     },
     {
       "id": 4,
       "score": 10010,
+      "nbSocks": 6,
       "date": 1524132585878
     },
     {
       "id": 5,
       "score": 124124,
+      "nbSocks": 2,
       "date": 1524216613421
+    },
+    {
+      "id": 6,
+      "score": 152,
+      "nbSocks": 1,
+      "date": 1525392094715
+    },
+    {
+      "id": 7,
+      "score": 25,
+      "nbSocks": 0,
+      "date": 1525392097061
+    },
+    {
+      "id": 8,
+      "score": 125,
+      "nbSocks": 1,
+      "date": 1525392099441
+    },
+    {
+      "id": 9,
+      "score": 1576,
+      "nbSocks": 10,
+      "date": 1525392148666
+    },
+    {
+      "id": 10,
+      "score": 349,
+      "nbSocks": 1,
+      "date": 1525392173043
+    },
+    {
+      "id": 11,
+      "score": 481,
+      "nbSocks": 4,
+      "date": 1525392197910
+    },
+    {
+      "id": 12,
+      "score": 60,
+      "nbSocks": 0,
+      "date": 1525403129659
+    },
+    {
+      "id": 13,
+      "score": 25,
+      "nbSocks": 0,
+      "date": 1525403131990
+    },
+    {
+      "id": 14,
+      "score": 101,
+      "nbSocks": 0,
+      "date": 1525403141981
+    },
+    {
+      "id": 15,
+      "score": 1156,
+      "nbSocks": 6,
+      "date": 1525403213138
     }
   ],
   "wildside": "Lulu la technoDingo"
