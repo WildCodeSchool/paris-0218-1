@@ -126,6 +126,7 @@ app.post('/sign-up', async (req, res, next) => {
   user.avatar = 'default.jpg'
   user.bestScore = 0
   user.score = []
+  user.wildside = ''
 
   req.session.user = user
 
