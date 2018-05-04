@@ -114,7 +114,6 @@ getAllScores()
     getWorstCampus(users)
   })
 
-
 getUser().then(user => {
   console.log(user)
 
