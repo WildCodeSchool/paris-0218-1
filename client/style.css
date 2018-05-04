@@ -102,9 +102,11 @@ border-bottom: 3px solid black;
 } */
 
 h1 {
-font-size: 50px;
-color: white;
-text-transform: uppercase;
+    font-family: "VT323", monospace;
+    font-size: 50px;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 
