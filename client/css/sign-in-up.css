@@ -1,0 +1,97 @@
+/* Page CSS du fichier sign-up.html */
+
+#content_signup, #content_signin {
+  position: relative;
+  margin: auto;
+  width: 65vw;
+  background-color: white;
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container_signup, .container_signin {
+  position: relative;
+  width: 80%;
+  min-width: 520px;
+  padding-top: 110px;
+  padding-bottom: 40px;
+  margin: 0;
+}
+
+input {
+  font-family: "Ubuntu", sans-serif;
+  width: 100%;
+  padding: 7px 7px;
+  margin: 7px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 13px;
+}
+
+#sign_up_form, #sign_in_form {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.container {
+  width:50%;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+label {
+  font-family: "VT323", monospace;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #f1a720;
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Ubuntu', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+select {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.link_signin, .link_signup {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: black;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.link_signin a, .link_signup a {
+  color: black;
+}
+
+.link_signin a:hover, .link_signup a:hover {
+  color: #f1a720;
+  text-decoration: none;
+}
+
+#auth {
+  text-align: center;
+}

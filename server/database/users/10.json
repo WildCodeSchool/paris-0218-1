@@ -1,0 +1,38 @@
+{
+  "firstName": "sffea",
+  "lastName": "sousou",
+  "campus": "Lyon",
+  "avatar": "IMG_0997.jpg",
+  "username": "Laurette",
+  "email": "",
+  "password": "passwordtest",
+  "bestScore": 0,
+  "score": [
+    {
+      "id": 1,
+      "score": 36,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 53,
+      "nbSocks": 1,
+      "date": 1524594309656
+    },
+    {
+      "id": 3,
+      "score": 486,
+      "nbSocks": 2,
+      "date": 1524594325475
+    },
+    {
+      "id": 4,
+      "score": 4637,
+      "nbSocks": 1,
+      "date": 1524595619079
+    }
+  ],
+  "id": 10,
+  "wildside": "Toi même"
+}

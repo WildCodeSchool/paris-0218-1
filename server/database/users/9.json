@@ -1,0 +1,38 @@
+{
+  "firstName": "",
+  "lastName": "",
+  "campus":"La Loupe",
+  "avatar":"default.jpg",
+  "username": "Le campagnard",
+  "email": "demo@demo.fr",
+  "password": "demo",
+  "wildside": "",
+  "bestScore": 0,
+  "score": [
+    {
+      "id": 1,
+      "score": 36,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 530,
+      "nbSocks": 3,
+      "date": 1524594309656
+    },
+    {
+      "id": 3,
+      "score": 2010,
+      "nbSocks": 3,
+      "date": 1524594325475
+    },
+    {
+      "id": 4,
+      "score": 2754,
+      "nbSocks": 1,
+      "date": 1524595619079
+    }
+  ],
+  "id": 9
+}

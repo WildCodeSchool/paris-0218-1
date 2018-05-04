@@ -1,0 +1,38 @@
+{
+  "username": "Abdou le roi de center Park",
+  "email": "jfioez@fjeoz.fr",
+  "password": "testtest",
+  "campus": "Paris",
+  "firstName": "",
+  "lastName": "",
+  "avatar": "IMG_3678.jpg",
+  "wildside": "",
+  "bestScore": 4657,
+  "score": [
+    {
+      "id": 1,
+      "score": 36,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 64785,
+      "nbSocks": 8,
+      "date": 1524594309656
+    },
+    {
+      "id": 3,
+      "score": 2765,
+      "nbSocks": 3,
+      "date": 1524594325475
+    },
+    {
+      "id": 4,
+      "score": 280,
+      "nbSocks": 1,
+      "date": 1524595619079
+    }
+  ],
+  "id": 11
+}

@@ -1,0 +1,26 @@
+{
+  "username": "Clement poil aux dents",
+  "email": "dsf@dsf.fez",
+  "password": "popopo",
+  "campus": "Paris",
+  "firstName": "",
+  "lastName": "",
+  "avatar": "IMG_0997.jpg",
+  "wildside": "",
+  "bestScore": 1637,
+  "score": [
+    {
+      "id": 1,
+      "score": 1637,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 53,
+      "nbSocks": 1,
+      "date": 1524594309656
+    }
+  ],
+  "id": 13
+}

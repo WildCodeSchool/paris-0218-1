@@ -11,7 +11,8 @@
     "lint:css": "stylelint 'client/*.css'",
     "lint:html": "htmllint 'client/*.html'",
     "server": "nodemon server --ignore client --ignore '*.json'",
-    "client": "http-server client"
+    "client": "http-server client",
+    "init:db": "mysql -uroot -p < server/init-db.sql"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "htmllint-cli": "0.0.6",
     "http-server": "^0.11.1",
     "nodemon": "^1.17.3",
+    "server": "file:server",
     "snazzy": "^7.1.1",
     "standard": "^11.0.1",
     "stylelint": "^9.2.0",

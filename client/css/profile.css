@@ -1,0 +1,276 @@
+/* Page CSS du fichier sign-up.html */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Ubuntu', sans-serif;
+  background-image: url("../img/pattern_deer.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed; 
+  color: black;
+}
+  
+#content_signup {
+  position: relative;
+  margin: auto;
+  width: 65vw;
+  height: 120vh;
+  background-color: white;
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_signup {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  min-width: 520px;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  margin: 0;
+  background-color: white;
+}
+
+@media screen and (orientation: landscape) {
+  #portrait_mode {
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    width: 100%;
+    max-width:100%;
+    height: 100%;
+    max-height: 100%;
+    z-index: 2000;
+  }
+}
+  
+  @media screen and (orientation: portrait) {
+  body {
+  background-color: black;
+  }
+  
+  #content {
+  display: none;
+  }
+  
+  #portrait_mode {
+  visibility: visible;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width:100%;
+  height: 100%;
+  max-height: 100%;
+  z-index: 2000;
+  }
+  }
+
+.navbar {
+  position: fixed;
+  width: 100vw;
+  height: 80px;
+  background-color: black !important;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  z-index: 1000;
+  color: white;
+  } 
+
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+  color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+
+h1 {
+  font-family: "VT323", monospace;
+  font-size: 50px;
+  color: black;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
+footer {
+position: fixed;
+width: 100vw;
+height: 30px;
+bottom: 0;
+background-color: black;
+color: white;
+margin: 0;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.info_footer {
+padding: 0;
+margin: 0;
+}
+
+.info_footer p{
+padding-right: 10px;
+font-size: 12px;
+}
+
+/* h1 {
+text-align: center;
+} */
+
+/* #authentication {
+width: 70%;
+align-items: center;
+margin: auto;
+} */
+
+input {
+font-family: "Ubuntu", sans-serif;
+width: 85%;
+padding: 5px 5px;
+margin: 3px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-sizing: border-box;
+text-align: center;
+font-size: 13px;
+}
+
+#sign_up_form {
+display: flex;
+justify-content: center;
+text-align: center;
+align-items: center;
+}
+
+.container{
+width:50%;
+height: 100vh;
+display: inline-flex;
+flex-direction: column;
+padding: 15px;
+/* justify-content: space-between; */
+}
+
+label {
+font-family: "VT323", monospace;
+font-size: 20px;
+text-transform: uppercase;
+}
+
+input[type=submit] {
+width: 49%;
+background-color: #f1a720;
+color: white;
+padding: 5px 8px;
+margin: 10px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-family: 'Ubuntu', sans-serif;
+text-transform: uppercase;
+font-size: 14px;
+}
+
+.btn_edit {
+width: 49%;
+background-color: #f1a720;
+color: white;
+padding: 5px 5px;
+margin: 10px 0;
+margin-right: 6px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-family: 'Ubuntu', sans-serif;
+text-transform: uppercase;
+font-size: 14px;
+}
+
+.btn_editcancel {
+  width: 49%;
+  background-color: black;
+  color: white;
+  padding: 5px 5px;
+  margin: 10px 0;
+  margin-right: 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Ubuntu', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  }
+  
+
+select {
+/* font-family: 'Ubuntu', sans-serif; */
+text-transform: uppercase;
+font-size: 20px;
+}
+
+.info {
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: black;
+}
+
+.info_profil {
+  width: 100%;
+}
+
+.bloc1 {
+  float: left;
+  width: 50%;
+}
+
+.bloc2 {
+  float: right;
+  width: 50%;
+  text-align: center;
+  border-left: 1px solid black;
+} 
+
+.img_profile {
+  width: 195px;
+  height: auto;
+  border: 1px solid black; 
+}
+
+.info_user {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: black;
+}
+
+.btns {
+  clear: both;
+}
+
+.uploadfile {
+  width: 80%;
+  }

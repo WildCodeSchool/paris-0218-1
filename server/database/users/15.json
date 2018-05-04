@@ -1,0 +1,26 @@
+{
+  "username": "ginger",
+  "email": "Filoo@wcs.com",
+  "password": "passpass",
+  "campus": "Marseille",
+  "firstName": "",
+  "lastName": "",
+  "avatar": "default.jpg",
+  "wildside": "",
+  "bestScore": 265,
+  "score": [
+    {
+      "id": 1,
+      "score": 265,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 53,
+      "nbSocks": 1,
+      "date": 1524594309656
+    }
+  ],
+  "id": 15
+}

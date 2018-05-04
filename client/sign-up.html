@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="./css/sign-in-up.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu|VT323" rel="stylesheet">
+  <title>Wildeer - Wild Code School - Sign up</title>
+</head>
+
+<body>
+  <div id="portrait_mode">Basculez votre téléphone en mode paysage.</div>
+  <div id="content">
+
+
+    <!-- HEADER / NAV + LOGO -->
+
+    <header>
+
+      <div id="menu">
+        Load navbar
+      </div>
+    </header>
+
+
+    <div id="content_signup">
+      <div class="container_signup">
+
+
+        <section id="authentication">
+          <h1>Sign up</h1>
+          <br>
+          <form id="sign_up_form">
+            <div class="container">
+              <label for="input_username">Username:
+                <input type="text" id="input_username" name="username" pattern=".{1,20}" placeholder="20 characters max" required>
+              </label>
+              <label for="edit_campus">Campus:
+                <select id="edit_campus" name="campus">
+                  <option value="Paris" selected>Paris</option>
+                  <option value="Lyon">Lyon</option>
+                  <option value="La Loupe">La Loupe</option>
+                  <option value="Biarritz">Biarritz</option>
+                  <option value="Reims">Reims</option>
+                  <option value="Bordeaux">Bordeaux</option>
+                  <option value="Orléans">Orléans</option>
+                  <option value="Toulouse">Toulouse</option>
+                  <option value="Lille">Lille</option>
+                  <option value="Strasbourg">Strasbourg</option>
+                  <option value="Marseille">Marseille</option>
+                  <option value="Tours">Tours</option>
+                  <option value="Bruxelles">Bruxelles</option>
+                  <option value="Nantes">Nantes</option>
+                </select>
+              </label>
+              <label for="input_email">Email:
+                <input type="email" id="input_email" name="email" placeholder="name@wcs.com" required>
+              </label>
+              <label for="input_password">Password:
+                <input type="password" id="input_password" name="password" pattern=".{5,20}" placeholder="Between 5 and 20 characters" required>
+              </label>
+              <label for="input_repeat_password">Repeat password:
+                <input type="password" id="input_repeat_password" name="repeat_password" pattern=".{5,20}" placeholder="Between 5 and 20 characters"
+                  required>
+              </label>
+              <input type="submit" value="Sign Up">
+              <br>
+              <a href="/sign-in.html"  class="link_signin">Sign in</a>
+
+            </div>
+      </div>
+      </form>
+      </section>
+      <div id="error_message" style="color: red"></div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="info_footer">
+      <p>Wild Code School, Paris - 2018</p>
+    </div>
+  </footer>
+  </div>
+  <script type="module" src="./js/components/header-sign-out.js"></script>
+  <script type="module" src="./js/sign-up.js"></script>
+</body>
+
+</html>

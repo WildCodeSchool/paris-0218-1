@@ -1,6 +1,26 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Lille",
+  "avatar":"default.jpg",
   "id": 6,
-  "userName": "Kinkin",
+  "username": "Kinkin",
+  "email": "kinkin@wcs.com",
+  "password": "Kinkinpass",
+  "wildside": "",
   "bestScore": 564,
-  "score": []
+  "score": [
+    {
+      "id": 1,
+      "score": 340,
+      "nbSocks": 3,
+      "date": 1524132338926
+    },
+    {
+      "id": 2,
+      "score": 1090,
+      "nbSocks": 1,
+      "date": 1524132363008
+    }
+  ]
 }

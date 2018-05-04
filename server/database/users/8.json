@@ -1,6 +1,109 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus": "Reims",
+  "avatar": "309.jpg",
   "id": 8,
-  "userName": "DEMO",
-  "bestScore": 0,
-  "score": []
+  "username": "Jackie",
+  "email": "demo@wcs.com",
+  "password": "DEMOpass",
+  "wildside": "",
+  "bestScore": 920,
+  "score": [
+    {
+      "id": 1,
+      "score": 36,
+      "nbSocks": 5,
+      "date": 1524592717046
+    },
+    {
+      "id": 2,
+      "score": 53,
+      "nbSocks": 1,
+      "date": 1524594309656
+    },
+    {
+      "id": 3,
+      "score": 201,
+      "nbSocks": 3,
+      "date": 1524594325475
+    },
+    {
+      "id": 4,
+      "score": 27,
+      "nbSocks": 1,
+      "date": 1524595619079
+    },
+    {
+      "id": 5,
+      "score": 26,
+      "nbSocks": 0,
+      "date": 1524595625958
+    },
+    {
+      "id": 6,
+      "score": 39,
+      "nbSocks": 1,
+      "date": 1524595643544
+    },
+    {
+      "id": 7,
+      "score": 33,
+      "nbSocks": 1,
+      "date": 1524595779892
+    },
+    {
+      "id": 8,
+      "score": 43,
+      "nbSocks": 1,
+      "date": 1524596779490
+    },
+    {
+      "id": 9,
+      "score": 14,
+      "nbSocks": 5,
+      "date": 1524600573562
+    },
+    {
+      "id": 10,
+      "score": 13,
+      "nbSocks": 6,
+      "date": 1524600650260
+    },
+    {
+      "id": 11,
+      "score": 35,
+      "date": 1524600741228
+    },
+    {
+      "id": 12,
+      "score": 30,
+      "nbSocks": 1,
+      "date": 1524600869781
+    },
+    {
+      "id": 13,
+      "score": 29,
+      "nbSocks": 1,
+      "date": 1524600899176
+    },
+    {
+      "id": 14,
+      "score": 44,
+      "nbSocks": 1,
+      "date": 1524600921063
+    },
+    {
+      "id": 15,
+      "score": 22,
+      "nbSocks": 1,
+      "date": 1524642112137
+    },
+    {
+      "id": 16,
+      "score": 22,
+      "nbSocks": 1,
+      "date": 1524642342829
+    }
+  ]
 }

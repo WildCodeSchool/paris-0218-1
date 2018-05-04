@@ -1,17 +1,32 @@
 {
+  "firstName": "",
+  "lastName": "",
+  "campus":"Paris",
+  "avatar":"default.jpg",
   "id": 1,
-  "userName": "Filoo",
+  "username": "Filoo",
+  "email": "filoo@wcs.com",
+  "password": "Filoopass",
+  "wildside": "",
   "bestScore": 123,
   "score": [
     {
       "id": 1,
       "score": 700,
+      "nbSocks": 1,
       "date": 1524132852567
     },
     {
       "id": 2,
       "score": 123214,
+      "nbSocks": 6,
       "date": 1524216712040
+    },
+    {
+      "id": 3,
+      "score": 481,
+      "nbSocks": 4,
+      "date": 1525392197910
     }
   ]
 }
