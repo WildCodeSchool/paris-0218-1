@@ -1,18 +1,44 @@
 export const createProfile = user => `
   <h1>My profile</h1>
-  <p class="info" id="lastName">First name: ${user.firstName}</p>
-  <p class="info" id="firstName">Last name: ${user.lastName}</p>
-  <p class="info" id="email">Username: ${user.username}</p>
-  <p class="info" id="email">Email: ${user.email}</p>
-  <p class="info" id="campus">Campus: ${user.campus}</p>
-  <p class="info" id="wild_side">Wild side: ${user.wildside}</p>
-  <img src="http://localhost:3000/images/${user.avatar}">
-  <button id="edit_button">Edit</button>
+  <br>
+  <br>
+  <div class="bloc1">
+  <center><img class="img_profile" src="http://localhost:3000/images/${user.avatar}"></center>
+  </div>
+  <div class="bloc2">
+  <span class="info" id="lastName">First name: <span class="info_user">${user.firstName}</span></span>
+  <br>
+  <span class="info" id="firstName">Last name: <span class="info_user">${user.lastName}</span></span>
+  <br>  
+  <span class="info" id="email">Username: <span class="info_user">${user.username}</span></span>
+  <br>    
+  <span class="info" id="email">Email: <span class="info_user">${user.email}</span></span>
+  <br>    
+  <span class="info" id="campus">Campus: <span class="info_user">${user.campus}</span></span>
+  <br>    
+  <span class="info" id="wild_side">Wild side: <span class="info_user">${user.wildside}</span></span>
+  <br>
+  <br>
+  <button id="edit_button" class="btn_edit">Edit</button>
+  </div>
+  <br>
+  <br>
+
 `
 
 export const editProfile = user => `
   <h1>Edit my profile</h1>
+  <br>
+  <br>
   <form id="edit_form">
+  <div class="bloc1">
+  <center><label for="edit_profile_picture">Profile picture:</label></center>
+  <center><img class="img_profile" src="http://localhost:3000/images/${user.avatar}"></center>
+  <br>
+    <center><input class="uploadfile" type="file" name="avatar"></center>
+  <br/>
+  </div>
+  <div class="bloc2">
     <label for="edit_firstname">First name:
       <input id="edit_firstname" type="text" placeholder="${user.firstName}" name="firstName">
     </label><br/>
@@ -52,13 +78,14 @@ export const editProfile = user => `
     </label><br/>
     <label for="edit_wild_side">Wild side:
       <input id="edit_wild_side" type="text" placeholder="${user.wildside}" name="wildside">
-    </label><br/>
-    <label for="edit_profile_picture">Profile picture:
-      <img src="http://localhost:3000/images/${user.avatar}">
-      <input type="file" name="avatar">
-    </label><br/>
-    <button id="cancel_button">Annuler</button>
-    <input type="submit" value="Save update">
+    </label>
+    </div>
+    <div class="btns">
+    <br>
+    <br>
+    <button id="cancel_button" class="btn_editcancel">Annuler</button>
+    <input type="submit" value="Save update" class="btn_edit">
+    </div>
   </form>
   <div id="error_message" style="color: red"></div>
 `
