@@ -27,12 +27,9 @@ const createHeader = user => `
   </div>
 `
 
-
-
-
 getProfile()
   .then(user => headerElement.innerHTML = createHeader(user))
-  .then(() =>{
+  .then(() => {
     // Navigation
     const openNav = () => {
       document.getElementById('userNav').style.width = '250px'

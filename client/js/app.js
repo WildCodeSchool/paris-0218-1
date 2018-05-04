@@ -18,9 +18,9 @@ let images = {
   stars: document.getElementById('img_stars'),
   superSock1: document.getElementById('img_superSock1'),
   superSock2: document.getElementById('img_superSock2'),
-  bush: [document.getElementById('img_bush0'),],
+  bush: [document.getElementById('img_bush0')],
   sound: document.getElementById('img_sound0'),
-  flyBush: document.getElementById('img_flyBush'),
+  flyBush: document.getElementById('img_flyBush')
 }
 
 const sockSound = new Audio('sound/sockSound.mp3')
@@ -28,21 +28,18 @@ const gameOverSound = new Audio('sound/gameOverSound.mp3')
 const flyBushSound0 = new Audio('sound/flyBushSound0.mp3')
 const flyBushSound1 = new Audio('sound/flyBushSound1.mp3')
 
-
 const rdmNumber = (min, max) => {
   let i = 0
   let nb = Math.random() * (max - min) + min
 
   state.rdmNb = Math.floor(nb)
 
-  //luck to draw First bush than other
+  // luck to draw First bush than other
   while (i++ < 2) {
     if (state.rdmNb !== 0) {
       nb = Math.random() * (max - min) + min
       state.rdmNb = Math.floor(nb)
-    }
-    else
-      return
+    } else { return }
   }
 }
 
@@ -67,28 +64,22 @@ const userIdRank = users => {
 
   if (findUserIndex === 0) {
     scoresEndGame = users.slice(findUserIndex, findUserIndex + 5)
-  }
-  else if (findUserIndex === 1) {
+  } else if (findUserIndex === 1) {
     scoresEndGame = users.slice(findUserIndex - 1, findUserIndex + 4)
     findUserIndex = findUserIndex - 1
-  }
-  else if (findUserIndex === users.length - 2) {
+  } else if (findUserIndex === users.length - 2) {
     scoresEndGame = users.slice(findUserIndex - 3, findUserIndex + 2)
     findUserIndex = findUserIndex - 3
-  }
-  else if (findUserIndex === users.length - 1) {
+  } else if (findUserIndex === users.length - 1) {
     scoresEndGame = users.slice(findUserIndex - 4, findUserIndex + 1)
     findUserIndex = findUserIndex - 4
-  }
-  else {
+  } else {
     scoresEndGame = users.slice(findUserIndex - 2, findUserIndex + 3)
     findUserIndex = findUserIndex - 2
   }
 
-
   let i = 0
   scoresEndGame.map(user1 => {
-
     ctx.beginPath()
     ctx.moveTo(100, 148 + (22 * i))
     ctx.lineTo(390, 148 + (22 * i))
@@ -140,7 +131,7 @@ const stateBis = {
     width: 35,
     height: 35,
     mode: false
-  },
+  }
 }
 
 const basicState = () => ({
@@ -151,7 +142,7 @@ const basicState = () => ({
     y: 0,
     width: 650,
     height: 320,
-    move: -0.05,
+    move: -0.05
   },
 
   deer: {
@@ -176,7 +167,7 @@ const basicState = () => ({
     x: 0,
     y: 150,
     width: 85,
-    height: 95,
+    height: 95
   },
   superSock1: {
     x: teleport(15000),
@@ -202,7 +193,7 @@ const basicState = () => ({
     y: 250,
     width: 40,
     height: 40,
-    move: -0.3,
+    move: -0.3
   },
   flyBush: {
     x: 3000 + teleport(2300),
@@ -210,19 +201,19 @@ const basicState = () => ({
     width: 30,
     height: 30,
     move: -0.25,
-    catch: false,
+    catch: false
   },
   restart: {
     x: 100,
     y: 245,
     width: 110,
-    height: 32,
+    height: 32
   },
   rank: {
     x: 280,
     y: 245,
     width: 110,
-    height: 32,
+    height: 32
   },
   rdmNb: 0,
   score: 1,
@@ -260,7 +251,6 @@ const drawStart = () => {
   ctx.font = '20px Courier'
   ctx.fillText(`[SPACE] or CLICK to start the game`, 240, 300)
 
-
   ctx.closePath()
 
   setTimeout(() => {
@@ -272,7 +262,6 @@ const drawStart = () => {
 }
 
 const drawScore = (score, nbSocks, userBestScore) => {
-
   if (!state.deer.isDead) {
     ctx.beginPath()
     ctx.textAlign = 'right'
@@ -282,10 +271,7 @@ const drawScore = (score, nbSocks, userBestScore) => {
     ctx.drawImage(images.sock, 395, 30, 20, 25)
     ctx.fillText(` x ${nbSocks}`, 465, 50)
     ctx.font = '13px Courier'
-    if (score > stateBis.userBestScore)
-      ctx.fillText(`Meilleur score : New Best Score!!!`, 465, 70)
-    else
-      ctx.fillText(`Meilleur score : ${userBestScore}`, 465, 70)
+    if (score > stateBis.userBestScore) { ctx.fillText(`Meilleur score : New Best Score!!!`, 465, 70) } else { ctx.fillText(`Meilleur score : ${userBestScore}`, 465, 70) }
     ctx.closePath()
   }
 }
@@ -341,8 +327,7 @@ const drawBackground = background => {
   ctx.drawImage(images.background, background.x, background.y, background.width, background.height)
   ctx.closePath()
   ctx.drawImage(images.background, background.x + 650, background.y, background.width, background.height)
-  if (background.x < -650)
-    background.x = 0
+  if (background.x < -650) { background.x = 0 }
 }
 
 const drawFlyBush = flyBush => {
@@ -453,11 +438,10 @@ const draw = () => {
     drawEffectSock(deer, sock, stars)
   }
 
-  if (flyBush.catch)
-    drawEffectFlyBush(flyBush)
+  if (flyBush.catch) { drawEffectFlyBush(flyBush) }
 
   if (superSock1.catch) {
-    console.log("blabla")
+    console.log('blabla')
     drawEffectSuperSock1(deer, superSock1, stars)
   }
 
@@ -468,7 +452,7 @@ const draw = () => {
   if ((deer.isDead) && (score !== 0)) {
     ctx.beginPath()
     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-    ctx.fillRect(0, 0, 480, 320);
+    ctx.fillRect(0, 0, 480, 320)
     ctx.closePath()
     drawGameOver(score)
   }
@@ -550,8 +534,7 @@ const handleDeath = () => {
 
   cancelAnimationFrame(state.frameId)
 
-  if (stateBis.sound.mode)
-    gameOverSound.play()
+  if (stateBis.sound.mode) { gameOverSound.play() }
 }
 
 const handlePickupSock = () => {
@@ -566,14 +549,14 @@ const handlePickupsuperSock1 = () => {
 
 const handlePickupsuperSock2 = () => {
   state.speed = 1,
-    state.moduloSpeed = 100,
-    state.superSock2.x = teleport(15000)
+  state.moduloSpeed = 100,
+  state.superSock2.x = teleport(15000)
 }
 
 const handleCollisions = (deltaTime) => {
   const { flyBush, deer, sock, superSock1, superSock2, bush } = state
 
-  //bush
+  // bush
   if (collides(deer, bush)) {
     handleDeath()
   }
@@ -585,10 +568,7 @@ const handleCollisions = (deltaTime) => {
     if (stateBis.sound.mode) {
       let what = Math.round(Math.random())
       console.log(what)
-      if (what)
-        flyBushSound0.play()
-      else
-        flyBushSound1.play()
+      if (what) { flyBushSound0.play() } else { flyBushSound1.play() }
     }
   }
 
@@ -608,8 +588,7 @@ const handleCollisions = (deltaTime) => {
     handlePickupSock()
     sock.catch = true
     state.nbSocks++
-    if (stateBis.sound.mode)
-      sockSound.play()
+    if (stateBis.sound.mode) { sockSound.play() }
   }
 
   // super sock 1
@@ -669,19 +648,15 @@ canvas.addEventListener('click', e => {
   console.log('Sound Mode', stateBis.sound.mode)
   if ((state.score <= 1) && (mousePos.x < 45 && mousePos.y < 45)) {
     stateBis.sound.mode = !stateBis.sound.mode
-    if (stateBis.sound.mode)
-      images.sound = document.getElementById('img_sound1')
-    else
-      images.sound = document.getElementById('img_sound0')
+    if (stateBis.sound.mode) { images.sound = document.getElementById('img_sound1') } else { images.sound = document.getElementById('img_sound0') }
     drawSound(stateBis.sound)
     console.log('Sound Mode', stateBis.sound.mode)
   }
   eventStart(e)
 })
 
-
 const eventStart = (e) => {
-  const { restart, rank, } = state
+  const { restart, rank } = state
   let leftToCanvas = canvas.offsetLeft
   let topToCanvas = canvas.offsetTop
   let mousePos = getMousePos(canvas, e)
@@ -689,34 +664,26 @@ const eventStart = (e) => {
 
   e.preventDefault()
 
-  if (mousePos.x > restart.x && mousePos.y > restart.y
-    && mousePos.y < restart.y + restart.height
-    && mousePos.x < restart.x + restart.width && (state.deer.isDead)) {
+  if (mousePos.x > restart.x && mousePos.y > restart.y &&
+    mousePos.y < restart.y + restart.height &&
+    mousePos.x < restart.x + restart.width && (state.deer.isDead)) {
     state = basicState()
     stateBis.userBestScore = bestScore
     state.deer.isDead = false
     state.score = 0
     stateBis.restart = false
-  }
-  else if (mousePos.x > rank.x && mousePos.y > rank.y
-    && mousePos.y < rank.y + rank.height
-    && mousePos.x < rank.x + rank.width && state.score < 2) {
-
+  } else if (mousePos.x > rank.x && mousePos.y > rank.y &&
+    mousePos.y < rank.y + rank.height &&
+    mousePos.x < rank.x + rank.width && state.score < 2) {
     window.location = '/general-ranking.html'
   }
 
-
   if (state.deer.isDead && state.score) {
     state.score = 0
-  }
-  else {
-    if (!state.deer.isDead && !state.score && !(mousePos.x < 45 && mousePos.y < 45) && !(stateBis.restart))
-      startGame()
-    else
-      jump()
+  } else {
+    if (!state.deer.isDead && !state.score && !(mousePos.x < 45 && mousePos.y < 45) && !(stateBis.restart)) { startGame() } else { jump() }
   }
 }
-
 
 const startGame = () => {
   requestAnimationFrame(gameloop)
@@ -726,9 +693,7 @@ const startGame = () => {
   if (stateBis.sound.mode) {
     state = basicState()
     stateBis.sound.mode = true
-  }
-  else
-    state = basicState()
+  } else { state = basicState() }
   console.log('avant', stateBis.restart)
   stateBis.restart = false
   state.deer.y = 250
@@ -741,7 +706,6 @@ const startGame = () => {
 
 // START
 getUser().then(user => {
-
   if (!user.username) {
     window.location = '/sign-in.html'
     return
