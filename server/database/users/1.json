@@ -1,14 +1,14 @@
 {
   "firstName": "",
   "lastName": "",
-  "campus":"Paris",
-  "avatar":"default.jpg",
+  "campus": "Paris",
+  "avatar": "IMG_4790.jpg",
   "id": 1,
   "username": "Filoo",
   "email": "filoo@wcs.com",
   "password": "Filoopass",
-  "wildside": "",
-  "bestScore": 123,
+  "wildside": "Fumeur de gitanes",
+  "bestScore": 1097,
   "score": [
     {
       "id": 1,
@@ -27,6 +27,18 @@
       "score": 481,
       "nbSocks": 4,
       "date": 1525392197910
+    },
+    {
+      "id": 4,
+      "score": 25,
+      "nbSocks": 0,
+      "date": 1525431840642
+    },
+    {
+      "id": 5,
+      "score": 1097,
+      "nbSocks": 7,
+      "date": 1525431872918
     }
   ]
 }

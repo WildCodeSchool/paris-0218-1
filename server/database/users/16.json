@@ -1,0 +1,44 @@
+{
+  "username": "CerfVOLANT",
+  "email": "toimeme@moi.com",
+  "password": "moimoi",
+  "campus": "Nantes",
+  "firstName": "volant",
+  "lastName": "dans le ciel",
+  "avatar": "IMG_5124.jpg",
+  "bestScore": 1393,
+  "score": [
+    {
+      "id": 1,
+      "score": 960,
+      "nbSocks": 7,
+      "date": 1525431604996
+    },
+    {
+      "id": 2,
+      "score": -8,
+      "nbSocks": 0,
+      "date": 1525431624114
+    },
+    {
+      "id": 3,
+      "score": 745,
+      "nbSocks": 4,
+      "date": 1525431654022
+    },
+    {
+      "id": 4,
+      "score": 294,
+      "nbSocks": 1,
+      "date": 1525431711574
+    },
+    {
+      "id": 5,
+      "score": 1393,
+      "nbSocks": 9,
+      "date": 1525431771390
+    }
+  ],
+  "wildside": "Tu voles pas a ma hauteur",
+  "id": 16
+}

@@ -1,3 +1,5 @@
+/* global Audio */
+
 import { createScoreRow } from './components/scores.js'
 import { getUser, getScores, getAllScores, sendScore } from './api.js'
 

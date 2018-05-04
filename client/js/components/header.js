@@ -28,7 +28,9 @@ const createHeader = user => `
 `
 
 getProfile()
-  .then(user => headerElement.innerHTML = createHeader(user))
+  .then(user => {
+    headerElement.innerHTML = createHeader(user)
+  })
   .then(() => {
     // Navigation
     const openNav = () => {
@@ -48,6 +50,8 @@ getProfile()
     signOutBtn.addEventListener('click', event => {
       event.preventDefault()
 
-      signOut().then(() => window.location = '/sign-in.html')
+      signOut().then(() => {
+        window.location = '/sign-in.html'
+      })
     })
   })

@@ -1,8 +1,8 @@
 {
   "firstName": "Lul",
-  "lastName": "LoulaOOOOUp",
+  "lastName": "BIGUP",
   "campus": "Paris",
-  "avatar": "IMG_3678.jpg",
+  "avatar": "IMG_5793.jpg",
   "id": 3,
   "username": "Lulu",
   "email": "lulu@wcs.com",
@@ -104,6 +104,30 @@
       "score": 319,
       "nbSocks": 2,
       "date": 1525404706935
+    },
+    {
+      "id": 17,
+      "score": 458,
+      "nbSocks": 3,
+      "date": 1525431267259
+    },
+    {
+      "id": 18,
+      "score": 225,
+      "nbSocks": 1,
+      "date": 1525431290428
+    },
+    {
+      "id": 19,
+      "score": 50,
+      "nbSocks": 0,
+      "date": 1525431295313
+    },
+    {
+      "id": 20,
+      "score": 578,
+      "nbSocks": 3,
+      "date": 1525432022150
     }
   ],
   "wildside": "Lulu la technoDingo"
