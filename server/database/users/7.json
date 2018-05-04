@@ -7,21 +7,25 @@
   "username": "Yoyo le Magnifik",
   "email": "yoyo@wcs.com",
   "password": "Yoyopass",
+  "wildside": "Je nage le papillon, et je n'en ai pas honte.",
   "bestScore": 5.151255124241214e+25,
   "score": [
     {
       "id": 1,
       "score": 70009,
+      "nbSocks": 1,
       "date": 1524132873340
     },
     {
       "id": 2,
       "score": 515125535,
+      "nbSocks": 1,
       "date": 1524818686408
     },
     {
       "id": 3,
       "score": 5.151255124241214e+25,
+      "nbSocks": 8,
       "date": 1524818719264
     }
   ]

@@ -7,6 +7,38 @@
   "username": "Loulou",
   "email": "loulou@wcs.com",
   "password": "Louloupass",
+  "wildside": "",
   "bestScore": 556,
-  "score": []
+  "score": [
+    {
+      "id": 1,
+      "score": 456,
+      "nbSocks": 3,
+      "date": 1524132338926
+    },
+    {
+      "id": 2,
+      "score": 1000,
+      "nbSocks": 1,
+      "date": 1524132363008
+    },
+    {
+      "id": 3,
+      "score": 3244,
+      "nbSocks": 12,
+      "date": 1524132420444
+    },
+    {
+      "id": 4,
+      "score": 3765,
+      "nbSocks": 7,
+      "date": 1524132585878
+    },
+    {
+      "id": 5,
+      "score": 22,
+      "nbSocks": 2,
+      "date": 1524216613421
+    }
+  ]
 }

@@ -8,5 +8,37 @@
   "email": "cricri@wcs.com",
   "password": "Cricripass",
   "bestScore": 56,
-  "score": []
+  "wildside": "",
+  "score": [
+    {
+      "id": 1,
+      "score": 43,
+      "nbSocks": 3,
+      "date": 1524132338926
+    },
+    {
+      "id": 2,
+      "score": 1546,
+      "nbSocks": 1,
+      "date": 1524132363008
+    },
+    {
+      "id": 3,
+      "score": 4356,
+      "nbSocks": 5,
+      "date": 1524132420444
+    },
+    {
+      "id": 4,
+      "score": 234,
+      "nbSocks": 1,
+      "date": 1524132585878
+    },
+    {
+      "id": 5,
+      "score": 21,
+      "nbSocks": 4,
+      "date": 1524216613421
+    }
+  ]
 }
