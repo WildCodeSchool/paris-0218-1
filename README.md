@@ -1,5 +1,7 @@
 # About the project
 
+Site en ligne : https://client-jicashzvpm.now.sh/sign-in
+
 ## Subject
 
 Réaliser un site complet avec un serveur NodeJS, une persistence de données, et un joli client responsive. Vous présenterez vos travaux en situation de live demo devant le client, entrainez vous donc également à ‘pitcher’.
